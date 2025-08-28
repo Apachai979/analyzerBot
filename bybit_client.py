@@ -89,7 +89,7 @@ class BybitClient:
             
         except Exception as e:
             print(f"❌ Ошибка при получении стакана {symbol}: {e}")
-            return None, None, None, None
+            return None, None, None, None, 0, 0
     
     def get_current_price(self, symbol):
         """Получаем текущую цену для конкретной монеты"""

@@ -117,11 +117,13 @@ def get_fear_greed_index(days=30):
         
         historical_records = []
         for item in historical_data['data'][:days]:
+            # ...existing code...
             historical_records.append({
                 'timestamp': item['timestamp'],
-                'value': item['value'],
+                'value': float(item['value']),
                 'value_classification': item['value_classification']
             })
+# ...existing code...
         
         latest_value = latest_data['data']['value']
         latest_classification = latest_data['data']['value_classification']
