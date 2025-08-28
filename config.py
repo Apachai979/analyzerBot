@@ -6,6 +6,13 @@ load_dotenv()
 
 COINMARKETCAP_API_KEY = os.getenv('COINMARKETCAP_API_KEY')
 
+
+BYBIT_API_KEY = os.getenv('BYBIT_API_KEY')
+BYBIT_API_SECRET = os.getenv('BYBIT_API_SECRET')
+TESTNET = os.getenv('BYBIT_TESTNET', 'False').lower() == 'true'
+BYBIT_API_URL = "https://api.bybit.com"
+BYBIT_TESTNET_URL = "https://api-testnet.bybit.com"
+
 SYMBOLS = [
     "SOLUSDT",
     "ARKMUSDT", 
