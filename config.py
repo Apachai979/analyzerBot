@@ -15,6 +15,7 @@ BYBIT_TESTNET_URL = "https://api-testnet.bybit.com"
 
 SYMBOLS = [
     "SOLUSDT",
+    "PYTHUSDT",
     "ARKMUSDT", 
     "ARBUSDT",
 ]
