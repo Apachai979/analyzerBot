@@ -20,6 +20,23 @@ SYMBOLS = [
     "ARBUSDT",
 ]
 
+TVL_CHAINS_TO_MONITOR = [
+    'Ethereum', 'Solana', 'BSC', 'Arbitrum', 
+    'Polygon', 'Avalanche', 'Optimism', 'Base'
+]
+
+# Маппинг блокчейнов к токенам
+CHAIN_TO_TOKEN_MAP = {
+    'Ethereum': 'ETH',
+    'Solana': 'SOL',
+    'BSC': 'BNB',
+    'Arbitrum': 'ARB',
+    'Polygon': 'MATIC',
+    'Avalanche': 'AVAX',
+    'Optimism': 'OP',
+    'Base': 'BASE'
+}
+
 # Общие настройки
 INTERVAL = "60"
 FAST_PERIOD = 20
@@ -48,3 +65,10 @@ ASSET_PRESETS = {
     'ADAUSDT': {'whale_size': 30000, 'orderbook_levels': 30, 'volatility_multiplier': 1.6},
     'DEFAULT': {'whale_size': 50000, 'orderbook_levels': 25, 'volatility_multiplier': 1.5}
 }
+
+# Получить тикер токена по символу
+def get_token_from_symbol(symbol):
+    for chain, token in CHAIN_TO_TOKEN_MAP.items():
+        if symbol.startswith(token):
+            return chain
+    return None

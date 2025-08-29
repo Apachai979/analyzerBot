@@ -4,7 +4,9 @@ from datetime import datetime, timedelta
 from data_fetcher import get_klines_data, get_current_price, get_coinmarketcap_data, get_fear_greed_index, get_orderbook_data
 from analyzer import analyze_market_data, analyze_fear_greed, analyze_sma_signals, analyze_orderbook, print_summary_table
 from models import ConfigManager
-from config import SYMBOLS
+from config import SYMBOLS, get_token_from_symbol, CHAIN_TO_TOKEN_MAP
+from defillama_client import DefiLlamaClient
+from tvl_analyzer import TVLAnalyzer
 
 logging.basicConfig(
     filename='analyzer.log',
@@ -30,6 +32,17 @@ def main():
     
     last_cmc_update = datetime.min
     cmc_data_cache = {}
+    
+    defillama = DefiLlamaClient()
+    tvl_analyzer = TVLAnalyzer()
+
+    # Получаем TVL данные
+    total_tvl_data = defillama.get_total_tvl()
+    current_tvl_data = defillama.get_current_tvl()
+
+    # Анализируем общий тренд TVL
+    tvl_trend_score = tvl_analyzer.analyze_total_tvl(total_tvl_data)
+    chain_rotation = tvl_analyzer.analyze_chain_rotation(current_tvl_data)
     
     while True:
         now = datetime.now()
@@ -87,14 +100,71 @@ def main():
                     analyze_orderbook(bids, asks, bid_volume, ask_volume, whale_bids, whale_asks, current_price, config)
 
                 if analysis_result:
+                    # Получаем блокчейн для символа
+                    chain = get_token_from_symbol(symbol)
+                    chain_score = 0
+                    if chain and chain in chain_rotation:
+                        chain_score = chain_rotation[chain]['score']
+                    
+                    # Итоговый TVL score: тренд + ротация (ограничить 15)
+                    tvl_score = min(15, tvl_trend_score + chain_score)
+                    
+                    total_score = (
+                        analysis_result.get('score', 0) +
+                        min(25, cmc_score) +
+                        min(20, fgi_score) +
+                        tvl_score +
+                        analysis_result.get('bonus_score', 0)
+                    )
+
+                    # --- TVL анализ: подробный вывод ---
+                    chain_name = chain if chain else "Unknown"
+                    chain_info = chain_rotation.get(chain_name, {})
+                    chain_change = chain_info.get('change_24h', 0)
+                    chain_score = chain_info.get('score', 0)
+
+                    # Общий TVL за 7 дней
+                    tvl_7d_change = None
+                    if total_tvl_data and len(total_tvl_data) >= 8:
+                        tvl_7d_change = (total_tvl_data[-1]['tvl'] - total_tvl_data[-8]['tvl']) / total_tvl_data[-8]['tvl'] * 100
+
+                    if tvl_7d_change is not None:
+                        tvl_trend_str = f"{tvl_7d_change:+.1f}% за 7 дней → {tvl_trend_score:+d} очков"
+                    else:
+                        tvl_trend_str = f"{tvl_trend_score:+d} очков"
+
+                    chain_tvl_str = f"{chain_change:+.1%} за 24h → {chain_score:+d} очков для {chain_name}" if chain else ""
+                    if chain_score > 20:
+                        logging.info(f"🚀 Капитал перетекает в {chain_name} - сигнал к покупке {symbol}")
+                    if tvl_trend_score < -15 and analysis_result.get('price_change_7d', 0) > 0:
+                        logging.info("📉 TVL падает, но цена держится - возможен разворот")
+
+                    # Находим цепочку с самым быстрым ростом TVL
+                    if chain_rotation:
+                        best_chain = max(chain_rotation.items(), key=lambda x: x[1]['score'])
+                        token_symbol = CHAIN_TO_TOKEN_MAP.get(best_chain[0], "") + "USDT"
+                        logging.info(f"🔄 Ротация в {best_chain[0]} - рассматриваем {token_symbol}")
+
+                    print(f"📊 TVL АНАЛИЗ:")
+                    print(f"   {'📈' if tvl_trend_score > 0 else '📉'} Общий TVL: {tvl_trend_str}")
+                    if chain:
+                        print(f"   {'🚀' if chain_score > 20 else '🔻' if chain_score < 0 else '🔄'} {chain_name} TVL: {chain_tvl_str}")
+                        if chain_score > 20:
+                            print(f"   🔄 Капитал перетекает в {chain_name}")
+                        elif chain_score < 0:
+                            print(f"   💸 Капитал уходит из {chain_name}")
+                    print()
+                    print(f"🎯 ИТОГОВЫЙ SCORE {symbol}: {total_score}/100 ({'+' if tvl_score >= 0 else ''}{tvl_score} от TVL)")
+
                     results.append({
                         'symbol': symbol,
                         'price': current_price,
                         'signal': analysis_result.get('signal', 'NEUTRAL'),
-                        'score': analysis_result.get('score', 0),
+                        'score': total_score,
                         'trend': analysis_result.get('trend', 'SIDEWAYS'),
                         'cmc_score': analysis_result.get('cmc_score', 0),
-                        'fgi_score': analysis_result.get('fgi_score', 0)
+                        'fgi_score': analysis_result.get('fgi_score', 0),
+                        'tvl_score': tvl_score
                     })
                     logging.info("Результат анализа %s: %s", symbol, analysis_result)
 
