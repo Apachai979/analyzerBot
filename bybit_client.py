@@ -1,7 +1,10 @@
-# bot/data/bybit_client.py
 from pybit.unified_trading import HTTP
-import pandas as pd
-from config import BYBIT_API_KEY, BYBIT_API_SECRET, TESTNET, BYBIT_API_URL, BYBIT_TESTNET_URL, CATEGORY
+from datetime import datetime
+from config import (
+    BYBIT_API_KEY, BYBIT_API_SECRET, TESTNET, BYBIT_API_URL, BYBIT_TESTNET_URL,
+    CATEGORY, INTERVAL, LIMIT
+)
+from coinmarketcap_client import get_coinmarketcap_data, get_fear_greed_index
 
 class BybitClient:
     def __init__(self):
@@ -22,8 +25,8 @@ class BybitClient:
         except Exception as e:
             print(f"❌ Ошибка инициализации сессии Bybit: {e}")
             self.session = None
-    
-    def get_klines(self, symbol, interval, limit):
+
+    def get_klines(self, symbol, interval=INTERVAL, limit=LIMIT):
         """Получаем исторические данные для конкретной монеты"""
         try:
             if not self.session:
@@ -43,6 +46,7 @@ class BybitClient:
                 return None
             
             klines = response['result']['list']
+            import pandas as pd
             df = pd.DataFrame(klines, columns=[
                 'timestamp', 'open', 'high', 'low', 'close', 'volume', 'turnover'
             ])
@@ -59,9 +63,9 @@ class BybitClient:
         except Exception as e:
             print(f"❌ Ошибка при получении данных {symbol}: {e}")
             return None
-    
-    def get_orderbook(self, symbol, levels):
-        """Получает стакан цен для конкретной монеты"""
+
+    def get_orderbook(self, symbol, levels, whale_size=None):
+        """Получает стакан цен для конкретной монеты и анализирует крупные ордера"""
         try:
             if not self.session:
                 self._initialize_session()
@@ -81,16 +85,21 @@ class BybitClient:
             bids = response['result']['b']
             asks = response['result']['a']
             
-            # Рассчитываем объемы на первых N уровнях
             bid_volume = sum(float(bid[1]) for bid in bids[:levels]) if bids else 0
             ask_volume = sum(float(ask[1]) for ask in asks[:levels]) if asks else 0
+
+            whale_bids = []
+            whale_asks = []
+            if whale_size is not None:
+                whale_bids = [order for order in bids if float(order[1]) >= whale_size]
+                whale_asks = [order for order in asks if float(order[1]) >= whale_size]
             
-            return bids, asks, bid_volume, ask_volume
+            return bids, asks, bid_volume, ask_volume, whale_bids, whale_asks
             
         except Exception as e:
             print(f"❌ Ошибка при получении стакана {symbol}: {e}")
-            return None, None, None, None, 0, 0
-    
+            return None, None, None, None, None, None
+
     def get_current_price(self, symbol):
         """Получаем текущую цену для конкретной монеты"""
         try:
@@ -114,7 +123,7 @@ class BybitClient:
         except Exception as e:
             print(f"❌ Ошибка при получении цены {symbol}: {e}")
             return None
-    
+
     def get_multiple_prices(self, symbols):
         """Получает цены для нескольких монет одновременно"""
         try:
@@ -142,7 +151,7 @@ class BybitClient:
         except Exception as e:
             print(f"❌ Ошибка при получении цен: {e}")
             return {}
-    
+
     def test_connection(self):
         """Проверяет соединение с Bybit API"""
         try:
@@ -165,10 +174,9 @@ class BybitClient:
             print(f"❌ Ошибка соединения с Bybit API: {e}")
             return False
 
-# Создаем глобальный экземпляр клиента
+# Глобальный экземпляр клиента
 bybit_client = BybitClient()
 
-# Функция для быстрого доступа (опционально)
 def get_bybit_client():
     """Возвращает глобальный экземпляр Bybit клиента"""
     return bybit_client

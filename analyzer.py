@@ -1,6 +1,7 @@
 import pandas as pd
-from data_fetcher import get_orderbook_data
+from bybit_client import bybit_client  # Для работы со стаканом и ценами
 from config import *
+from telegram_utils import send_telegram_message
 
 def calculate_rsi(data, period=14):
     """Рассчитывает RSI"""
@@ -74,9 +75,8 @@ def analyze_market_data(market_data, symbol):
         score += 10
         print("   💹 Капитализация растет - бычий сигнал")
     
-    print(f"🎯 CMC Score: {score}/45")
-    
-    return min(45, score)
+    print(f"🎯 CMC Score: {min(25, score)}/25")
+    return min(25, score)
 
 def analyze_fear_greed(fgi_data):
     """Анализирует Fear and Greed Index и выдает инсайты"""
@@ -361,6 +361,17 @@ def print_summary_table(results):
             action = "📉 ПРОДАЖA"
         
         print(f"{symbol:<10} ${price:<11.4f} {signal:<10} {score:<4} {cmc_score:<4} {fgi_score:<4} {action:<20}")
+        
+        if action != "ЖДАТЬ" and signal != "NEUTRAL":
+            message = (
+                f"⚡️ {symbol}\n"
+                f"Цена: ${price:.4f}\n"
+                f"Сигнал: {signal}\n"
+                f"Общий балл: {score}\n"
+                f"CMC: {cmc_score}, FGI: {fgi_score}\n"
+                f"Действие: {action}"
+            )
+            send_telegram_message(message)
     
     print("-" * 90)
     

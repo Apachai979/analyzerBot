@@ -1,12 +1,17 @@
 import logging
 import time
 from datetime import datetime, timedelta
-from data_fetcher import get_klines_data, get_current_price, get_coinmarketcap_data, get_fear_greed_index, get_orderbook_data
+
+from bybit_client import bybit_client  # Для стакана, цен и исторических данных
+from coinmarketcap_client import get_coinmarketcap_data, get_fear_greed_index
 from analyzer import analyze_market_data, analyze_fear_greed, analyze_sma_signals, analyze_orderbook, print_summary_table
 from models import ConfigManager
 from config import SYMBOLS, get_token_from_symbol, CHAIN_TO_TOKEN_MAP
 from defillama_client import DefiLlamaClient
 from tvl_analyzer import TVLAnalyzer
+from telegram_utils import send_telegram_message
+
+import pandas as pd  # Если используется в main
 
 logging.basicConfig(
     filename='analyzer.log',
@@ -21,6 +26,7 @@ ANALYSIS_INTERVAL = 60  # 1 минута
 CMC_UPDATE_INTERVAL = 60 * 30  # 30 минут
 
 def main():
+    send_telegram_message("BDSMTRADEBOT ACTIVATED!")
     print(f"🔍 ЗАПУСК МНОГОМОНЕТНОГО АНАЛИЗА ({len(SYMBOLS)} монет)")
     print("=" * 60)
     logging.info("Запуск анализа для %d монет", len(SYMBOLS))
@@ -29,10 +35,10 @@ def main():
     last_fgi_update = datetime.min
     fgi_data = None
     fgi_score = 0
-    
+
     last_cmc_update = datetime.min
     cmc_data_cache = {}
-    
+
     defillama = DefiLlamaClient()
     tvl_analyzer = TVLAnalyzer()
 
@@ -43,7 +49,7 @@ def main():
     # Анализируем общий тренд TVL
     tvl_trend_score = tvl_analyzer.analyze_total_tvl(total_tvl_data)
     chain_rotation = tvl_analyzer.analyze_chain_rotation(current_tvl_data)
-    
+
     while True:
         now = datetime.now()
         # Обновляем FGI только если прошло 12 часов
@@ -62,14 +68,15 @@ def main():
             print("-" * 40)
             logging.info("Анализ %s", symbol)
             try:
-                df = get_klines_data(symbol)
+                # Получаем исторические данные через bybit_client
+                df = bybit_client.get_klines(symbol)
                 if df is None:
                     logging.warning("Нет данных по свечам для %s", symbol)
                     continue
 
                 config = config_manager.get_config(symbol, df)
 
-                current_price = get_current_price(symbol)
+                current_price = bybit_client.get_current_price(symbol)
                 if current_price is None:
                     logging.warning("Не удалось получить цену для %s", symbol)
                     continue
@@ -94,7 +101,8 @@ def main():
 
                 analysis_result = analyze_sma_signals(df, current_price, symbol, config, cmc_score, fgi_score)
 
-                orderbook_data = get_orderbook_data(symbol, config)
+                # Получаем стакан через bybit_client
+                orderbook_data = bybit_client.get_orderbook(symbol, config.orderbook_levels, config.whale_size)
                 if orderbook_data and current_price:
                     bids, asks, bid_volume, ask_volume, whale_bids, whale_asks = orderbook_data
                     analyze_orderbook(bids, asks, bid_volume, ask_volume, whale_bids, whale_asks, current_price, config)
@@ -105,10 +113,10 @@ def main():
                     chain_score = 0
                     if chain and chain in chain_rotation:
                         chain_score = chain_rotation[chain]['score']
-                    
+
                     # Итоговый TVL score: тренд + ротация (ограничить 15)
                     tvl_score = min(15, tvl_trend_score + chain_score)
-                    
+
                     total_score = (
                         analysis_result.get('score', 0) +
                         min(25, cmc_score) +
