@@ -15,12 +15,6 @@ TESTNET = os.getenv('BYBIT_TESTNET', 'False').lower() == 'true'
 BYBIT_API_URL = "https://api.bybit.com"
 BYBIT_TESTNET_URL = "https://api-testnet.bybit.com"
 
-SYMBOLS = [
-    "SOLUSDT",
-    "PYTHUSDT",
-    "ARKMUSDT", 
-    "ARBUSDT",
-]
 
 TVL_CHAINS_TO_MONITOR = [
     'Ethereum', 'Solana', 'BSC', 'Arbitrum', 
@@ -67,6 +61,15 @@ ASSET_PRESETS = {
     'ADAUSDT': {'whale_size': 30000, 'orderbook_levels': 30, 'volatility_multiplier': 1.6},
     'DEFAULT': {'whale_size': 50000, 'orderbook_levels': 25, 'volatility_multiplier': 1.5}
 }
+
+# ==== Пороги для мониторинга трендов на споте ====
+GAIN_12H = 20      # Рост за 12 часов, % (например, +20%)
+DROP_12H = -20     # Падение за 12 часов, % (например, -20%)
+GAIN_4H = 10       # Рост за 4 часа, % (например, +10%)
+DROP_4H = -10      # Падение за 4 часа, % (например, -10%)
+GAIN_2H = 7        # Рост за 2 часа, % (например, +7%)
+DROP_2H = -7       # Падение за 2 часа, % (например, -7%)
+MIN_MARKET_CAP = 2_000_000  # Минимальная капитализация для отбора пары, в долларах
 
 # Получить тикер токена по символу
 def get_token_from_symbol(symbol):

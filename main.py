@@ -1,4 +1,4 @@
-import logging
+import threading
 import time
 from datetime import datetime, timedelta
 
@@ -6,12 +6,13 @@ from bybit_client import bybit_client  # Для стакана, цен и ист
 from coinmarketcap_client import get_coinmarketcap_data, get_fear_greed_index
 from analyzer import analyze_market_data, analyze_fear_greed, analyze_sma_signals, analyze_orderbook, print_summary_table
 from models import ConfigManager
-from config import SYMBOLS, get_token_from_symbol, CHAIN_TO_TOKEN_MAP
+from config import get_token_from_symbol, CHAIN_TO_TOKEN_MAP
 from defillama_client import DefiLlamaClient
 from tvl_analyzer import TVLAnalyzer
 from telegram_utils import send_telegram_message
+from spot_trend_watcher import spot_trend_watcher_loop, new_pairs_watcher_loop
 
-import pandas as pd  # Если используется в main
+import logging
 
 logging.basicConfig(
     filename='analyzer.log',
@@ -25,11 +26,20 @@ FGI_UPDATE_INTERVAL = 60 * 60 * 12  # 12 часов
 ANALYSIS_INTERVAL = 60  # 1 минута
 CMC_UPDATE_INTERVAL = 60 * 30  # 30 минут
 
+def load_dynamic_symbols():
+    with open("dynamic_symbols.txt", "r", encoding="utf-8") as f:
+        return [line.strip() for line in f if line.strip()]
+
 def main():
     send_telegram_message("BDSMTRADEBOT ACTIVATED!")
-    print(f"🔍 ЗАПУСК МНОГОМОНЕТНОГО АНАЛИЗА ({len(SYMBOLS)} монет)")
+    symbols = load_dynamic_symbols()
+    print(f"🔍 ЗАПУСК МНОГОМОНЕТНОГО АНАЛИЗА ({len(symbols)} монет)")
     print("=" * 60)
-    logging.info("Запуск анализа для %d монет", len(SYMBOLS))
+    logging.info("Запуск анализа для %d монет", len(symbols))
+
+    # Запускаем мониторинг трендов спотовых пар и новых пар в отдельных потоках
+    threading.Thread(target=spot_trend_watcher_loop, daemon=True).start()
+    threading.Thread(target=new_pairs_watcher_loop, daemon=True).start()
 
     config_manager = ConfigManager()
     last_fgi_update = datetime.min
@@ -51,19 +61,20 @@ def main():
     chain_rotation = tvl_analyzer.analyze_chain_rotation(current_tvl_data)
 
     while True:
-        now = datetime.now()
-        # Обновляем FGI только если прошло 12 часов
-        if (now - last_fgi_update).total_seconds() > FGI_UPDATE_INTERVAL or fgi_data is None:
-            print("🔍 Получение Fear and Greed Index...")
-            fgi_data = get_fear_greed_index(30)
-            fgi_score = analyze_fear_greed(fgi_data) if fgi_data else 0
-            last_fgi_update = now
-            logging.info("FGI обновлен: %s", fgi_score)
-        else:
-            print("Используется кэшированный FGI (обновится через %.1f ч)" % ((FGI_UPDATE_INTERVAL - (now - last_fgi_update).total_seconds()) / 3600))
-
+        symbols = load_dynamic_symbols()
         results = []
-        for symbol in SYMBOLS:
+        for symbol in symbols:
+            now = datetime.now()
+            # Обновляем FGI только если прошло 12 часов
+            if (now - last_fgi_update).total_seconds() > FGI_UPDATE_INTERVAL or fgi_data is None:
+                print("🔍 Получение Fear and Greed Index...")
+                fgi_data = get_fear_greed_index(30)
+                fgi_score = analyze_fear_greed(fgi_data) if fgi_data else 0
+                last_fgi_update = now
+                logging.info("FGI обновлен: %s", fgi_score)
+            else:
+                print("Используется кэшированный FGI (обновится через %.1f ч)" % ((FGI_UPDATE_INTERVAL - (now - last_fgi_update).total_seconds()) / 3600))
+
             print(f"\n📊 АНАЛИЗ {symbol}")
             print("-" * 40)
             logging.info("Анализ %s", symbol)
@@ -89,7 +100,7 @@ def main():
                     print("🔍 Получение рыночных данных...")
                     market_data = get_coinmarketcap_data(symbol)
                     cmc_data_cache[symbol] = market_data
-                    if symbol == SYMBOLS[0]:  # обновляем время только один раз за цикл
+                    if symbol == symbols[0]:  # исправлено!
                         last_cmc_update = now
                 else:
                     print("Используются кэшированные рыночные данные (CoinMarketCap)")
@@ -184,10 +195,10 @@ def main():
         print_summary_table(results)
         logging.info("Анализ завершён. Всего результатов: %d", len(results))
 
-        print("\n⚙️ ИСПОЛЬЗОВАННЫЕ КОНФИГУРАЦИИ:")
-        for symbol, config in config_manager.configs.items():
-            print(f"   {symbol}: WHALE_SIZE={config.whale_size:,}, LEVELS={config.orderbook_levels}")
-            logging.info("Конфиг %s: WHALE_SIZE=%s, LEVELS=%s", symbol, config.whale_size, config.orderbook_levels)
+        # print("\n⚙️ ИСПОЛЬЗОВАННЫЕ КОНФИГУРАЦИИ:")
+        # for symbol, config in config_manager.configs.items():
+        #     print(f"   {symbol}: WHALE_SIZE={config.whale_size:,}, LEVELS={config.orderbook_levels}")
+        #     logging.info("Конфиг %s: WHALE_SIZE=%s, LEVELS=%s", symbol, config.whale_size, config.orderbook_levels)
 
         print(f"\n⏳ Следующий анализ через {ANALYSIS_INTERVAL} секунд...\n")
         time.sleep(ANALYSIS_INTERVAL)

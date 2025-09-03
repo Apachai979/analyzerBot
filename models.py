@@ -13,10 +13,11 @@ class AssetConfig:
     def auto_configure(self, df):
         """Автоматически настраивает параметры based на данных актива"""
         preset = ASSET_PRESETS.get(self.symbol, ASSET_PRESETS['DEFAULT']).copy()
-        
-        if df is not None and len(df) > 100:
+        print(f"[auto_configure] {self.symbol}: len(df)={len(df) if df is not None else 0}")
+        if df is not None and len(df) > 20:  # уменьшили порог
             daily_volatility = df['close'].pct_change().std() * 100
-            avg_volume = df['volume'].tail(100).mean()
+            avg_volume = df['volume'].tail(20).mean()
+            print(f"[auto_configure] {self.symbol}: vol={daily_volatility:.2f}, avg_vol={avg_volume:.2f}")
             
             if daily_volatility > 5:
                 preset['orderbook_levels'] = min(40, preset['orderbook_levels'] + 5)

@@ -1,11 +1,16 @@
 import requests
 import pandas as pd
 from datetime import datetime, timedelta
-from config import SYMBOLS
 
 COINMETRICS_COMMUNITY_API = "https://community-api.coinmetrics.io/v4"
 # Добавьте сюда крупные монеты для сравнения
 MAJOR_ASSETS = ["btc", "eth", "bnb", "sol"]
+
+def load_dynamic_symbols():
+    with open("dynamic_symbols.txt", "r", encoding="utf-8") as f:
+        return [line.strip() for line in f if line.strip()]
+
+SYMBOLS = load_dynamic_symbols()
 
 def get_asset_prices(asset, start, end, frequency="1d"):
     url = f"{COINMETRICS_COMMUNITY_API}/timeseries/asset-metrics"
