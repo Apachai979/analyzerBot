@@ -1,96 +1,16 @@
-2025-09-10 10:19:43.786178 | FLOCKUSDT [1h] | Bollinger Bands | SMA
+2025-09-12 15:40:24.651100 | FLOCKUSDT [1h] | Bollinger Bands | SMA
 Период: 20, Стд: 2
-Цена: 0.39
-BB_middle: 0.42
-BB_upper: 0.46
-BB_lower: 0.37
+Цена: 0.37
+BB_middle: 0.36
+BB_upper: 0.37
+BB_lower: 0.34
 Сигнал: NEUTRAL
 ---
-2025-09-10 10:19:43.793245 | FLOCKUSDT [1h] | Bollinger Bands | EMA
+2025-09-12 15:40:24.655525 | FLOCKUSDT [1h] | Bollinger Bands | EMA
 Период: 20, Стд: 2
-Цена: 0.39
-BB_middle: 0.40
-BB_upper: 0.45
-BB_lower: 0.36
-Сигнал: NEUTRAL
----
-2025-09-10 10:19:43.818867 | FLOCKUSDT [4h] | Bollinger Bands | SMA
-Период: 20, Стд: 2
-Цена: 0.39
-BB_middle: 0.33
-BB_upper: 0.48
-BB_lower: 0.18
-Сигнал: NEUTRAL
----
-2025-09-10 10:19:43.824001 | FLOCKUSDT [4h] | Bollinger Bands | EMA
-Период: 20, Стд: 2
-Цена: 0.39
-BB_middle: 0.35
-BB_upper: 0.50
-BB_lower: 0.20
-Сигнал: NEUTRAL
----
-2025-09-10 11:34:43.547253 | FLOCKUSDT [1h] | Bollinger Bands | SMA
-Период: 20, Стд: 2
-Цена: 0.39
-BB_middle: 0.41
-BB_upper: 0.45
-BB_lower: 0.38
-Сигнал: NEUTRAL
----
-2025-09-10 11:34:43.553786 | FLOCKUSDT [1h] | Bollinger Bands | EMA
-Период: 20, Стд: 2
-Цена: 0.39
-BB_middle: 0.40
-BB_upper: 0.44
-BB_lower: 0.37
-Сигнал: NEUTRAL
----
-2025-09-10 11:34:43.578385 | FLOCKUSDT [4h] | Bollinger Bands | SMA
-Период: 20, Стд: 2
-Цена: 0.39
-BB_middle: 0.33
-BB_upper: 0.48
-BB_lower: 0.18
-Сигнал: NEUTRAL
----
-2025-09-10 11:34:43.583875 | FLOCKUSDT [4h] | Bollinger Bands | EMA
-Период: 20, Стд: 2
-Цена: 0.39
-BB_middle: 0.35
-BB_upper: 0.50
-BB_lower: 0.20
-Сигнал: NEUTRAL
----
-2025-09-10 11:38:49.269063 | FLOCKUSDT [1h] | Bollinger Bands | SMA
-Период: 20, Стд: 2
-Цена: 0.39
-BB_middle: 0.41
-BB_upper: 0.45
-BB_lower: 0.38
-Сигнал: NEUTRAL
----
-2025-09-10 11:38:49.274629 | FLOCKUSDT [1h] | Bollinger Bands | EMA
-Период: 20, Стд: 2
-Цена: 0.39
-BB_middle: 0.40
-BB_upper: 0.44
-BB_lower: 0.37
-Сигнал: NEUTRAL
----
-2025-09-10 11:38:49.311734 | FLOCKUSDT [4h] | Bollinger Bands | SMA
-Период: 20, Стд: 2
-Цена: 0.39
-BB_middle: 0.33
-BB_upper: 0.48
-BB_lower: 0.18
-Сигнал: NEUTRAL
----
-2025-09-10 11:38:49.316675 | FLOCKUSDT [4h] | Bollinger Bands | EMA
-Период: 20, Стд: 2
-Цена: 0.39
-BB_middle: 0.35
-BB_upper: 0.50
-BB_lower: 0.20
+Цена: 0.37
+BB_middle: 0.36
+BB_upper: 0.38
+BB_lower: 0.34
 Сигнал: NEUTRAL
 ---

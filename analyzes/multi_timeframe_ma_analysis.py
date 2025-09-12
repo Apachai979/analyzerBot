@@ -224,7 +224,7 @@ def analyze_volume(df, volume_ma_period=20, symbol="UNKNOWN"):
         "volume_ratio": volume_ratio,
         "signal": signal,
         "log": log_str
-    }    
+    }            
     
 def full_multi_timeframe_analysis(
     df_dict,

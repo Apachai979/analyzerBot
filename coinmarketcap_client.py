@@ -14,8 +14,8 @@ def get_coinmarketcap_data(symbols):
     Возвращает словарь с расширенными данными для каждой монеты.
     """
     try:
-        symbols_list = [s.strip() for s in symbols.split(',')]
-        cmc_symbols = [symbol.replace("USDT", "") for symbol in symbols_list]
+        # Преобразуем тикеры к формату CoinMarketCap (убираем 'USDT')
+        cmc_symbols = [symbol.replace("USDT", "") for symbol in symbols]
         headers = {
             'Accepts': 'application/json',
             'X-CMC_PRO_API_KEY': COINMARKETCAP_API_KEY,

@@ -16,23 +16,6 @@ BYBIT_API_URL = "https://api.bybit.com"
 BYBIT_TESTNET_URL = "https://api-testnet.bybit.com"
 
 
-TVL_CHAINS_TO_MONITOR = [
-    'Ethereum', 'Solana', 'BSC', 'Arbitrum', 
-    'Polygon', 'Avalanche', 'Optimism', 'Base'
-]
-
-# Маппинг блокчейнов к токенам
-CHAIN_TO_TOKEN_MAP = {
-    'Ethereum': 'ETH',
-    'Solana': 'SOL',
-    'BSC': 'BNB',
-    'Arbitrum': 'ARB',
-    'Polygon': 'MATIC',
-    'Avalanche': 'AVAX',
-    'Optimism': 'OP',
-    'Base': 'BASE'
-}
-
 # Общие настройки
 INTERVAL = "60"
 FAST_PERIOD = 20
@@ -70,10 +53,3 @@ DROP_4H = -10      # Падение за 4 часа, % (например, -10%)
 GAIN_2H = 7        # Рост за 2 часа, % (например, +7%)
 DROP_2H = -7       # Падение за 2 часа, % (например, -7%)
 MIN_MARKET_CAP = 2_000_000  # Минимальная капитализация для отбора пары, в долларах
-
-# Получить тикер токена по символу
-def get_token_from_symbol(symbol):
-    for chain, token in CHAIN_TO_TOKEN_MAP.items():
-        if symbol.startswith(token):
-            return chain
-    return None

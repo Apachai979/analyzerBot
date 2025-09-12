@@ -8,9 +8,9 @@ from config import (
     GAIN_12H, DROP_12H, GAIN_4H, DROP_4H, GAIN_2H, DROP_2H, MIN_MARKET_CAP
 )
 
-DYNAMIC_SYMBOLS_FILE = "dynamic_symbols.txt"
-LOWCAP_SYMBOLS_FILE = "lowcap_symbols.txt"
-KNOWN_SYMBOLS_FILE = "known_spot_symbols.txt"
+DYNAMIC_SYMBOLS_FILE = "data/dynamic_symbols.txt"
+LOWCAP_SYMBOLS_FILE = "data/lowcap_symbols.txt"
+KNOWN_SYMBOLS_FILE = "data/known_spot_symbols.txt"
 
 def load_dynamic_symbols():
     try:
