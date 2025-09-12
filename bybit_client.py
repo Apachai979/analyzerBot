@@ -64,6 +64,33 @@ class BybitClient:
             print(f"❌ Ошибка при получении данных {symbol}: {e}")
             return None
 
+    def get_coin_info(self, symbol):
+        """
+        Получает название токена, тикер и список сетей (chain) для указанного символа.
+        Возвращает: name, coin, chains (список строк)
+        """
+        try:
+            if not self.session:
+                self._initialize_session()
+                if not self.session:
+                    return None, None, None
+
+            response = self.session.get_coin_info(coin=symbol)
+            if response['retCode'] != 0 or 'result' not in response or 'rows' not in response['result']:
+                print(f"❌ Ошибка API при получении информации о токене {symbol}: {response.get('retMsg', 'Нет сообщения')}")
+                return None, None, None
+
+            row = response['result']['rows'][0]
+            name = row.get('name')
+            coin = row.get('coin')
+            chains = [chain.get('chain') for chain in row.get('chains', []) if 'chain' in chain]
+
+            return name, coin, chains
+
+        except Exception as e:
+            print(f"❌ Ошибка при получении информации о токене {symbol}: {e}")
+            return None, None, None
+        
     def get_orderbook(self, symbol, levels, whale_size=None):
         """Получает стакан цен для конкретной монеты и анализирует крупные ордера"""
         try:

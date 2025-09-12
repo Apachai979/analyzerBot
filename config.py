@@ -10,7 +10,7 @@ TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
 TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
 
 BYBIT_API_KEY = os.getenv('BYBIT_API_KEY')
-BYBIT_API_SECRET = os.getenv('BYBIT_API_SECRET')
+BYBIT_API_SECRET = os.getenv('BYBIT_SECRET')
 TESTNET = os.getenv('BYBIT_TESTNET', 'False').lower() == 'true'
 BYBIT_API_URL = "https://api.bybit.com"
 BYBIT_TESTNET_URL = "https://api-testnet.bybit.com"

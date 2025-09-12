@@ -4,13 +4,15 @@ from datetime import datetime, timedelta
 
 from bybit_client import bybit_client  # Для стакана, цен и исторических данных
 from coinmarketcap_client import get_coinmarketcap_data, get_fear_greed_index
-from analyzer import analyze_market_data, analyze_fear_greed, analyze_sma_signals, analyze_orderbook, print_summary_table
+from analyzer import send_telegram_signals, analyze_market_data, analyze_fear_greed, analyze_sma_signals, analyze_orderbook, print_summary_table
 from models import ConfigManager
 from config import get_token_from_symbol, CHAIN_TO_TOKEN_MAP
 from defillama_client import DefiLlamaClient
 from tvl_analyzer import TVLAnalyzer
 from telegram_utils import send_telegram_message
 from spot_trend_watcher import spot_trend_watcher_loop, new_pairs_watcher_loop
+from analyzes.multi_timeframe_ma_analysis import full_multi_timeframe_analysis 
+from analyzes.atr_rsi_stochastic import full_atr_rsi_sto_multi_analysis, calculate_stochastic, calculate_rsi
 
 import logging
 
@@ -39,7 +41,7 @@ def main():
 
     # Запускаем мониторинг трендов спотовых пар и новых пар в отдельных потоках
     threading.Thread(target=spot_trend_watcher_loop, daemon=True).start()
-    threading.Thread(target=new_pairs_watcher_loop, daemon=True).start()
+    # threading.Thread(target=new_pairs_watcher_loop, daemon=True).start()
 
     config_manager = ConfigManager()
     last_fgi_update = datetime.min
@@ -64,35 +66,17 @@ def main():
         symbols = load_dynamic_symbols()
         results = []
         for symbol in symbols:
-            now = datetime.now()
-            # Обновляем FGI только если прошло 12 часов
-            if (now - last_fgi_update).total_seconds() > FGI_UPDATE_INTERVAL or fgi_data is None:
-                print("🔍 Получение Fear and Greed Index...")
-                fgi_data = get_fear_greed_index(30)
-                fgi_score = analyze_fear_greed(fgi_data) if fgi_data else 0
-                last_fgi_update = now
-                logging.info("FGI обновлен: %s", fgi_score)
-            else:
-                print("Используется кэшированный FGI (обновится через %.1f ч)" % ((FGI_UPDATE_INTERVAL - (now - last_fgi_update).total_seconds()) / 3600))
-
             print(f"\n📊 АНАЛИЗ {symbol}")
             print("-" * 40)
             logging.info("Анализ %s", symbol)
             try:
-                # Получаем исторические данные через bybit_client
                 df = bybit_client.get_klines(symbol)
-                if df is None:
-                    logging.warning("Нет данных по свечам для %s", symbol)
-                    continue
+                time.sleep(0.25)
 
-                config = config_manager.get_config(symbol, df)
-
+                # Получаем цену и CMC-данные для всех монет
                 current_price = bybit_client.get_current_price(symbol)
-                if current_price is None:
-                    logging.warning("Не удалось получить цену для %s", symbol)
-                    continue
-
-                # --- Кэширование CoinMarketCap данных ---
+                time.sleep(0.25)
+                now = datetime.now()
                 if (
                     symbol not in cmc_data_cache or
                     (now - last_cmc_update).total_seconds() > CMC_UPDATE_INTERVAL
@@ -100,34 +84,54 @@ def main():
                     print("🔍 Получение рыночных данных...")
                     market_data = get_coinmarketcap_data(symbol)
                     cmc_data_cache[symbol] = market_data
-                    if symbol == symbols[0]:  # исправлено!
+                    if symbol == symbols[0]:
                         last_cmc_update = now
                 else:
                     print("Используются кэшированные рыночные данные (CoinMarketCap)")
                     market_data = cmc_data_cache[symbol]
-                # ----------------------------------------
-
                 cmc_score = analyze_market_data(market_data, symbol) if market_data else 0
-                logging.info("CMC score для %s: %s", symbol, cmc_score)
 
+                note = ""
+                # --- Обработка новых монет с короткой историей ---
+                if df is None or len(df) < 100:
+                    note = "Недостаточно свечей для тех. анализа"
+                    # TVL анализ (коротко, без подробного вывода)
+                    chain = get_token_from_symbol(symbol)
+                    chain_score = 0
+                    if chain and chain in chain_rotation:
+                        chain_score = chain_rotation[chain]['score']
+                    tvl_score = min(15, tvl_trend_score + chain_score)
+                    total_score = min(25, cmc_score) + min(20, fgi_score) + tvl_score
+                    results.append({
+                        'symbol': symbol,
+                        'price': current_price,
+                        'signal': "N/A",
+                        'score': total_score,
+                        'trend': "N/A",
+                        'cmc_score': cmc_score,
+                        'fgi_score': fgi_score,
+                        'tvl_score': tvl_score,
+                        'note': note
+                    })
+                    print(f"⚠️ {symbol}: {note}")
+                    continue
+                # -------------------------------------------------
+
+                config = config_manager.get_config(symbol, df)
                 analysis_result = analyze_sma_signals(df, current_price, symbol, config, cmc_score, fgi_score)
 
-                # Получаем стакан через bybit_client
                 orderbook_data = bybit_client.get_orderbook(symbol, config.orderbook_levels, config.whale_size)
+                time.sleep(0.25)
                 if orderbook_data and current_price:
                     bids, asks, bid_volume, ask_volume, whale_bids, whale_asks = orderbook_data
                     analyze_orderbook(bids, asks, bid_volume, ask_volume, whale_bids, whale_asks, current_price, config)
 
                 if analysis_result:
-                    # Получаем блокчейн для символа
                     chain = get_token_from_symbol(symbol)
                     chain_score = 0
                     if chain and chain in chain_rotation:
                         chain_score = chain_rotation[chain]['score']
-
-                    # Итоговый TVL score: тренд + ротация (ограничить 15)
                     tvl_score = min(15, tvl_trend_score + chain_score)
-
                     total_score = (
                         analysis_result.get('score', 0) +
                         min(25, cmc_score) +
@@ -142,7 +146,6 @@ def main():
                     chain_change = chain_info.get('change_24h', 0)
                     chain_score = chain_info.get('score', 0)
 
-                    # Общий TVL за 7 дней
                     tvl_7d_change = None
                     if total_tvl_data and len(total_tvl_data) >= 8:
                         tvl_7d_change = (total_tvl_data[-1]['tvl'] - total_tvl_data[-8]['tvl']) / total_tvl_data[-8]['tvl'] * 100
@@ -158,7 +161,6 @@ def main():
                     if tvl_trend_score < -15 and analysis_result.get('price_change_7d', 0) > 0:
                         logging.info("📉 TVL падает, но цена держится - возможен разворот")
 
-                    # Находим цепочку с самым быстрым ростом TVL
                     if chain_rotation:
                         best_chain = max(chain_rotation.items(), key=lambda x: x[1]['score'])
                         token_symbol = CHAIN_TO_TOKEN_MAP.get(best_chain[0], "") + "USDT"
@@ -174,6 +176,7 @@ def main():
                             print(f"   💸 Капитал уходит из {chain_name}")
                     print()
                     print(f"🎯 ИТОГОВЫЙ SCORE {symbol}: {total_score}/100 ({'+' if tvl_score >= 0 else ''}{tvl_score} от TVL)")
+                    # --- конец подробного TVL-анализа ---
 
                     results.append({
                         'symbol': symbol,
@@ -183,7 +186,8 @@ def main():
                         'trend': analysis_result.get('trend', 'SIDEWAYS'),
                         'cmc_score': analysis_result.get('cmc_score', 0),
                         'fgi_score': analysis_result.get('fgi_score', 0),
-                        'tvl_score': tvl_score
+                        'tvl_score': tvl_score,
+                        'note': ""
                     })
                     logging.info("Результат анализа %s: %s", symbol, analysis_result)
 
@@ -193,15 +197,35 @@ def main():
                 continue
 
         print_summary_table(results)
+        send_telegram_signals(results)
+        for res in results:
+            if 'note' in res and res['note']:
+                print(f"⚠️ {res['symbol']}: {res['note']}")
         logging.info("Анализ завершён. Всего результатов: %d", len(results))
-
-        # print("\n⚙️ ИСПОЛЬЗОВАННЫЕ КОНФИГУРАЦИИ:")
-        # for symbol, config in config_manager.configs.items():
-        #     print(f"   {symbol}: WHALE_SIZE={config.whale_size:,}, LEVELS={config.orderbook_levels}")
-        #     logging.info("Конфиг %s: WHALE_SIZE=%s, LEVELS=%s", symbol, config.whale_size, config.orderbook_levels)
-
         print(f"\n⏳ Следующий анализ через {ANALYSIS_INTERVAL} секунд...\n")
         time.sleep(ANALYSIS_INTERVAL)
 
 if __name__ == "__main__":
-    main()
+    # main()
+    # print(bybit_client.get_coin_info("FLOCK"))
+    # market_data = get_coinmarketcap_data('FLOCK')
+    # print(market_data)
+    df_1h = bybit_client.get_klines('FLOCKUSDT', interval='60')
+    df_4h = bybit_client.get_klines('FLOCKUSDT', interval='240')
+    
+    df_dict = {"1h": df_1h, "4h": df_4h}
+    full_atr_rsi_sto_multi_analysis(df_dict,symbol='FLOCKUSDT')
+
+    
+     
+
+    # result = full_multi_timeframe_analysis(
+    #     df_dict,
+    #     fast_period=9,
+    #     slow_period=21,
+    #     lookback_periods=50,
+    #     bb_period=20,
+    #     bb_num_std=2,
+    #     symbol="FLOCKUSDT"
+    # )
+    # print(result)

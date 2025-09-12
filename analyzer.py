@@ -1,4 +1,6 @@
 import pandas as pd
+import os
+from datetime import datetime
 from bybit_client import bybit_client  # Для работы со стаканом и ценами
 from config import *
 from telegram_utils import send_telegram_message
@@ -40,16 +42,27 @@ def calculate_volatility_stats(df, fast_period, slow_period, lookback_periods):
 def analyze_market_data(market_data, symbol):
     """Анализирует рыночные данные от CoinMarketCap"""
     if not market_data:
+        print(f"Нет данных CMC для {symbol}, пропуск.")
         return 0
-    
+
+    # Проверяем, что все нужные поля есть и не None
+    required_fields = [
+        'volume_mcap_ratio', 'market_cap', 'volume_24h',
+        'volume_change_24h', 'market_cap_change_24h'
+    ]
+    for field in required_fields:
+        if field not in market_data or market_data[field] is None:
+            print(f"Нет данных CMC для {symbol} (отсутствует {field}), пропуск.")
+            return 0
+
     print(f"\n📈 COINMARKETCAP ANALYSIS: {symbol}")
     print("─" * 40)
-    
+
     ratio = market_data['volume_mcap_ratio']
     print(f"🔄 Volume/MCap Ratio: {ratio:.2%}")
-    
+
     score = 0
-    
+
     if ratio > 0.1:
         print("   🚀 ВЫСОКАЯ ликвидность - актив популярен")
         score += 25
@@ -61,20 +74,20 @@ def analyze_market_data(market_data, symbol):
         score += 5
     else:
         print("   💤 НИЗКАЯ ликвидность - осторожно с большими объемами")
-    
+
     print(f"💰 Market Cap: ${market_data['market_cap']:,.0f}")
     print(f"📊 24h Volume: ${market_data['volume_24h']:,.0f}")
     print(f"📉 24h Volume Change: {market_data['volume_change_24h']:+.2f}%")
     print(f"📈 24h Market Cap Change: {market_data['market_cap_change_24h']:+.2f}%")
-    
+
     if market_data['volume_change_24h'] > 5:
         score += 10
         print("   📈 Объем растет - положительный сигнал")
-    
+
     if market_data['market_cap_change_24h'] > 2:
         score += 10
         print("   💹 Капитализация растет - бычий сигнал")
-    
+
     print(f"🎯 CMC Score: {min(25, score)}/25")
     return min(25, score)
 
@@ -332,51 +345,78 @@ def analyze_sma_signals(df, current_price, symbol, config, cmc_score=0, fgi_scor
     }
 
 def print_summary_table(results):
-    """Выводит сводную таблицу по всем монетам"""
+    """
+    Формирует и сохраняет сводную таблицу по всем монетам в Excel-файл с датой в отдельной папке 'tables'.
+    """
     if not results:
         print("❌ Нет данных для отображения")
         return
-    
-    print(f"\n🎯 СВОДНАЯ ТАБЛИЦА АНАЛИЗА")
-    print("=" * 90)
-    print(f"{'Монета':<10} {'Цена':<12} {'Сигнал':<10} {'Общ':<4} {'CMC':<4} {'FGI':<4} {'Действие':<20}")
-    print("-" * 90)
-    
-    for result in sorted(results, key=lambda x: x['score'], reverse=True):
-        symbol = result['symbol']
-        price = result['price']
-        signal = result['signal']
-        score = result['score']
-        cmc_score = result.get('cmc_score', 0)
-        fgi_score = result.get('fgi_score', 0)
-        
-        action = "ЖДАТЬ"
-        if signal == "BUY" and score > 70:
+
+    # Создаём папку tables, если её нет
+    tables_dir = "tables"
+    os.makedirs(tables_dir, exist_ok=True)
+
+    # Формируем имя файла с датой и временем
+    now_str = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    filename = f"analysis_summary_{now_str}.xlsx"
+    filepath = os.path.join(tables_dir, filename)
+
+    # Формируем DataFrame
+    df = pd.DataFrame(results)
+    if 'note' not in df.columns:
+        df['note'] = ""
+    df = df.rename(columns={
+        'symbol': 'Монета',
+        'price': 'Цена',
+        'signal': 'Сигнал',
+        'score': 'Общий балл',
+        'cmc_score': 'CMC',
+        'fgi_score': 'FGI',
+        'tvl_score': 'TVL',
+        'trend': 'Тренд',
+        'note': 'Комментарий'
+    })
+    df = df.sort_values(by='Общий балл', ascending=False)
+    df.to_excel(filepath, index=False)
+    print(f"✅ Сводная таблица сохранена в {filepath}")
+
+    display_cols = ['Монета', 'Цена', 'Сигнал', 'Общий балл', 'CMC', 'FGI', 'TVL', 'Тренд', 'Комментарий']
+    print("\n🎯 СВОДНАЯ ТАБЛИЦА АНАЛИЗА")
+    print(df[display_cols].to_string(index=False))
+
+    buy_signals = (df['Сигнал'] == 'BUY').sum()
+    sell_signals = (df['Сигнал'] == 'SELL').sum()
+    neutral_signals = len(df) - buy_signals - sell_signals
+    print(f"\n📊 Статистика: 🟢 {buy_signals} | 🔴 {sell_signals} | ⚪ {neutral_signals}")
+
+def send_telegram_signals(results):
+    """
+    Отправляет сигналы в Telegram для сильных BUY/SELL по результатам анализа.
+    """
+    if not results:
+        return
+
+    df = pd.DataFrame(results)
+    for _, row in df.iterrows():
+        if row['signal'] == 'BUY' and row['score'] > 70:
             action = "🚀 СИЛЬНАЯ ПОКУПКА"
-        elif signal == "BUY" and score > 50:
-            action = "📈 ПОКУПКА"
-        elif signal == "SELL" and score > 70:
+        elif row['signal'] == 'SELL' and row['score'] > 70:
             action = "🔻 СИЛЬНАЯ ПРОДАЖА"
-        elif signal == "SELL" and score > 50:
+        elif row['signal'] == 'BUY' and row['score'] > 50:
+            action = "📈 ПОКУПКА"
+        elif row['signal'] == 'SELL' and row['score'] > 50:
             action = "📉 ПРОДАЖA"
-        
-        print(f"{symbol:<10} ${price:<11.4f} {signal:<10} {score:<4} {cmc_score:<4} {fgi_score:<4} {action:<20}")
-        
-        if action != "ЖДАТЬ" and signal != "NEUTRAL":
+        else:
+            action = None
+
+        if action:
             message = (
-                f"⚡️ {symbol}\n"
-                f"Цена: ${price:.4f}\n"
-                f"Сигнал: {signal}\n"
-                f"Общий балл: {score}\n"
-                f"CMC: {cmc_score}, FGI: {fgi_score}\n"
-                f"Действие: {action}"
+                f"⚡️ {row['symbol']}\n"
+                f"Цена: ${row['price']:.4f}\n"
+                f"Сигнал: {row['signal']}\n"
+                f"Общий балл: {row['score']}\n"
+                f"CMC: {row.get('cmc_score', '')}, FGI: {row.get('fgi_score', '')}, TVL: {row.get('tvl_score', '')}\n"
+                f"Действие: {action}\n"
+                f"Комментарий: {row.get('note', '')}"
             )
             send_telegram_message(message)
-    
-    print("-" * 90)
-    
-    buy_signals = sum(1 for r in results if r['signal'] == 'BUY')
-    sell_signals = sum(1 for r in results if r['signal'] == 'SELL')
-    neutral_signals = len(results) - buy_signals - sell_signals
-    
-    print(f"📊 Статистика: 🟢 {buy_signals} | 🔴 {sell_signals} | ⚪ {neutral_signals}")

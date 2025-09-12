@@ -1,0 +1,16 @@
+2025-09-10 10:19:43.799633 | FLOCKUSDT [1h] | COMBINED_FULL
+SMA сигнал: NEUTRAL
+EMA сигнал: NEUTRAL
+Bollinger Bands SMA сигнал: NEUTRAL
+Bollinger Bands EMA сигнал: NEUTRAL
+MACD сигнал: SELL
+Рекомендация: Нет чёткого сигнала по индикаторам или сигналы противоречат друг другу.
+---
+2025-09-10 10:19:43.828725 | FLOCKUSDT [4h] | COMBINED_FULL
+SMA сигнал: NEUTRAL
+EMA сигнал: NEUTRAL
+Bollinger Bands SMA сигнал: NEUTRAL
+Bollinger Bands EMA сигнал: NEUTRAL
+MACD сигнал: BUY
+Рекомендация: Нет чёткого сигнала по индикаторам или сигналы противоречат друг другу.
+---
