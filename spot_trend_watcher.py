@@ -62,97 +62,73 @@ def check_spot_trends():
     lowcap_symbols_set = load_lowcap_symbols()
     symbols = get_spot_symbols()
     print(f"[{datetime.now()}] Проверка {len(symbols)} спотовых пар...")
-    for symbol in symbols:
-        try:
-            if symbol in dynamic_symbols_set or symbol in lowcap_symbols_set:
-                continue
 
-            df = bybit_client.get_klines(symbol, interval="15", limit=48)  # 12 часов
-            time.sleep(0.2)
-            if df is None or len(df) < 32:
-                continue
-
-            price_now = float(df['close'].iloc[-1])
-            price_2h_ago = float(df['close'].iloc[-8])
-            price_4h_ago = float(df['close'].iloc[-16])
-            price_12h_ago = float(df['close'].iloc[0])
-
-            growth_2h = (price_now - price_2h_ago) / price_2h_ago * 100
-            growth_4h = (price_now - price_4h_ago) / price_4h_ago * 100
-            growth_12h = (price_now - price_12h_ago) / price_12h_ago * 100
-
-            trigger = None
-            if growth_12h > GAIN_12H:
-                trigger = f"🚀 Рост за 12ч: <b>{growth_12h:.2f}%</b>"
-            elif growth_12h < DROP_12H:
-                trigger = f"⚠️ Падение за 12ч: <b>{growth_12h:.2f}%</b>"
-            elif growth_4h > GAIN_4H:
-                trigger = f"🚀 Рост за 4ч: <b>{growth_4h:.2f}%</b>"
-            elif growth_4h < DROP_4H:
-                trigger = f"⚠️ Падение за 4ч: <b>{growth_4h:.2f}%</b>"
-            elif growth_2h > GAIN_2H:
-                trigger = f"🚀 Рост за 2ч: <b>{growth_2h:.2f}%</b>"
-            elif growth_2h < DROP_2H:
-                trigger = f"⚠️ Падение за 2ч: <b>{growth_2h:.2f}%</b>"
-
-            if trigger:
-                market_data = get_coinmarketcap_data(symbol)
-                if not market_data:
-                    print(f"Нет данных CMC для {symbol}, пропуск.")
-                    continue
-                market_cap = market_data.get('market_cap', 0)
-                if market_cap < MIN_MARKET_CAP:
-                    print(f"{symbol}: капитализация {market_cap:.0f} < {MIN_MARKET_CAP:,}, пропуск.")
-                    save_lowcap_symbol(symbol)
-                    lowcap_symbols_set.add(symbol)
+    # Получаем рыночные данные сразу для всех пар
+    cmc_data = get_coinmarketcap_data(symbols)
+    os.makedirs("logs", exist_ok=True)
+    with open("logs/spot_trend_log.txt", "a", encoding="utf-8") as log_file:
+        for symbol in symbols:
+            try:
+                if symbol in dynamic_symbols_set or symbol in lowcap_symbols_set:
                     continue
 
-                msg = (
-                    f"{trigger}\n"
-                    f"<b>{symbol}</b>\n"
-                    f"Текущий курс: <b>{price_now:.6f}</b>\n"
-                    f"Курс 2ч назад: <b>{price_2h_ago:.6f}</b>\n"
-                    f"Курс 4ч назад: <b>{price_4h_ago:.6f}</b>\n"
-                    f"Курс 12ч назад: <b>{price_12h_ago:.6f}</b>"
-                )
-                send_telegram_message(msg)
-                save_dynamic_symbol(symbol)
-                dynamic_symbols_set.add(symbol)
-                print(f"Добавлена новая пара для анализа и сохранена: {symbol}")
-        except Exception as e:
-            print(f"Ошибка анализа {symbol}: {e}")
+                df = bybit_client.get_klines(symbol, interval="15", limit=48)
+                time.sleep(0.2)
+                if df is None or len(df) < 32:
+                    continue
 
-def check_new_spot_pairs():
-    known_symbols = load_known_symbols()
-    try:
-        info = bybit_client.session.get_instruments_info(category="spot")
-        if info['retCode'] != 0:
-            print("Ошибка получения списка пар:", info['retMsg'])
-            return
-        current_symbols = set(item['symbol'] for item in info['result']['list'])
-    except Exception as e:
-        print("Ошибка получения списка пар:", e)
-        return
+                price_now = float(df['close'].iloc[-1])
+                price_15m_ago = float(df['close'].iloc[-2])
+                price_2h_ago = float(df['close'].iloc[-8])
+                price_4h_ago = float(df['close'].iloc[-16])
+                price_12h_ago = float(df['close'].iloc[0])
 
-    new_symbols = current_symbols - known_symbols
-    if new_symbols:
-        for symbol in new_symbols:
-            msg = f"🆕 Новая спотовая пара на Bybit: <b>{symbol}</b>"
-            send_telegram_message(msg)
-            print(f"Найдена новая пара: {symbol}")
-    else:
-        print("Новых пар не найдено.")
+                growth_15m = (price_now - price_15m_ago) / price_15m_ago * 100
+                growth_2h = (price_now - price_2h_ago) / price_2h_ago * 100
+                growth_4h = (price_now - price_4h_ago) / price_4h_ago * 100
+                growth_12h = (price_now - price_12h_ago) / price_12h_ago * 100
 
-    # Файл будет обновляться всегда, даже если новых пар нет
-    save_known_symbols(current_symbols)
+                trigger = None
+                if growth_15m > 5:
+                    trigger = f"🚀 Рост за 15м: {growth_15m:.2f}%"
+                elif growth_12h > GAIN_12H:
+                    trigger = f"🚀 Рост за 12ч: {growth_12h:.2f}%"
+                elif growth_12h < DROP_12H:
+                    trigger = f"⚠️ Падение за 12ч: {growth_12h:.2f}%"
+                elif growth_4h > GAIN_4H:
+                    trigger = f"🚀 Рост за 4ч: {growth_4h:.2f}%"
+                elif growth_4h < DROP_4H:
+                    trigger = f"⚠️ Падение за 4ч: {growth_4h:.2f}%"
+                elif growth_2h > GAIN_2H:
+                    trigger = f"🚀 Рост за 2ч: {growth_2h:.2f}%"
+                elif growth_2h < DROP_2H:
+                    trigger = f"⚠️ Падение за 2ч: {growth_2h:.2f}%"
+
+                if trigger:
+                    market_data = cmc_data.get(symbol.replace("USDT", ""), {})
+                    market_cap = market_data.get('market_cap', 0)
+                    volume_24h = market_data.get('volume_24h', 0)
+                    if market_cap < MIN_MARKET_CAP or volume_24h < 1_000_000:
+                        log_file.write(
+                            f"{symbol}: капитализация {market_cap:.0f} < {MIN_MARKET_CAP:,} или объем 24ч {volume_24h:.0f} < 1,000,000 USDT, пропуск.\n"
+                        )
+                        save_lowcap_symbol(symbol)
+                        lowcap_symbols_set.add(symbol)
+                        continue
+
+                    msg = (
+                        f"{trigger} | {symbol} | Курс: {price_now:.6f} | "
+                        f"Капитализация: {market_cap:.0f}\n"
+                    )
+                    send_telegram_message(msg)
+                    save_dynamic_symbol(symbol)
+                    dynamic_symbols_set.add(symbol)
+                    log_file.write(f"Добавлена новая пара: {msg}")
+            except Exception as e:
+                log_file.write(f"Ошибка анализа {symbol}: {e}\n")
 
 # Для периодического вызова:
 def spot_trend_watcher_loop():
     while True:
         check_spot_trends()
         time.sleep(600)  # 10 минут
-
-def new_pairs_watcher_loop():
-    while True:
-        check_new_spot_pairs()
-        time.sleep(600)  # Проверять каждые 10 минут

@@ -89,36 +89,42 @@ def get_coinmarketcap_data(symbols):
 # print(market_data)
 
 def get_fear_greed_index(days=30):
-    """Получает исторические данные Fear and Greed Index"""
-    try:
-        headers = {
-            'Accepts': 'application/json',
-            'X-CMC_PRO_API_KEY': COINMARKETCAP_API_KEY,
-        }
-        historical_response = requests.get(CMC_FGI_URL, headers=headers)
-        historical_response.raise_for_status()
-        historical_data = historical_response.json()
-        latest_response = requests.get(CMC_FGI_LATEST, headers=headers)
-        latest_response.raise_for_status()
-        latest_data = latest_response.json()
-        historical_records = []
-        for item in historical_data['data'][:days]:
-            historical_records.append({
-                'timestamp': item['timestamp'],
-                'value': float(item['value']),
-                'value_classification': item['value_classification']
-            })
-        latest_value = float(latest_data['data']['value'])
-        latest_classification = latest_data['data']['value_classification']
-        return {
-            'current_value': latest_value,
-            'current_classification': latest_classification,
-            'historical': historical_records,
-            'average_30d': sum(item['value'] for item in historical_records) / len(historical_records) if historical_records else 0
-        }
-    except Exception as e:
-        print(f"❌ Ошибка получения Fear and Greed Index: {e}")
-        return None
+    """Получает исторические данные Fear and Greed Index с повторной попыткой при ошибке"""
+    for attempt in range(2):
+        try:
+            headers = {
+                'Accepts': 'application/json',
+                'X-CMC_PRO_API_KEY': COINMARKETCAP_API_KEY,
+            }
+            historical_response = requests.get(CMC_FGI_URL, headers=headers, timeout=15)
+            historical_response.raise_for_status()
+            historical_data = historical_response.json()
+            latest_response = requests.get(CMC_FGI_LATEST, headers=headers, timeout=15)
+            latest_response.raise_for_status()
+            latest_data = latest_response.json()
+            historical_records = []
+            for item in historical_data['data'][:days]:
+                historical_records.append({
+                    'timestamp': item['timestamp'],
+                    'value': float(item['value']),
+                    'value_classification': item['value_classification']
+                })
+            latest_value = float(latest_data['data']['value'])
+            latest_classification = latest_data['data']['value_classification']
+            return {
+                'current_value': latest_value,
+                'current_classification': latest_classification,
+                'historical': historical_records,
+                'average_30d': sum(item['value'] for item in historical_records) / len(historical_records) if historical_records else 0
+            }
+        except Exception as e:
+            print(f"❌ Ошибка получения Fear and Greed Index (попытка {attempt+1}): {e}")
+            if attempt == 0:
+                print("Пробуем еще раз...")
+                time.sleep(2)  # небольшая пауза перед повтором
+            else:
+                print("Вторая попытка не удалась, продолжаем выполнение.")
+    return None
     
 def analyze_fgi_trend(fgi_data):
     """
@@ -164,63 +170,3 @@ def analyze_fgi_trend(fgi_data):
         "current_value": current_value,
         "classification": classification
     }
-    
-def analyze_cmc_response(cmc_response, symbol):
-    """
-    Анализирует данные CoinMarketCap и выводит рекомендации для трейдера.
-    """
-    if not cmc_response or 'data' not in cmc_response or symbol not in cmc_response['data']:
-        print("Нет данных для анализа.")
-        return
-
-    # Берём первую активную монету с нужным тикером
-    coins = [coin for coin in cmc_response['data'][symbol] if coin.get('is_active', 0) == 1]
-    if not coins:
-        print("Нет активных монет для анализа.")
-        return
-
-    coin = coins[0]
-    quote = coin['quote']['USD']
-
-    price = quote.get('price')
-    market_cap = quote.get('market_cap')
-    volume_24h = quote.get('volume_24h')
-    volume_change_24h = quote.get('volume_change_24h')
-    percent_change_24h = quote.get('percent_change_24h')
-    percent_change_7d = quote.get('percent_change_7d')
-    percent_change_30d = quote.get('percent_change_30d')
-
-    # Анализ волатильности и тренда
-    insights = []
-    if volume_24h and market_cap and market_cap > 0:
-        volume_mcap_ratio = volume_24h / market_cap
-        if volume_mcap_ratio > 2:
-            insights.append("Монета волатильна и интересна для краткосрочных сделок.")
-        elif volume_mcap_ratio > 0.5:
-            insights.append("Высокий объем может означать продолжение волатильности.")
-
-    if percent_change_30d and percent_change_30d > 50:
-        if percent_change_24h and percent_change_24h < 0:
-            insights.append("Сейчас идет коррекция после сильного роста.")
-        else:
-            insights.append("Монета находится в фазе роста.")
-
-    if percent_change_24h and abs(percent_change_24h) > 10:
-        insights.append("Требуется осторожность: возможны резкие движения как вверх, так и вниз.")
-
-    # Выводим результат
-    print(f"\nАнализ монеты {coin['name']} ({symbol}):")
-    print(f"Цена: ${price:.4f}" if price else "Цена: нет данных")
-    print(f"Рыночная капитализация: ${market_cap:,.0f}" if market_cap else "Рыночная капитализация: нет данных")
-    print(f"Объем торгов за 24ч: ${volume_24h:,.0f}" if volume_24h else "Объем торгов за 24ч: нет данных")
-    print(f"Изменение цены за 24ч: {percent_change_24h:+.2f}%" if percent_change_24h is not None else "Изменение цены за 24ч: нет данных")
-    print(f"Изменение цены за 7 дней: {percent_change_7d:+.2f}%" if percent_change_7d is not None else "Изменение цены за 7 дней: нет данных")
-    print(f"Изменение цены за 30 дней: {percent_change_30d:+.2f}%" if percent_change_30d is not None else "Изменение цены за 30 дней: нет данных")
-    print("\nВыводы для трейдера:")
-    for insight in insights:
-        print(f"- {insight}")
-    if not insights:
-        print("- Нет ярко выраженных сигналов.")
-
-# Пример использования:
-# analyze_cmc_response(cmc_response, 'TA')

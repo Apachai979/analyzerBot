@@ -314,30 +314,12 @@ def full_multi_timeframe_analysis(
     sell_count = summary_signals.count("SELL")
     total = buy_count + sell_count
 
-    if total == 0:
-        mtf_recommendation = "Нет чёткого сигнала ни на одном таймфрейме."
-    elif buy_count > sell_count:
-        mtf_recommendation = f"Преобладают BUY сигналы ({buy_count}/{total}) на разных таймфреймах."
-    elif sell_count > buy_count:
-        mtf_recommendation = f"Преобладают SELL сигналы ({sell_count}/{total}) на разных таймфреймах."
-    else:
-        mtf_recommendation = "Сигналы равны — рекомендуется дождаться подтверждения."
-
-    volume_summary = ", ".join(volume_signals)
-    mtf_recommendation += f"\nОбъемы: {volume_summary}"
-
     # Итоговый лог
-    final_log = "\n".join(all_logs) + (
-        f"{datetime.now()} | {symbol} | MULTI-TIMEFRAME\n"
-        f"BUY: {buy_count}, SELL: {sell_count}, Всего сигналов: {total}\n"
-        f"Рекомендация: {mtf_recommendation}\n"
-        f"---\n"
-    )
+    final_log = "\n".join(all_logs)
     log_to_file("multi_timeframe_analysis_log.txt", final_log)
 
     return {
         "results": results,
-        "mtf_recommendation": mtf_recommendation,
         "buy_count": buy_count,
         "sell_count": sell_count,
         "total_signals": total,

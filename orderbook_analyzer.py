@@ -9,58 +9,82 @@ def log_to_file(text):
     with open(full_path, "a", encoding="utf-8") as f:
         f.write(text + "\n")
 
-def analyze_orderbook(bids, asks, bid_volume, ask_volume, whale_bids, whale_asks, current_price, config):
-    """Анализирует стакан цен и крупные ордера"""
-    if not bids or not asks:
-        log_to_file("❌ Не удалось получить данные стакана")
+def analyze_whale_orders_relative(orders, order_type, current_price, conclusions):
+    if not orders:
         return
+    closest = min(orders, key=lambda x: abs(float(x[0]) - current_price))
+    price = float(closest[0])
+    size = float(closest[1])
+    distance = abs(price - current_price)
+    direction = "ниже" if price < current_price else "выше"
+    msg = f"🧭 Ближайший китовый {order_type}: {size:.0f} по цене {price} ({direction} рынка, расстояние {distance:.2f})"
+    log_to_file(msg)
+    conclusions.append(msg)
+    # --- Умозаключения ---
+    if distance < current_price * 0.001:
+        if order_type == "bid":
+            concl = "🟢 Крупная заявка на покупку близко к рынку — поддержка."
+        else:
+            concl = "🔴 Крупная заявка на продажу близко к рынку — сопротивление."
+    elif distance < current_price * 0.005:
+        concl = "ℹ️ Крупный ордер относительно близко к рынку, влияние умеренное."
+    else:
+        concl = "💤 Крупный ордер далеко от текущей цены, влияние незначительное."
+    log_to_file(concl)
+    conclusions.append(concl)
 
-    log_to_file(f"\n📊 ORDER BOOK ANALYSIS ({config.orderbook_levels} уровней)")
-    log_to_file("─" * 50)
-    log_to_file(f"⚙️ Параметры: WHALE_SIZE={config.whale_size:,}, Уровней={config.orderbook_levels}")
+def analyze_orderbook(bids, asks, bid_volume, ask_volume, whale_bids, whale_asks, current_price, config, symbol):
+    """Анализирует стакан цен и крупные ордера и возвращает итоговое резюме"""
+    conclusions = []
+    log_lines = []
+    def log(text):
+        log_to_file(text)
+        log_lines.append(text)
+
+    if not bids or not asks:
+        log("❌ Не удалось получить данные стакана")
+        conclusions.append("❌ Нет данных стакана")
+        return "\n".join(conclusions)
+
+    log(f"\n📊 ORDER BOOK ANALYSIS ({config.orderbook_levels} уровней)")
+    log("─" * 50)
+    log(f"⚙️ Параметры: WHALE_SIZE={config.whale_size:,}, Уровней={config.orderbook_levels}, Монета={symbol}")
 
     # --- Анализ соотношения объемов ---
+    volume_info = f"Объем BID: {bid_volume:.0f}, Объем ASK: {ask_volume:.0f}, Соотношение: {bid_volume / ask_volume:.2f}" if ask_volume > 0 else "Нет данных по объёмам"
+    log(volume_info)
+    conclusions.append(volume_info)
+
     if ask_volume > 0:
         liquidity_ratio = bid_volume / ask_volume
-        log_to_file(f"📈 Соотношение объемов: {liquidity_ratio:.2f}")
+        # В conclusions только аналитика:
         if liquidity_ratio > 2.0:
-            log_to_file("   🟢 СИЛЬНЫЕ ПОКУПАТЕЛИ - преобладают bids")
+            concl = "🟢 СИЛЬНЫЕ ПОКУПАТЕЛИ - преобладают bids"
         elif liquidity_ratio > 1.5:
-            log_to_file("   🟡 Умеренные покупатели")
+            concl = "🟡 Умеренные покупатели"
         elif liquidity_ratio > 0.8:
-            log_to_file("   ⚪ БАЛАНС - паритет сил")
+            concl = "⚪ БАЛАНС - паритет сил"
         elif liquidity_ratio > 0.5:
-            log_to_file("   🟠 Умеренные продавцы")
+            concl = "🟠 Умеренные продавцы"
         else:
-            log_to_file("   🔴 СИЛЬНЫЕ ПРОДАВЦЫ - преобладают asks")
+            concl = "🔴 СИЛЬНЫЕ ПРОДАВЦЫ - преобладают asks"
+        log("   " + concl)
+        conclusions.append(concl)
 
     # --- Крупные ордера ---
-    log_to_file(f"🐋 Крупные ордера (> {config.whale_size:,}): {len(whale_bids)} bids, {len(whale_asks)} asks")
+    msg = f"🐋 Крупные ордера (> {config.whale_size:,}): {len(whale_bids)} bids, {len(whale_asks)} asks"
+    log(msg)
     if whale_bids:
-        log_to_file(f"   🟢 Китские покупки: {', '.join([f'{float(b[1]):.0f}@{b[0]}' for b in whale_bids[:3]])}")
+        bids_msg = f"   🟢 Китские покупки: {', '.join([f'{float(b[1]):.0f}@{b[0]}' for b in whale_bids[:3]])}"
+        log(bids_msg)
     if whale_asks:
-        log_to_file(f"   🔴 Китские продажи: {', '.join([f'{float(a[1]):.0f}@{a[0]}' for a in whale_asks[:3]])}")
+        asks_msg = f"   🔴 Китские продажи: {', '.join([f'{float(a[1]):.0f}@{a[0]}' for a in whale_asks[:3]])}"
+        log(asks_msg)
 
-    # --- Универсальный анализ крупных ордеров ---
-    def analyze_whale_orders_relative(orders, order_type):
-        if not orders:
-            return
-        closest = min(orders, key=lambda x: abs(float(x[0]) - current_price))
-        price = float(closest[0])
-        size = float(closest[1])
-        distance = abs(price - current_price)
-        direction = "ниже" if price < current_price else "выше"
-        log_to_file(f"   🧭 Ближайший китовый {order_type}: {size:.0f} по цене {price} ({direction} рынка, расстояние {distance:.2f})")
-        # --- Умозаключения ---
-        if distance < current_price * 0.001:
-            if order_type == "bid":
-                log_to_file("      🟢 Крупная заявка на покупку близко к рынку — это может быть поддержкой, цена с меньшей вероятностью упадёт ниже.")
-            else:
-                log_to_file("      🔴 Крупная заявка на продажу близко к рынку — это может быть сопротивлением, цена с меньшей вероятностью вырастет выше.")
-        elif distance < current_price * 0.005:
-            log_to_file("      ℹ️ Крупный ордер относительно близко к рынку, влияние умеренное.")
-        else:
-            log_to_file("      💤 Крупный ордер далеко от текущей цены, влияние незначительное.")
+    analyze_whale_orders_relative(whale_bids, "bid", current_price, conclusions)
+    analyze_whale_orders_relative(whale_asks, "ask", current_price, conclusions)
 
-    analyze_whale_orders_relative(whale_bids, "bid")
-    analyze_whale_orders_relative(whale_asks, "ask")
+    # --- Итоговое резюме ---
+    summary = "\n📋 Итоговые умозаключения по символу {}:\n".format(symbol) + "\n".join(conclusions)
+    log(summary)
+    return summary
