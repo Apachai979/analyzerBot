@@ -182,83 +182,9 @@ def main():
                         # analyze_15m_stoch_ema_volume(df_15m, symbol=symbol)
                 else:
                     print(f"[1D] {symbol}: нет данных для анализа.")
-                # time.sleep(3)
-                # df_12h = bybit_client.get_klines(symbol, interval='720')
-                # analyze_12h_ema_macd_rsi_atr(df_12h, symbol)
-                # print('ready')
+
                 time.sleep(7)
-                # df_15m = bybit_client.get_klines(symbol, interval='15')
-                # df_1h = bybit_client.get_klines(symbol, interval='60')
-                # df_4h = bybit_client.get_klines(symbol, interval='240')
-                # df_12h = bybit_client.get_klines(symbol, interval='720')
-                
-            #     df_dict = {'D': df_D,'12h': df_12h, '4h': df_4h, '1h': df_1h, '15m': df_15m}
 
-
-
-            #     # MA/BB/MACD/Объем
-            #     ma_result = full_multi_timeframe_analysis(
-            #         df_dict,
-            #         fast_period=9,
-            #         slow_period=21,
-            #         lookback_periods=50,
-            #         bb_period=20,
-            #         bb_num_std=2,
-            #         symbol=symbol
-            #     )
-            #     ma_summary = ""
-            #     if ma_result:
-            #         ma_summary = ""
-            #         for tf in ['12h', '4h', '1h']:
-            #             if tf in ma_result['results']:
-            #                 res = ma_result['results'][tf]
-            #                 ma_summary += (
-            #                     f"[{tf}] SMA сигнал: {res['sma_signal']}\n"
-            #                     f"[{tf}] EMA сигнал: {res['ema_signal']}\n"
-            #                     f"[{tf}] Bollinger Bands SMA сигнал: {res['bb_sma_signal']}\n"
-            #                     f"[{tf}] Bollinger Bands EMA сигнал: {res['bb_ema_signal']}\n"
-            #                     f"[{tf}] MACD сигнал: {res['macd_signal']}\n"
-            #                     f"[{tf}] Сигнал по объему: {res['volume_signal']}\n"
-            #                 )
-
-            #     # ATR/RSI/Stochastic
-            #     atr_rsi_sto_result = full_atr_rsi_sto_multi_analysis(df_dict, symbol=symbol)
-            #     atr_rsi_sto_summary = ""
-            #     if atr_rsi_sto_result:
-            #         for tf in ['12h', '4h', '1h']:
-            #             if tf in atr_rsi_sto_result:
-            #                 atr = atr_rsi_sto_result[tf]['atr']
-            #                 rsi = atr_rsi_sto_result[tf]['rsi']
-            #                 stoch = atr_rsi_sto_result[tf]['stochastic']
-            #                 atr_rsi_sto_summary += (
-            #                     f"[{tf}] ATR: {atr['current_atr']:.4f}, %: {atr['current_atr_pct']:.2f}, Волатильность: {atr['volatility']}\n"
-            #                     f"[{tf}] RSI: {rsi.iloc[-1]:.2f}\n"
-            #                     f"[{tf}] Stoch %K: {stoch['stoch_k'].iloc[-1]:.2f}, %D: {stoch['stoch_d'].iloc[-1]:.2f}\n"
-            #                 )
-
-            #     # Order Book
-            #     config = config_manager.get_config(symbol, df_1h)
-            #     orderbook_data = bybit_client.get_orderbook(symbol, config.orderbook_levels, config.whale_size)
-            #     current_price = bybit_client.get_current_price(symbol)
-            #     orderbook_summary = ""
-            #     if orderbook_data and current_price:
-            #         bids, asks, bid_volume, ask_volume, whale_bids, whale_asks = orderbook_data
-            #         orderbook_summary = analyze_orderbook(
-            #             bids, asks, bid_volume, ask_volume, whale_bids, whale_asks, current_price, config, symbol
-            #         )
-            #     # Chain/TVL
-            #     chain_summary = get_chain_summary_from_file(symbol)
-                
-            #     #  Fear & Greed Index 
-            #     fgi_info = get_last_fgi_analysis()
-            #     # Формируем итоговый вывод
-                
-            #     summary_text = format_coin_summary(symbol, ma_summary, atr_rsi_sto_summary, orderbook_summary, chain_summary, fgi_info)
-            #     with open("logs/summary_analysis_log.txt", "a", encoding="utf-8") as f:
-            #         f.write(summary_text)
-            #     ask_deepseek(summary_text, symbol)
-            #     print(summary_text)
-            #     time.sleep(1)
             except Exception as e:
                 print(f"❌ Ошибка анализа {symbol}: {e}")
                 logging.error("Ошибка анализа %s: %s", symbol, e)

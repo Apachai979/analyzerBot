@@ -61,12 +61,12 @@ def analyze_1d_ma_macd_volume(df, symbol="UNKNOWN"):
     # Формируем краткое текстовое резюме
     summary = (
         f"=== 1D MA/MACD/Volume/BB Analysis ===\n"
-        f"SMA(50/200) сигнал: {f'{sma_result.get('signal','n/a')} {sma_result.get('bar','n/a')}' if isinstance(sma_result, dict) else 'n/a'}"
-        f"EMA(50/200) сигнал: {f'{ema_result.get('signal','n/a')} {ema_result.get('bar','n/a')}' if isinstance(ema_result, dict) else 'n/a'}"
-        f"MACD сигнал: {macd_df.attrs.get('summary_signal')}, details: {macd_df.attrs.get('summary_details')}\n"
+        f"SMA(50/200) {sma_result.get('signal','n/a') if sma_result else 'n/a'}, {sma_result.get('bar','n/a') if sma_result else 'n/a'}, {sma_result.get('price_position','n/a') if sma_result else 'n/a'}, {sma_result.get('is_confidently_above_ema200','n/a') if sma_result else 'n/a'}, {sma_result.get('trading_verdict','n/a') if sma_result else 'n/a'}\n"
+        f"EMA(50/200) {ema_result.get('signal','n/a') if ema_result else 'n/a'}, {ema_result.get('bar','n/a') if ema_result else 'n/a'}, {ema_result.get('price_position','n/a') if ema_result else 'n/a'}, {ema_result.get('is_confidently_above_ema200','n/a') if ema_result else 'n/a'}, {ema_result.get('trading_verdict','n/a') if ema_result else 'n/a'}\n"
+        f"MACD сигнал: {macd_df.attrs.get('summary_signal')}, details: {macd_df.attrs.get('summary_details')}, action: {macd_df.attrs.get('action')}\n"
         f"Bollinger Bands SMA сигнал: {bb_sma_signal}\n"
         f"Объем: {volume_res.get('current_volume', 'n/a')} vs средний {volume_res.get('avg_volume', 'n/a')}\n"
-        f"Сигнал по объему: {volume_res.get('signal', 'n/a')}\n"
+        f"Сигнал по объему: {volume_res.get('signal', 'n/a')}, action: {volume_res.get('action', 'n/a')}\n"
         f"---\n"
     )
 
