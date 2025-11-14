@@ -524,21 +524,22 @@ def analyze_volume(df, volume_ma_period=20, symbol="UNKNOWN"):
     current_open = df['open'].iloc[-1]
     is_bullish_candle = current_close > current_open
 
-    # Определение сигнала и действия
+    # Определение сигнала - фиксируем движение (есть или нет)
     if volume_ratio is None:
         signal = "Недостаточно данных для анализа объема"
         action = "WAIT"
     elif volume_ratio > 2.0:
-        direction = "РОСТЕ" if is_bullish_candle else "ПАДЕНИИ"
-        signal = f"🚀 ВЫСОКИЙ ОБЪЕМ НА {direction}! Движение подтверждено"
-        action = "BUY" if is_bullish_candle else "SELL"
+        # Высокий объем = движение есть
+        signal = f"🚀 ВЫСОКИЙ ОБЪЕМ! Движение подтверждено"
+        action = "BUY"
     elif volume_ratio < 0.5:
-        signal = "⚠️  НИЗКИЙ ОБЪЕМ! Движение не подтверждено"
+        # Низкий объем = движения нет
+        signal = "⚠️ НИЗКИЙ ОБЪЕМ! Движение не подтверждено"
         action = "WAIT"
     else:
-        signal = "Обычный объем, движение нейтрально"
-        # Нейтральный объем расцениваем как положительный - следуем за направлением свечи
-        action = "BUY" if is_bullish_candle else "SELL"
+        # Нормальный объем = есть движение
+        signal = "Обычный объем, движение присутствует"
+        action = "BUY"
 
     # Логирование
     action_emoji = {
@@ -564,105 +565,5 @@ def analyze_volume(df, volume_ma_period=20, symbol="UNKNOWN"):
         "signal": signal,
         "action": action,  # BUY/SELL/WAIT
         "log": log_str
-    }            
-    
-def full_multi_timeframe_analysis(
-    df_dict,
-    fast_period,
-    slow_period,
-    lookback_periods,
-    bb_period=20,
-    bb_num_std=2,
-    symbol="UNKNOWN"
-):
-    """
-    Анализирует все сигналы по всем таймфреймам и формирует итоговую рекомендацию.
-    """
-    results = {}
-    summary_signals = []
-    volume_signals = []
-    all_logs = []
-
-    for tf, df in df_dict.items():
-        # Анализ по каждому таймфрейму
-        sma_result = analyze_ma_signals(df.copy(), fast_period, slow_period, lookback_periods, symbol=f"{symbol} [{tf}]", ma_type="SMA")
-        ema_result = analyze_ma_signals(df.copy(), fast_period, slow_period, lookback_periods, symbol=f"{symbol} [{tf}]", ma_type="EMA")
-        bb_sma_df = calculate_bollinger_bands(df.copy(), period=bb_period, num_std=bb_num_std, ma_type="SMA", symbol=f"{symbol} [{tf}]")
-        bb_ema_df = calculate_bollinger_bands(df.copy(), period=bb_period, num_std=bb_num_std, ma_type="EMA", symbol=f"{symbol} [{tf}]")
-        macd_df = calculate_macd(df.copy(), symbol=f"{symbol} [{tf}]")
-        volume_res = analyze_volume(df, symbol=f"{symbol} [{tf}]")
-
-        bb_sma_signal = bb_sma_df['bb_signal'].iloc[-1] if not bb_sma_df.empty else None
-        bb_ema_signal = bb_ema_df['bb_signal'].iloc[-1] if not bb_ema_df.empty else None
-        last_macd = macd_df['macd'].iloc[-1] if not macd_df.empty else None
-        last_signal = macd_df['macd_signal'].iloc[-1] if not macd_df.empty else None
-        if last_macd is not None and last_signal is not None:
-            if last_macd > last_signal:
-                macd_signal = "BUY"
-            elif last_macd < last_signal:
-                macd_signal = "SELL"
-            else:
-                macd_signal = "NEUTRAL"
-        else:
-            macd_signal = None
-
-        # Собираем сигналы
-        signals = [
-            sma_result['signal'] if sma_result else None,
-            ema_result['signal'] if ema_result else None,
-            bb_sma_signal,
-            bb_ema_signal,
-            macd_signal
-        ]
-        summary_signals += [s for s in signals if s in ("BUY", "SELL")]
-        if volume_res and volume_res.get("signal"):
-            volume_signals.append(volume_res["signal"])
-
-        # Лог по таймфрейму
-        log_str = (
-            f"{datetime.now()} | {symbol} [{tf}] | FULL ANALYSIS\n"
-            f"SMA сигнал: {signals[0]}\n"
-            f"{sma_result['current_and_historical_distance'] if sma_result else ''}"
-            f"EMA сигнал: {signals[1]}\n"
-            f"{ema_result['current_and_historical_distance'] if ema_result else ''}"
-            f"Bollinger Bands SMA сигнал: {signals[2]}\n"
-            f"Bollinger Bands EMA сигнал: {signals[3]}\n"
-            f"MACD сигнал: {signals[4]}\n"
-            f"Объем: {volume_res.get('current_volume') if volume_res else 'n/a'} vs средний {volume_res.get('avg_volume') if volume_res else 'n/a'}\n"
-            f"Сигнал по объему: {volume_res.get('signal') if volume_res else 'n/a'}\n"
-            f"---\n"
-        )
-        all_logs.append(log_str)
-
-        results[tf] = {
-            "sma_signal": signals[0],
-            "ema_signal": signals[1],
-            "bb_sma_signal": signals[2],
-            "bb_ema_signal": signals[3],
-            "macd_signal": signals[4],
-            "volume_signal": volume_res.get("signal") if volume_res else None,
-            "sma_stats": sma_result,
-            "ema_stats": ema_result,
-            "bb_sma_stats": bb_sma_df.iloc[-1].to_dict() if not bb_sma_df.empty else None,
-            "bb_ema_stats": bb_ema_df.iloc[-1].to_dict() if not bb_ema_df.empty else None,
-            "macd_stats": macd_df.iloc[-1].to_dict() if not macd_df.empty else None,
-            "volume_stats": volume_res
-        }
-
-    # Итоговая мульти-таймфрейм рекомендация
-    buy_count = summary_signals.count("BUY")
-    sell_count = summary_signals.count("SELL")
-    total = buy_count + sell_count
-
-    # Итоговый лог
-    final_log = "\n".join(all_logs)
-    log_to_file("multi_timeframe_analysis_log.txt", final_log)
-
-    return {
-        "results": results,
-        "buy_count": buy_count,
-        "sell_count": sell_count,
-        "total_signals": total,
-        "volume_signals": volume_signals
     }
 
