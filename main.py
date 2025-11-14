@@ -3,7 +3,7 @@ import time
 from datetime import datetime, timedelta
 import os
 
-from analyzes.time_frame_analysis import (analyze_1d_ma_macd_volume, analyze_12h_ema_macd_rsi_atr, analyze_4h_bb_stoch_ma_volume, analyze_1h_ema_macd_atr_rsi,analyze_15m_stoch_ema_volume)
+from analyzes.time_frame_analysis import (analyze_1d_ma_macd_volume, analyze_12h_correction_strategy, analyze_4h_bb_stoch_ma_volume, analyze_1h_ema_macd_atr_rsi,analyze_15m_stoch_ema_volume)
 from ai_generate import ask_deepseek
 from bybit_client import bybit_client
 from orderbook_analyzer import analyze_orderbook
@@ -166,22 +166,66 @@ def main():
                 one_d_analyze_result = analyze_1d_ma_macd_volume(df_D, symbol)
                 if one_d_analyze_result:
                     print(f"[1D] {symbol}\n{one_d_analyze_result.get('summary', '')}")
-                    sma_signal = one_d_analyze_result.get("sma_result")
-                    ema_signal = one_d_analyze_result.get("ema_result")
-                    if (
-                        (sma_signal and sma_signal.get("signal") == "BUY")
-                        or (ema_signal and ema_signal.get("signal") == "BUY")
-                    ):
+                    
+                    # Извлекаем сигналы для принятия решения
+                    ema_result = one_d_analyze_result.get("ema_result")
+                    volume_result = one_d_analyze_result.get("volume_result")
+                    
+                    # Получаем trading_verdict от EMA
+                    ema_verdict = ema_result.get('trading_verdict') if ema_result else None
+                    
+                    # Получаем action от Volume
+                    volume_action = volume_result.get('action') if volume_result else None
+                    
+                    # Получаем action от MACD (нужно получить из analyze_1d_ma_macd_volume)
+                    # Предполагаем, что в one_d_analyze_result есть macd_action
+                    macd_action = one_d_analyze_result.get("macd_action")
+                    
+                    # Проверяем условия для отправки сообщения
+                    all_buy = (
+                        ema_verdict == "STRONG_BUY" and 
+                        macd_action == "BUY" and 
+                        volume_action == "BUY"
+                    )
+                    
+                    all_sell = (
+                        ema_verdict == "STRONG_SELL" and 
+                        macd_action == "SELL" and 
+                        volume_action == "SELL"
+                    )
+                    
+                    if all_buy or all_sell:
+                        signal_type = "🟢 ПОКУПАТЬ" if all_buy else "🔴 ПРОДАВАТЬ"
+                        trend_1d = "BULLISH" if all_buy else "BEARISH"
+                        
                         send_telegram_message(
-                            f"[1D] {symbol}\n{one_d_analyze_result.get('summary', '')}"
+                            f"⚡ {signal_type}\n[1D] {symbol}\n{one_d_analyze_result.get('summary', '')}"
                         )
-                        # df_12h = bybit_client.get_klines(symbol, interval='720')
-                        # handle_12h_correction_buy_signal(df_12h, symbol=symbol)
                         time.sleep(5)
-                        # df_15m = bybit_client.get_klines(symbol, interval='15')
-                        # analyze_15m_stoch_ema_volume(df_15m, symbol=symbol)
-                else:
-                    print(f"[1D] {symbol}: нет данных для анализа.")
+                        
+                        # Анализ 12H с учетом тренда 1D
+                        df_12h = bybit_client.get_klines(symbol, interval='720')
+                        twelve_h_result = analyze_12h_correction_strategy(df_12h, trend_1d=trend_1d, symbol=symbol)
+                        
+                        if twelve_h_result:
+                            print(f"[12H] {symbol}\n{twelve_h_result.get('summary', '')}")
+                            
+                            # Если 12H дает GO - переходим на 4H
+                            if twelve_h_result.get('action') == 'GO':
+                                send_telegram_message(
+                                    f"🟢 12H СИГНАЛ!\n{symbol}\n{twelve_h_result.get('summary', '')}"
+                                )
+                                time.sleep(5)
+                                
+                                # TODO: Добавить анализ 4H для точного входа
+                                # df_4h = bybit_client.get_klines(symbol, interval='240')
+                                # analyze_4h_entry_point(df_4h, trend_1d, symbol)
+                            
+                            elif twelve_h_result.get('action') == 'ATTENTION':
+                                send_telegram_message(
+                                    f"🟡 12H ВНИМАНИЕ!\n{symbol}\n{twelve_h_result.get('summary', '')}"
+                                )
+                                time.sleep(3)
 
                 time.sleep(7)
 

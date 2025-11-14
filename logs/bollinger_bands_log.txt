@@ -494,3 +494,51 @@ BB_upper: 4682.59
 BB_lower: 4143.05
 Сигнал: SELL
 ---
+2025-11-14 17:52:24.099051 | SOLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 142.34
+BB_middle: 159.92
+BB_upper: 172.89
+BB_lower: 146.95
+Сигнал: BUY
+---
+2025-11-14 17:53:32.407675 | SOLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 142.23
+BB_middle: 159.91
+BB_upper: 172.91
+BB_lower: 146.91
+Сигнал: BUY
+---
+2025-11-14 17:54:24.421763 | SOLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 142.27
+BB_middle: 159.92
+BB_upper: 172.90
+BB_lower: 146.93
+Сигнал: BUY
+---
+2025-11-14 18:12:40.537820 | SOLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 141.04
+BB_middle: 159.80
+BB_upper: 173.11
+BB_lower: 146.49
+Сигнал: BUY
+---
+2025-11-14 18:13:49.377783 | SOLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 140.95
+BB_middle: 159.79
+BB_upper: 173.12
+BB_lower: 146.46
+Сигнал: BUY
+---
+2025-11-14 18:20:38.549186 | SOLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 140.90
+BB_middle: 159.79
+BB_upper: 173.13
+BB_lower: 146.44
+Сигнал: BUY
+---

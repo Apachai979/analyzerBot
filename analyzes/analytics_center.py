@@ -1,5 +1,5 @@
 import numpy as np
-from analyzes.time_frame_analysis import (analyze_1d_ma_macd_volume, analyze_12h_ema_macd_rsi_atr, analyze_4h_bb_stoch_ma_volume, analyze_1h_ema_macd_atr_rsi)
+from analyzes.time_frame_analysis import (analyze_1d_ma_macd_volume, analyze_12h_correction_strategy, analyze_4h_bb_stoch_ma_volume, analyze_1h_ema_macd_atr_rsi)
 from analyzes.multi_timeframe_ma_analysis import (
     analyze_ma_signals,
     calculate_macd,
