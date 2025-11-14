@@ -1,6 +1,8 @@
 import pandas as pd
 from datetime import datetime
 import os
+from analyzes.atr_rsi_stochastic import (calculate_atr, calculate_rsi, calculate_stochastic)
+
 
 LOGS_DIR = "logs"
 
@@ -41,11 +43,7 @@ def analyze_ma_signals(df, fast_period, slow_period, lookback_periods, symbol="U
     Анализирует сигналы по SMA или EMA, записывает результат в файл.
     ma_type: "SMA" или "EMA"
     """
-    log_filename = f"{ma_type.lower()}_analysis_log.txt"
-    if df is None or len(df) < slow_period + lookback_periods:
-        log_to_file(log_filename, f"{datetime.now()} | {symbol} | Недостаточно данных для анализа {ma_type}\n")
-        return None
-
+    log_filename = f"{ma_type.lower()}_analysis_log.txt"  
     fast_col = f"{ma_type.lower()}_fast"
     slow_col = f"{ma_type.lower()}_slow"
 
@@ -69,38 +67,112 @@ def analyze_ma_signals(df, fast_period, slow_period, lookback_periods, symbol="U
     previous_fast = df[fast_col].iloc[-2]
     previous_slow = df[slow_col].iloc[-2]
 
-    signal = "NEUTRAL"
+    # signal = "NEUTRAL"
+    # if previous_fast < previous_slow and current_fast > current_slow:
+    #     signal = "BUY"
+    #     signal_text = f"СИГНАЛ ПОКУПКИ: {'Золотой крест' if ma_type == 'SMA' else 'Bullish EMA crossover'}"
+    # elif previous_fast > previous_slow and current_fast < current_slow:
+    #     signal = "SELL"
+    #     signal_text = f"СИГНАЛ ПРОДАЖИ: {'Мертвый крест' if ma_type == 'SMA' else 'Bearish EMA crossover'}"
+    # else:
+    #     signal_text = f"Пересечения {ma_type} нет - сигнал отсутствует"
+    
+    crossover_signal = "NEUTRAL"
     if previous_fast < previous_slow and current_fast > current_slow:
-        signal = "BUY"
-        signal_text = f"СИГНАЛ ПОКУПКИ: {'Золотой крест' if ma_type == 'SMA' else 'Bullish EMA crossover'}"
+        crossover_signal = "BUY"
+        crossover_text = f"СИГНАЛ ПОКУПКИ: {'Золотой крест' if ma_type == 'SMA' else 'Bullish EMA crossover'}"
     elif previous_fast > previous_slow and current_fast < current_slow:
-        signal = "SELL"
-        signal_text = f"СИГНАЛ ПРОДАЖИ: {'Мертвый крест' if ma_type == 'SMA' else 'Bearish EMA crossover'}"
+        crossover_signal = "SELL" 
+        crossover_text = f"СИГНАЛ ПРОДАЖИ: {'Мертвый крест' if ma_type == 'SMA' else 'Bearish EMA crossover'}"
     else:
-        signal_text = f"Пересечения {ma_type} нет - сигнал отсутствует"
+        crossover_text = f"Пересечения {ma_type} нет"
+    # НОВАЯ логика: Анализ силы тренда
+    strength_signal = "NEUTRAL"
+    strength_text = ""
+    
+    # Критерий 1: Наклон быстрой MA (положительный/отрицательный)
+    ma_slope = current_fast - previous_fast
+    
+    # Критерий 2: "Уверенная" торговля выше/ниже (на основе расстояния и волатильности)
+    confidence_threshold = std_dist * 0.5  # Порог уверенности = 0.5 стандартных отклонений
+    
+    if current_dist > confidence_threshold and ma_slope > 0:
+        strength_signal = "BULLISH"
+        strength_text = f" | Уверенный бычий тренд (расстояние: {current_dist:+.2f}%)"
+    elif current_dist < -confidence_threshold and ma_slope < 0:
+        strength_signal = "BEARISH" 
+        strength_text = f" | Уверенный медвежий тренд (расстояние: {current_dist:+.2f}%)"
+    else:
+        strength_text = " | Тренд неопределенный/консолидация"
 
-    log_str = (
-        f"{datetime.now()} | {symbol} | {ma_type}\n"  # <--- добавлено название монеты и тип MA
-        f"{ma_type}{fast_period}: {current_fast:.2f}\n"
-        f"{ma_type}{slow_period}: {current_slow:.2f}\n"
-        f"Текущее расстояние между {ma_type}: {current_dist:+.2f}%\n"
-        f"Исторический диапазон: [{min_dist:+.2f}%, {max_dist:+.2f}%]\n"
-        f"{signal_text}\n"
-        f"---\n"
-    )
-    log_to_file(log_filename, log_str)
+    # КОМБИНИРОВАННЫЙ сигнал
+    if crossover_signal != "NEUTRAL":
+        final_signal = crossover_signal
+        final_text = crossover_text + strength_text
+    else:
+        final_signal = strength_signal
+        final_text = f"Сигнал по {ma_type}: {strength_signal}" + strength_text
+
+    # log_str = (
+    #     f"{datetime.now()} | {symbol} | {ma_type}\n"  # <--- добавлено название монеты и тип MA
+    #     f"{ma_type}{fast_period}: {current_fast:.2f}\n"
+    #     f"{ma_type}{slow_period}: {current_slow:.2f}\n"
+    #     f"Текущее расстояние между {ma_type}: {current_dist:+.2f}%\n"
+    #     f"Исторический диапазон: [{min_dist:+.2f}%, {max_dist:+.2f}%]\n"
+    #     f"{signal_text}\n"
+    #     f"---\n"
+    # )
+    # log_to_file(log_filename, log_str)
+
+    # В секции логирования после расчета статистики:
+    range_width = max_dist - min_dist
+    normalized_position = (current_dist - min_dist) / range_width if range_width > 0 else 0.5
+
+    # Создаем простой текстовый прогресс-бар
+    bar_length = 20
+    position_index = int(normalized_position * bar_length)
+    progress_bar = "[" + "=" * position_index + "|" + "=" * (bar_length - position_index - 1) + "]"
 
     return {
-        'current_and_historical_distance': f"Текущее расстояние между {ma_type}: {current_dist:+.2f}%, Исторический диапазон: [{min_dist:+.2f}%, {max_dist:+.2f}%]\n",
-        'signal': signal,
-        f'{ma_type.lower()}_fast': current_fast,
-        f'{ma_type.lower()}_slow': current_slow,
-        'distance': current_dist,
-        'mean_distance': mean_dist,
-        'std_distance': std_dist,
-        'max_distance': max_dist,
-        'min_distance': min_dist
+        'bar': {f"Текущее расстояние: {current_dist:+.2f}% {progress_bar}\n"},
+        'signal': {f"Сигнал: {final_text}\n"},
     }
+
+def calculate_bollinger_bands_1D(df, period=20, num_std=2, ma_type="EMA", symbol="UNKNOWN", trend_direction="NEUTRAL"):
+    """
+    Улучшенная реализация для дневного таймфрейма.
+    Добавлен аргумент trend_direction для учета глобального тренда.
+    """
+    df = df.copy()
+    # ... (ваш расчет полос остается без изменений) ...
+    if ma_type == "EMA":
+        df['bb_middle'] = df['close'].ewm(span=period, adjust=False).mean()
+    else:
+        df['bb_middle'] = df['close'].rolling(window=period).mean()
+    df['bb_std'] = df['close'].rolling(window=period).std()
+    df['bb_upper'] = df['bb_middle'] + num_std * df['bb_std']
+    df['bb_lower'] = df['bb_middle'] - num_std * df['bb_std']
+
+    # УЛУЧШЕННАЯ ГЕНЕРАЦИЯ СИГНАЛОВ ДЛЯ 1D
+    df['bb_signal'] = "NEUTRAL"
+
+    # Логика с учетом тренда
+    if trend_direction == "BUY":
+        # В бычьем тренде нас интересуют отскоки ОТ СРЕДНЕЙ ЛИНИИ или НИЖНЕЙ ПОЛОСЫ
+        df.loc[df['close'] < df['bb_middle'], 'bb_signal'] = "BUY DIP" # Сигнал к покупке на откате
+        df.loc[df['close'] < df['bb_lower'], 'bb_signal'] = "STRONG BUY DIP" # Сильный откат, хорошая возможность
+
+    elif trend_direction == "SELL":
+        # В медвежьем тренде нас интересуют отскоки ОТ СРЕДНЕЙ ЛИНИИ или ВЕРХНЕЙ ПОЛОСЫ
+        df.loc[df['close'] > df['bb_middle'], 'bb_signal'] = "SELL RALLY" # Сигнал к продаже на отскоке
+        df.loc[df['close'] > df['bb_upper'], 'bb_signal'] = "STRONG SELL RALLY" # Сильный отскок, хорошая возможность
+
+    else:
+        # Если тренд не определен, используем старую логику (но она рискованна)
+        df.loc[df['close'] > df['bb_upper'], 'bb_signal'] = "OVERBOUGHT"
+        df.loc[df['close'] < df['bb_lower'], 'bb_signal'] = "OVERSOLD"
+
+    return df
 
 def calculate_bollinger_bands(df, period=20, num_std=2, ma_type="SMA", symbol="UNKNOWN"):
     """
@@ -151,33 +223,77 @@ def calculate_macd(df, fast_period=12, slow_period=26, signal_period=9, symbol="
     macd_signal = macd.ewm(span=signal_period, adjust=False).mean()
     macd_hist = macd - macd_signal
 
+    # Текущие значения
     last_macd = macd.iloc[-1]
     last_signal = macd_signal.iloc[-1]
     last_hist = macd_hist.iloc[-1]
+    
+    # ПРЕДЫДУЩИЕ значения для анализа тренда
+    prev_macd = macd.iloc[-2]
+    prev_signal = macd_signal.iloc[-2]
+    prev_hist = macd_hist.iloc[-2]
 
-    # Логический вывод
-    if last_macd > last_signal:
-        macd_state = "СИГНАЛ ПОКУПКИ"
-    elif last_macd < last_signal:
-        macd_state = "СИГНАЛ ПРОДАЖИ"
+    # УЛУЧШЕННАЯ логика определения сигнала
+    signal = "NEUTRAL"
+    details = []
+    
+    # 1. Анализ положения относительно нуля (тренд)
+    if last_macd > 0 and last_signal > 0:
+        details.append("Бычий тренд (выше нуля)")
+    elif last_macd < 0 and last_signal < 0:
+        details.append("Медвежий тренд (ниже нуля)")
     else:
-        macd_state = "НЕЙТРАЛЬНО"
+        details.append("Переходная зона")
+    
+    # 2. Анализ пересечения линий (моментum)
+    if last_macd > last_signal and prev_macd <= prev_signal:
+        signal = "BUY"
+        details.append("ПЕРЕСЕЧЕНИЕ СНИЗУ ВВЕРХ")
+    elif last_macd < last_signal and prev_macd >= prev_signal:
+        signal = "SELL" 
+        details.append("ПЕРЕСЕЧЕНИЕ СВЕРХУ ВНИЗ")
+    elif last_macd > last_signal:
+        signal = "BULLISH"
+        details.append("Бычье расположение")
+    elif last_macd < last_signal:
+        signal = "BEARISH"
+        details.append("Медвежье расположение")
+    
+    # 3. Анализ гистограммы (импульс)
+    if last_hist > 0 and last_hist > prev_hist:
+        details.append("Импульс усиливается")
+    elif last_hist > 0 and last_hist < prev_hist:
+        details.append("Импульс ослабевает")
+    elif last_hist < 0 and last_hist < prev_hist:
+        details.append("Спад усиливается")
+    elif last_hist < 0 and last_hist > prev_hist:
+        details.append("Спад ослабевает")
 
+    # УЛУЧШЕННОЕ логирование
     log_str = (
-        f"{datetime.now()} | {symbol} | MACD\n"
-        f"MACD: {last_macd:.4f}\n"
-        f"Signal: {last_signal:.4f}\n"
-        f"Histogram: {last_hist:.4f}\n"
-        f"Состояние: {macd_state}\n"
+        f"{datetime.now()} | {symbol} | MACD АНАЛИЗ\n"
+        f"MACD: {last_macd:.6f} | Signal: {last_signal:.6f} | Hist: {last_hist:.6f}\n"
+        f"Положение: {'Выше нуля' if last_macd > 0 else 'Ниже нуля'} | "
+        f"Гистограмма: {'Положительная' if last_hist > 0 else 'Отрицательная'}\n"
+        f"СИГНАЛ: {signal} | Детали: {', '.join(details)}\n"
         f"---\n"
     )
     log_to_file("macd_log.txt", log_str)
 
-    return pd.DataFrame({
+    result = pd.DataFrame({
         'macd': macd,
         'macd_signal': macd_signal,
         'macd_hist': macd_hist
     })
+
+    # сохранить сводный сигнал в attrs (без добавления скалярных столбцов разной длины)
+    try:
+        result.attrs['summary_signal'] = signal
+        result.attrs['summary_details'] = ', '.join(details)
+    except Exception:
+        pass
+
+    return result
     
 def analyze_volume(df, volume_ma_period=20, symbol="UNKNOWN"):
     """
@@ -199,10 +315,16 @@ def analyze_volume(df, volume_ma_period=20, symbol="UNKNOWN"):
     avg_volume = df['volume_ma'].iloc[-1]
     volume_ratio = current_volume / avg_volume if avg_volume else None
 
+    # Определяем направление свечи
+    current_close = df['close'].iloc[-1]
+    current_open = df['open'].iloc[-1]
+    is_bullish_candle = current_close > current_open
+
     if volume_ratio is None:
         signal = "Недостаточно данных для анализа объема"
     elif volume_ratio > 2.0:
-        signal = "🚀 ВЫСОКИЙ ОБЪЕМ! Движение подтверждено"
+        direction = "РОСТЕ" if is_bullish_candle else "ПАДЕНИИ"
+        signal = f"🚀 ВЫСОКИЙ ОБЪЕМ НА {direction}! Движение подтверждено"
     elif volume_ratio < 0.5:
         signal = "⚠️  НИЗКИЙ ОБЪЕМ! Движение не подтверждено"
     else:
@@ -325,3 +447,4 @@ def full_multi_timeframe_analysis(
         "total_signals": total,
         "volume_signals": volume_signals
     }
+

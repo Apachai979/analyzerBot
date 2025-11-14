@@ -3,6 +3,7 @@ import time
 from datetime import datetime, timedelta
 import os
 
+from analyzes.time_frame_analysis import (analyze_1d_ma_macd_volume, analyze_12h_ema_macd_rsi_atr, analyze_4h_bb_stoch_ma_volume, analyze_1h_ema_macd_atr_rsi,analyze_15m_stoch_ema_volume)
 from ai_generate import ask_deepseek
 from bybit_client import bybit_client
 from orderbook_analyzer import analyze_orderbook
@@ -11,9 +12,10 @@ from config_manager import ConfigManager
 from defillama_client import DefiLlamaClient, analyze_tvl
 from telegram_utils import send_telegram_message
 from spot_trend_watcher import spot_trend_watcher_loop
-from analyzes.multi_timeframe_ma_analysis import full_multi_timeframe_analysis 
+from analyzes.multi_timeframe_ma_analysis import full_multi_timeframe_analysis
 from analyzes.atr_rsi_stochastic import full_atr_rsi_sto_multi_analysis, calculate_stochastic, calculate_rsi
 from chain_market_analyzer import analyze_chains_and_market
+from analyzes.analytics_center import handle_12h_correction_buy_signal
 
 import logging
 
@@ -142,15 +144,17 @@ def format_coin_summary(symbol, ma_analysis, atr_rsi_sto_analysis, orderbook_con
     return "\n".join(summary)
 
 def main():
-    send_telegram_message("BDSMTRADEBOT ACTIVATED!")
-    symbols = load_dynamic_symbols()
-    print(f"🔍 ЗАПУСК МНОГОМОНЕТНОГО АНАЛИЗА ({len(symbols)} монет)")
-    print("=" * 60)
+    # send_telegram_message("BDSMTRADEBOT ACTIVATED!")
+    # symbols = load_dynamic_symbols()
+    # print(f"🔍 ЗАПУСК МНОГОМОНЕТНОГО АНАЛИЗА ({len(symbols)} монет)")
+    # print("=" * 60)
 
-    threading.Thread(target=periodic_chain_analysis, daemon=True).start()
-    # Запускаем мониторинг трендов спотовых пар и новых пар в отдельных потоках
-    threading.Thread(target=spot_trend_watcher_loop, daemon=True).start()
-    threading.Thread(target=periodic_fgi_analysis, daemon=True).start() 
+    # threading.Thread(target=periodic_chain_analysis, daemon=True).start()
+    # # Запускаем мониторинг трендов спотовых пар и новых пар в отдельных потоках
+    
+    # threading.Thread(target=spot_trend_watcher_loop, daemon=True).start()
+    
+    # threading.Thread(target=periodic_fgi_analysis, daemon=True).start() 
     
     config_manager = ConfigManager()
 
@@ -158,77 +162,107 @@ def main():
         symbols = load_dynamic_symbols()
         for symbol in symbols:
             try:
-                df_1h = bybit_client.get_klines(symbol, interval='60')
-                df_4h = bybit_client.get_klines(symbol, interval='240')
-                df_12h = bybit_client.get_klines(symbol, interval='720')
-                df_dict = {'1h': df_1h, '4h': df_4h, '12h': df_12h}
-
-                # MA/BB/MACD/Объем
-                ma_result = full_multi_timeframe_analysis(
-                    df_dict,
-                    fast_period=9,
-                    slow_period=21,
-                    lookback_periods=50,
-                    bb_period=20,
-                    bb_num_std=2,
-                    symbol=symbol
-                )
-                ma_summary = ""
-                if ma_result:
-                    ma_summary = ""
-                    for tf in ['1h', '4h', '12h']:
-                        if tf in ma_result['results']:
-                            res = ma_result['results'][tf]
-                            ma_summary += (
-                                f"[{tf}] SMA сигнал: {res['sma_signal']}\n"
-                                f"[{tf}] EMA сигнал: {res['ema_signal']}\n"
-                                f"[{tf}] Bollinger Bands SMA сигнал: {res['bb_sma_signal']}\n"
-                                f"[{tf}] Bollinger Bands EMA сигнал: {res['bb_ema_signal']}\n"
-                                f"[{tf}] MACD сигнал: {res['macd_signal']}\n"
-                                f"[{tf}] Сигнал по объему: {res['volume_signal']}\n"
-                            )
-
-                # ATR/RSI/Stochastic
-                atr_rsi_sto_result = full_atr_rsi_sto_multi_analysis(df_dict, symbol=symbol)
-                atr_rsi_sto_summary = ""
-                if atr_rsi_sto_result:
-                    for tf in ['1h', '4h', '12h']:
-                        if tf in atr_rsi_sto_result:
-                            atr = atr_rsi_sto_result[tf]['atr']
-                            rsi = atr_rsi_sto_result[tf]['rsi']
-                            stoch = atr_rsi_sto_result[tf]['stochastic']
-                            atr_rsi_sto_summary += (
-                                f"[{tf}] ATR: {atr['current_atr']:.4f}, %: {atr['current_atr_pct']:.2f}, Волатильность: {atr['volatility']}\n"
-                                f"[{tf}] RSI: {rsi.iloc[-1]:.2f}\n"
-                                f"[{tf}] Stoch %K: {stoch['stoch_k'].iloc[-1]:.2f}, %D: {stoch['stoch_d'].iloc[-1]:.2f}\n"
-                            )
-
-                # Order Book
-                config = config_manager.get_config(symbol, df_1h)
-                orderbook_data = bybit_client.get_orderbook(symbol, config.orderbook_levels, config.whale_size)
-                current_price = bybit_client.get_current_price(symbol)
-                orderbook_summary = ""
-                if orderbook_data and current_price:
-                    bids, asks, bid_volume, ask_volume, whale_bids, whale_asks = orderbook_data
-                    orderbook_summary = analyze_orderbook(
-                        bids, asks, bid_volume, ask_volume, whale_bids, whale_asks, current_price, config, symbol
-                    )
-                # Chain/TVL
-                chain_summary = get_chain_summary_from_file(symbol)
+                df_D = bybit_client.get_klines(symbol, interval='D')
+                one_d_analyze_result = analyze_1d_ma_macd_volume(df_D, symbol)
+                if one_d_analyze_result:
+                    print(f"[1D] {symbol}\n{one_d_analyze_result.get('summary', '')}")
+                    sma_signal = one_d_analyze_result.get("sma_result")
+                    ema_signal = one_d_analyze_result.get("ema_result")
+                    if (
+                        (sma_signal and sma_signal.get("signal") == "BUY")
+                        or (ema_signal and ema_signal.get("signal") == "BUY")
+                    ):
+                        send_telegram_message(
+                            f"[1D] {symbol}\n{one_d_analyze_result.get('summary', '')}"
+                        )
+                        # df_12h = bybit_client.get_klines(symbol, interval='720')
+                        # handle_12h_correction_buy_signal(df_12h, symbol=symbol)
+                        time.sleep(5)
+                        # df_15m = bybit_client.get_klines(symbol, interval='15')
+                        # analyze_15m_stoch_ema_volume(df_15m, symbol=symbol)
+                else:
+                    print(f"[1D] {symbol}: нет данных для анализа.")
+                # time.sleep(3)
+                # df_12h = bybit_client.get_klines(symbol, interval='720')
+                # analyze_12h_ema_macd_rsi_atr(df_12h, symbol)
+                # print('ready')
+                time.sleep(7)
+                # df_15m = bybit_client.get_klines(symbol, interval='15')
+                # df_1h = bybit_client.get_klines(symbol, interval='60')
+                # df_4h = bybit_client.get_klines(symbol, interval='240')
+                # df_12h = bybit_client.get_klines(symbol, interval='720')
                 
-                #  Fear & Greed Index 
-                fgi_info = get_last_fgi_analysis()
-                # Формируем итоговый вывод
+            #     df_dict = {'D': df_D,'12h': df_12h, '4h': df_4h, '1h': df_1h, '15m': df_15m}
+
+
+
+            #     # MA/BB/MACD/Объем
+            #     ma_result = full_multi_timeframe_analysis(
+            #         df_dict,
+            #         fast_period=9,
+            #         slow_period=21,
+            #         lookback_periods=50,
+            #         bb_period=20,
+            #         bb_num_std=2,
+            #         symbol=symbol
+            #     )
+            #     ma_summary = ""
+            #     if ma_result:
+            #         ma_summary = ""
+            #         for tf in ['12h', '4h', '1h']:
+            #             if tf in ma_result['results']:
+            #                 res = ma_result['results'][tf]
+            #                 ma_summary += (
+            #                     f"[{tf}] SMA сигнал: {res['sma_signal']}\n"
+            #                     f"[{tf}] EMA сигнал: {res['ema_signal']}\n"
+            #                     f"[{tf}] Bollinger Bands SMA сигнал: {res['bb_sma_signal']}\n"
+            #                     f"[{tf}] Bollinger Bands EMA сигнал: {res['bb_ema_signal']}\n"
+            #                     f"[{tf}] MACD сигнал: {res['macd_signal']}\n"
+            #                     f"[{tf}] Сигнал по объему: {res['volume_signal']}\n"
+            #                 )
+
+            #     # ATR/RSI/Stochastic
+            #     atr_rsi_sto_result = full_atr_rsi_sto_multi_analysis(df_dict, symbol=symbol)
+            #     atr_rsi_sto_summary = ""
+            #     if atr_rsi_sto_result:
+            #         for tf in ['12h', '4h', '1h']:
+            #             if tf in atr_rsi_sto_result:
+            #                 atr = atr_rsi_sto_result[tf]['atr']
+            #                 rsi = atr_rsi_sto_result[tf]['rsi']
+            #                 stoch = atr_rsi_sto_result[tf]['stochastic']
+            #                 atr_rsi_sto_summary += (
+            #                     f"[{tf}] ATR: {atr['current_atr']:.4f}, %: {atr['current_atr_pct']:.2f}, Волатильность: {atr['volatility']}\n"
+            #                     f"[{tf}] RSI: {rsi.iloc[-1]:.2f}\n"
+            #                     f"[{tf}] Stoch %K: {stoch['stoch_k'].iloc[-1]:.2f}, %D: {stoch['stoch_d'].iloc[-1]:.2f}\n"
+            #                 )
+
+            #     # Order Book
+            #     config = config_manager.get_config(symbol, df_1h)
+            #     orderbook_data = bybit_client.get_orderbook(symbol, config.orderbook_levels, config.whale_size)
+            #     current_price = bybit_client.get_current_price(symbol)
+            #     orderbook_summary = ""
+            #     if orderbook_data and current_price:
+            #         bids, asks, bid_volume, ask_volume, whale_bids, whale_asks = orderbook_data
+            #         orderbook_summary = analyze_orderbook(
+            #             bids, asks, bid_volume, ask_volume, whale_bids, whale_asks, current_price, config, symbol
+            #         )
+            #     # Chain/TVL
+            #     chain_summary = get_chain_summary_from_file(symbol)
                 
-                summary_text = format_coin_summary(symbol, ma_summary, atr_rsi_sto_summary, orderbook_summary, chain_summary, fgi_info)
-                with open("logs/summary_analysis_log.txt", "a", encoding="utf-8") as f:
-                    f.write(summary_text)
-                ask_deepseek(summary_text, symbol)
-                print(summary_text)
-                time.sleep(1)
+            #     #  Fear & Greed Index 
+            #     fgi_info = get_last_fgi_analysis()
+            #     # Формируем итоговый вывод
+                
+            #     summary_text = format_coin_summary(symbol, ma_summary, atr_rsi_sto_summary, orderbook_summary, chain_summary, fgi_info)
+            #     with open("logs/summary_analysis_log.txt", "a", encoding="utf-8") as f:
+            #         f.write(summary_text)
+            #     ask_deepseek(summary_text, symbol)
+            #     print(summary_text)
+            #     time.sleep(1)
             except Exception as e:
                 print(f"❌ Ошибка анализа {symbol}: {e}")
                 logging.error("Ошибка анализа %s: %s", symbol, e)
+                time.sleep(5)
                 continue
 
 if __name__ == "__main__":

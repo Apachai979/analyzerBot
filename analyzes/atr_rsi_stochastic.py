@@ -14,15 +14,21 @@ def log_to_file(text):
 
 def calculate_atr(df, period=14):
     df = df.copy()
+    if len(df) < period:
+        return "Недостаточно данных для расчета ATR\n", None
+
     df['prev_close'] = df['close'].shift(1)
     df['tr1'] = df['high'] - df['low']
     df['tr2'] = (df['high'] - df['prev_close']).abs()
     df['tr3'] = (df['low'] - df['prev_close']).abs()
     df['true_range'] = df[['tr1', 'tr2', 'tr3']].max(axis=1)
     df['ATR'] = df['true_range'].rolling(window=period).mean()
-    last_atr = df['ATR'].iloc[-1]
 
-    atr_pct = (df['ATR'] / df['close']) * 100
+    if df['ATR'].dropna().empty:
+        return "Недостаточно данных для расчета ATR\n", None
+
+    last_atr = df['ATR'].iloc[-1]
+    atr_pct = (df['ATR'] / df['close'].replace(0, np.nan)) * 100
     low_threshold = np.percentile(atr_pct.dropna(), 25)
     high_threshold = np.percentile(atr_pct.dropna(), 75)
     current_atr_pct = atr_pct.iloc[-1]
@@ -35,7 +41,7 @@ def calculate_atr(df, period=14):
         volatility = "СРЕДНЯЯ"
 
     log_str = (
-        f"=== ATR FULL ANALYSIS ===\n"
+        f"=== ATR ANALYSIS ===\n"
         f"Период: {period}\n"
         f"ATR: {last_atr:.4f}\n"
         f"Текущий ATR%: {current_atr_pct:.2f}%\n"
@@ -43,16 +49,19 @@ def calculate_atr(df, period=14):
         f"Волатильность: {volatility}\n"
         f"---\n"
     )
-    return log_str, {
-        "current_atr": last_atr,
-        "current_atr_pct": current_atr_pct,
-        "low_threshold": low_threshold,
-        "high_threshold": high_threshold,
-        "volatility": volatility,
-        "atr_series": df['ATR']
-    }
+    # Возвращаем log и DataFrame с ATR и волатильностью
+    result = pd.DataFrame({
+        'ATR': df['ATR'],
+        'ATR_PCT': atr_pct,
+        'volatility': [volatility]*len(df)
+    })
+    return log_str, result
 
 def calculate_rsi(df, period=14):
+    df = df.copy()
+    if len(df) < period:
+        return "Недостаточно данных для расчета RSI\n", None
+
     delta = df['close'].diff()
     gain = delta.clip(lower=0)
     loss = -delta.clip(upper=0)
@@ -60,8 +69,11 @@ def calculate_rsi(df, period=14):
     avg_loss = loss.rolling(window=period).mean()
     rs = avg_gain / avg_loss
     rsi = 100 - (100 / (1 + rs))
-    last_rsi = rsi.iloc[-1]
 
+    if rsi.dropna().empty:
+        return "Недостаточно данных для расчета RSI\n", None
+
+    last_rsi = rsi.iloc[-1]
     if last_rsi >= 70:
         rsi_state = "ПЕРЕКУПЛЕННОСТЬ"
     elif last_rsi <= 30:
@@ -76,13 +88,22 @@ def calculate_rsi(df, period=14):
         f"Состояние: {rsi_state}\n"
         f"---\n"
     )
+    # Возвращаем log и Series с RSI
     return log_str, rsi
 
 def calculate_stochastic(df, k_period=14, d_period=3):
+    df = df.copy()
+    if len(df) < k_period:
+        return "Недостаточно данных для расчета Stochastic\n", None
+
     low_min = df['low'].rolling(window=k_period).min()
     high_max = df['high'].rolling(window=k_period).max()
     stoch_k = 100 * (df['close'] - low_min) / (high_max - low_min)
     stoch_d = stoch_k.rolling(window=d_period).mean()
+
+    if stoch_k.dropna().empty or stoch_d.dropna().empty:
+        return "Недостаточно данных для расчета Stochastic\n", None
+
     last_k = stoch_k.iloc[-1]
     last_d = stoch_d.iloc[-1]
 
@@ -101,6 +122,7 @@ def calculate_stochastic(df, k_period=14, d_period=3):
         f"Состояние: {stoch_state}\n"
         f"---\n"
     )
+    # Возвращаем log и DataFrame с %K и %D
     return log_str, pd.DataFrame({'stoch_k': stoch_k, 'stoch_d': stoch_d})
 
 def full_atr_rsi_sto_multi_analysis(df_dict, symbol="UNKNOWN", atr_period=14, rsi_period=14, k_period=14, d_period=3):

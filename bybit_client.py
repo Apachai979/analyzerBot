@@ -26,6 +26,57 @@ class BybitClient:
             print(f"❌ Ошибка инициализации сессии Bybit: {e}")
             self.session = None
 
+    from datetime import datetime
+
+    def get_klines_until_date(self, symbol, interval=INTERVAL, limit=LIMIT, until_date="2025-09-09"):
+        """
+        Получает исторические свечи до указанной даты (не включая её).
+        until_date — строка в формате 'YYYY-MM-DD'
+        """
+        try:
+            if not self.session:
+                self._initialize_session()
+                if not self.session:
+                    return None
+
+            # Получаем все доступные свечи (ограничено лимитом API)
+            response = self.session.get_kline(
+                category=CATEGORY,
+                symbol=symbol,
+                interval=interval,
+                limit=limit
+            )
+
+            if response['retCode'] != 0:
+                print(f"❌ Ошибка API при получении свечей {symbol}: {response['retMsg']}")
+                return None
+
+            klines = response['result']['list']
+            import pandas as pd
+            df = pd.DataFrame(klines, columns=[
+                'timestamp', 'open', 'high', 'low', 'close', 'volume', 'turnover'
+            ])
+
+            numeric_columns = ['open', 'high', 'low', 'close', 'volume', 'turnover']
+            for col in numeric_columns:
+                df[col] = pd.to_numeric(df[col])
+
+            df['timestamp'] = pd.to_numeric(df['timestamp'])
+            df = df.sort_values('timestamp').reset_index(drop=True)
+
+            # Фильтруем по дате
+            until_ts = int(datetime.strptime(until_date, "%Y-%m-%d").timestamp() * 1000)
+            df = df[df['timestamp'] < until_ts].reset_index(drop=True)
+
+            return df
+
+        except Exception as e:
+            print(f"❌ Ошибка при получении данных {symbol}: {e}")
+            return None
+
+    # Для использования как метод класса:
+    # df = bybit_client.get_klines_until_date("BTCUSDT", interval="1h", limit=1000, until_date="2025-
+
     def get_klines(self, symbol, interval=INTERVAL, limit=LIMIT):
         """Получаем исторические данные для конкретной монеты"""
         try:

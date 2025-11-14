@@ -20,9 +20,14 @@ def ask_deepseek(summary_text, symbol=None, api_key="sk-22a1eb998bfe4ecd96797b1b
             {"role": "user", "content": f'Проанализируй эти данные: {summary_text}. И дай мне ответ стоит ли вкладываться в эту монету, короткий лаконичный ответ жду от тебя.'}
         ]
     }
-    response = requests.post(url, json=data, headers=headers)
-    result = response.json()
-    content = result["choices"][0]["message"]["content"]
-    print(content)
-    if not contains_negative_keywords(content):
-        send_telegram_message(f"✅ DeepSeek ответ по монете {symbol}: {content}")
+    try:
+        response = requests.post(url, json=data, headers=headers)
+        result = response.json()
+        if "choices" in result and result["choices"]:
+            content = result["choices"][0]["message"]["content"]
+            if not contains_negative_keywords(content):
+                send_telegram_message(f"✅ DeepSeek ответ по монете {symbol}: {content}")
+        else:
+            print(f"❌ DeepSeek API вернул ошибку: {result}")
+    except Exception as e:
+        print(f"❌ Ошибка запроса к DeepSeek: {e}")

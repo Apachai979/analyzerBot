@@ -131,4 +131,4 @@ def check_spot_trends():
 def spot_trend_watcher_loop():
     while True:
         check_spot_trends()
-        time.sleep(600)  # 10 минут
+        time.sleep(1200)  # 20 минут

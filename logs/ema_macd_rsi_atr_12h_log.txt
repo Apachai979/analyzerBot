@@ -1,0 +1,102 @@
+=== 12H EMA/MACD/RSI/ATR Analysis ===
+EMA(21/50) сигнал: NEUTRAL
+MACD сигнал: BUY
+RSI: 87.01 (ПЕРЕКУПЛЕННОСТЬ)
+ATR: 100.7707, %: 2.13, Волатильность: НИЗКАЯ
+---
+=== 12H EMA/MACD/RSI/ATR Analysis ===
+EMA(21/50) сигнал: NEUTRAL
+MACD сигнал: BUY
+RSI: 85.21 (ПЕРЕКУПЛЕННОСТЬ)
+ATR: 0.0137, %: 6.19, Волатильность: НИЗКАЯ
+---
+=== 12H EMA/MACD/RSI/ATR Analysis ===
+EMA(21/50) сигнал: NEUTRAL
+MACD сигнал: BUY
+RSI: 85.07 (ПЕРЕКУПЛЕННОСТЬ)
+ATR: 0.0137, %: 6.22, Волатильность: НИЗКАЯ
+---
+=== 12H EMA/MACD/RSI/ATR Analysis ===
+EMA(21/50) сигнал: NEUTRAL
+MACD сигнал: BUY
+RSI: 85.28 (ПЕРЕКУПЛЕННОСТЬ)
+ATR: 0.0137, %: 6.17, Волатильность: НИЗКАЯ
+---
+=== 12H EMA/MACD/RSI/ATR Analysis ===
+EMA(21/50) сигнал: NEUTRAL
+MACD сигнал: BUY
+RSI: 85.39 (ПЕРЕКУПЛЕННОСТЬ)
+ATR: 0.0137, %: 6.15, Волатильность: НИЗКАЯ
+---
+=== 12H EMA/MACD/RSI/ATR Analysis ===
+EMA(21/50) сигнал: NEUTRAL
+MACD сигнал: BUY
+RSI: 85.59 (ПЕРЕКУПЛЕННОСТЬ)
+ATR: 0.0137, %: 6.10, Волатильность: НИЗКАЯ
+---
+=== 12H EMA/MACD/RSI/ATR Analysis ===
+EMA(21/50) сигнал: NEUTRAL
+MACD сигнал: BUY
+RSI: 83.08 (ПЕРЕКУПЛЕННОСТЬ)
+ATR: 0.0145, %: 7.06, Волатильность: СРЕДНЯЯ
+---
+=== 12H EMA/MACD/RSI/ATR Analysis ===
+EMA(21/50) сигнал: NEUTRAL
+MACD сигнал: BUY
+RSI: 83.03 (ПЕРЕКУПЛЕННОСТЬ)
+ATR: 0.0145, %: 7.07, Волатильность: СРЕДНЯЯ
+---
+=== 12H EMA/MACD/RSI/ATR Analysis ===
+EMA(21/50) сигнал: NEUTRAL
+MACD сигнал: BUY
+RSI: 81.97 (ПЕРЕКУПЛЕННОСТЬ)
+ATR: 0.0145, %: 7.30, Волатильность: СРЕДНЯЯ
+---
+=== 12H EMA/MACD/RSI/ATR Analysis ===
+EMA(21/50) сигнал: NEUTRAL
+MACD сигнал: BUY
+RSI: 81.06 (ПЕРЕКУПЛЕННОСТЬ)
+ATR: 0.0145, %: 7.48, Волатильность: СРЕДНЯЯ
+---
+=== 12H EMA/MACD/RSI/ATR Analysis ===
+EMA(21/50) сигнал: NEUTRAL
+MACD сигнал: BUY
+RSI: 81.95 (ПЕРЕКУПЛЕННОСТЬ)
+ATR: 0.0145, %: 7.30, Волатильность: СРЕДНЯЯ
+---
+=== 12H EMA/MACD/RSI/ATR Analysis ===
+EMA(21/50) сигнал: NEUTRAL
+MACD сигнал: BUY
+RSI: 81.78 (ПЕРЕКУПЛЕННОСТЬ)
+ATR: 0.0145, %: 7.33, Волатильность: СРЕДНЯЯ
+---
+=== 12H EMA/MACD/RSI/ATR Analysis ===
+EMA(21/50) сигнал: NEUTRAL
+MACD сигнал: BUY
+RSI: 81.74 (ПЕРЕКУПЛЕННОСТЬ)
+ATR: 0.0145, %: 7.34, Волатильность: СРЕДНЯЯ
+---
+=== 12H EMA/MACD/RSI/ATR Analysis ===
+EMA(21/50) сигнал: NEUTRAL
+MACD сигнал: BUY
+RSI: 81.94 (ПЕРЕКУПЛЕННОСТЬ)
+ATR: 0.0145, %: 7.30, Волатильность: СРЕДНЯЯ
+---
+=== 12H EMA/MACD/RSI/ATR Analysis ===
+EMA(21/50) сигнал: NEUTRAL
+MACD сигнал: BUY
+RSI: 81.56 (ПЕРЕКУПЛЕННОСТЬ)
+ATR: 0.0145, %: 7.38, Волатильность: СРЕДНЯЯ
+---
+=== 12H EMA/MACD/RSI/ATR Analysis ===
+EMA(21/50) сигнал: NEUTRAL
+MACD сигнал: BUY
+RSI: 81.44 (ПЕРЕКУПЛЕННОСТЬ)
+ATR: 0.0145, %: 7.40, Волатильность: СРЕДНЯЯ
+---
+=== 12H EMA/MACD/RSI/ATR Analysis ===
+EMA(21/50) сигнал: NEUTRAL
+MACD сигнал: BUY
+RSI: 81.49 (ПЕРЕКУПЛЕННОСТЬ)
+ATR: 0.0145, %: 7.39, Волатильность: СРЕДНЯЯ
+---
