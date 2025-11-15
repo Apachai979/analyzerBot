@@ -11,8 +11,6 @@ from coinmarketcap_client import get_coinmarketcap_data, get_fear_greed_index, a
 from config_manager import ConfigManager
 from defillama_client import DefiLlamaClient, analyze_tvl
 from telegram_utils import send_telegram_message
-from analyzes.multi_timeframe_ma_analysis import full_multi_timeframe_analysis
-from analyzes.atr_rsi_stochastic import full_atr_rsi_sto_multi_analysis, calculate_stochastic, calculate_rsi
 from chain_market_analyzer import analyze_chains_and_market
 from analyzes.analytics_center import handle_12h_correction_buy_signal
 
@@ -184,7 +182,7 @@ def main():
                     # Volume теперь только BUY (есть движение) или WAIT (нет движения)
                     # Поэтому проверяем только наличие движения
                     all_buy = (
-                        ema_verdict == "STRONG_BUY" and 
+                        (ema_verdict == "STRONG_BUY" or ema_verdict == "CAUTIOUS_BUY") and 
                         macd_action == "BUY" and 
                         volume_action == "BUY"  # Есть движение
                     )
@@ -202,7 +200,7 @@ def main():
                         # send_telegram_message(
                         #     f"⚡ {signal_type}\n[1D] {symbol}\n{one_d_analyze_result.get('summary', '')}"
                         # )
-                        time.sleep(5)
+                        time.sleep(3)
                         
                         # Анализ 12H с учетом тренда 1D
                         df_12h = bybit_client.get_klines(symbol, interval='720')
@@ -213,10 +211,10 @@ def main():
                             
                             # Если 12H дает GO или ATTENTION - переходим на 4H
                             if twelve_h_result.get('action') in ['GO', 'ATTENTION']:
-                                # send_telegram_message(
-                                #     f"{'🟢' if twelve_h_result.get('action') == 'GO' else '🟡'} 12H СИГНАЛ!\n{symbol}\n{twelve_h_result.get('summary', '')}"
-                                # )
-                                time.sleep(5)
+                                send_telegram_message(
+                                    f"{'🟢' if twelve_h_result.get('action') == 'GO' else '🟡'} 12H СИГНАЛ!\n{symbol}\n{twelve_h_result.get('summary', '')}"
+                                )
+                                time.sleep(3)
                                 
                                 # Анализ 4H - тактический фильтр для перехода к 1H
                                 df_4h = bybit_client.get_klines(symbol, interval='240')
@@ -277,12 +275,12 @@ def main():
                                 )
                                 time.sleep(3)
 
-                time.sleep(7)
+                time.sleep(4)
 
             except Exception as e:
                 print(f"❌ Ошибка анализа {symbol}: {e}")
                 logging.error("Ошибка анализа %s: %s", symbol, e)
-                time.sleep(5)
+                time.sleep(10)
                 continue
 
 if __name__ == "__main__":
