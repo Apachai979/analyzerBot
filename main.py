@@ -2,6 +2,7 @@ import threading
 import time
 from datetime import datetime, timedelta
 import os
+import logging
 
 from analyzes.time_frame_analysis import (analyze_1d_ma_macd_volume, analyze_12h_correction_strategy, analyze_4h_entry_strategy, analyze_1h_execution, analyze_15m_stoch_ema_volume)
 from ai_generate import ask_deepseek
@@ -13,9 +14,9 @@ from defillama_client import DefiLlamaClient, analyze_tvl
 from telegram_utils import send_telegram_message
 from chain_market_analyzer import analyze_chains_and_market
 from analyzes.analytics_center import handle_12h_correction_buy_signal
+from time_frame_tracker import TimeframeAnalysisTracker
 
-import logging
-
+# Настройка логирования
 logging.basicConfig(
     filename='analyzer.log',
     filemode='a',
@@ -24,141 +25,36 @@ logging.basicConfig(
     encoding='utf-8'
 )
 
-FGI_UPDATE_INTERVAL = 60 * 60 * 12  # 12 часов
-ANALYSIS_INTERVAL = 60  # 1 минута
-CMC_UPDATE_INTERVAL = 60 * 30  # 30 минут
 
 def load_dynamic_symbols():
     with open("data/filtered_symbols.txt", "r", encoding="utf-8") as f:
         return [line.strip() for line in f if line.strip()]
 
-def periodic_fgi_analysis(interval_sec=60*60*12, log_path="logs/fgi_analysis_log.txt"):
-    last_run = 0
-    while True:
-        try:
-            current_time = time.time()
-            if current_time - last_run > interval_sec:
-                from coinmarketcap_client import get_fear_greed_index, analyze_fgi_trend
-                fgi_data = get_fear_greed_index()
-                fgi_analysis = analyze_fgi_trend(fgi_data)
-                os.makedirs(os.path.dirname(log_path), exist_ok=True)
-                with open(log_path, "w", encoding="utf-8") as f:
-                    f.write(f"{datetime.now()} | FGI Анализ: {fgi_analysis}\n")
-                last_run = current_time
-            time.sleep(60)
-        except Exception as e:
-            print(f"❌ Ошибка периодического FGI-анализа: {e}")
-            logging.error("Ошибка периодического FGI-анализа: %s", e)
-            time.sleep(90)
-
-def get_last_fgi_analysis(log_path="logs/fgi_analysis_log.txt"):
-    if not os.path.exists(log_path):
-        return ""
-    with open(log_path, "r", encoding="utf-8") as f:
-        lines = [line.strip() for line in f if line.strip()]
-        if lines:
-            return lines[-1]
-    return ""
-
-def save_chain_analysis_results(analysis_results, log_path="logs/chain_market_analysis.txt"):
-    os.makedirs(os.path.dirname(log_path), exist_ok=True)
-    with open(log_path, "w", encoding="utf-8") as f:
-        for res in analysis_results:
-            line = (
-                f"Блокчейн: {res['chain']} | "
-                f"Монета: {res['token']} | "
-                f"Название: {res.get('token_name', '')} | "
-                f"TVL: {res.get('tvl', 0):,.0f} | "
-                f"Цена: {res.get('price', 0):.6f} | "
-                f"Объем 24ч: {res.get('volume_24h', 0):,.0f} | "
-                f"Капитализация: {res.get('market_cap', 0):,.0f} | "
-                f"Изм. 24ч: {res.get('percent_change_24h', 'N/A')} | "
-                f"Изм. 7д: {res.get('percent_change_7d', 'N/A')} | "
-                f"Изм. 30д: {res.get('percent_change_30d', 'N/A')} | "
-                f"TVL/Объем: {res.get('volume_tvl_ratio', 'N/A')} | "
-                f"TVL/Цена: {res.get('price_tvl_ratio', 'N/A')} | "
-                f"TVL/Капитализация: {res.get('mcap_tvl_ratio', 'N/A')} | "
-                f"Тренд TVL: {res['tvl_trend']} | "
-                f"Рекомендации: {res['recommendations']}\n"
-            )
-            f.write(line)
-
-def periodic_chain_analysis(symbols_file="data/dynamic_symbols.txt", interval_sec=7200):
-    last_run = 0
-    last_mtime = 0
-    while True:
-        try:
-            current_time = time.time()
-            current_mtime = os.path.getmtime(symbols_file)
-            # Проверяем: прошло ли 2 часа или изменился файл
-            if (current_time - last_run > interval_sec) or (current_mtime != last_mtime):
-                symbols = load_dynamic_symbols()
-                cmc_data = get_coinmarketcap_data(symbols=symbols)
-                analysis_results = analyze_chains_and_market(cmc_data)
-                save_chain_analysis_results(analysis_results)
-                last_run = current_time
-                last_mtime = current_mtime
-            time.sleep(60)  # Проверяем каждые 30 секунд
-        except Exception as e:
-            print(f"❌ Ошибка периодического анализа: {e}")
-            logging.error("Ошибка периодического анализа: %s", e)
-            time.sleep(90)
-
-def get_chain_summary_from_file(symbol, log_path="logs/chain_market_analysis.txt"):
-    token = symbol.replace("USDT", "")
-    if not os.path.exists(log_path):
-        return ""
-    summaries = []
-    with open(log_path, "r", encoding="utf-8") as f:
-        for line in f:
-            if f"Монета: {token} |" in line:
-                summaries.append(line.strip())
-    return "\n".join(summaries)
-
-def format_coin_summary(symbol, ma_analysis, atr_rsi_sto_analysis, orderbook_conclusions, chain_analysis, fgi_info):
-    """
-    Формирует итоговый текстовый блок по результатам анализа монеты.
-    Все аргументы — строки или заранее подготовленные блоки.
-    """
-    summary = []
-    summary.append(f"{datetime.now()} | {symbol} | ИТОГОВЫЙ АНАЛИЗ\n")
-    if ma_analysis:
-        summary.append("=== MA/BB/MACD/Объем ===")
-        summary.append(ma_analysis)
-    if atr_rsi_sto_analysis:
-        summary.append("=== ATR/RSI/Stochastic ===")
-        summary.append(atr_rsi_sto_analysis)
-    if orderbook_conclusions:
-        summary.append("=== Order Book ===")
-        summary.append(orderbook_conclusions)
-    if chain_analysis:
-        summary.append("=== Chain/TVL ===")
-        summary.append(chain_analysis)
-    if fgi_info:
-        summary.append("=== Fear & Greed Index ===")
-        summary.append(fgi_info)
-    summary.append("---\n")
-    return "\n".join(summary)
 
 def main():
-    # send_telegram_message("BDSMTRADEBOT ACTIVATED!")
-    # symbols = load_dynamic_symbols()
-    # print(f"🔍 ЗАПУСК МНОГОМОНЕТНОГО АНАЛИЗА ({len(symbols)} монет)")
-    # print("=" * 60)
-
-    # threading.Thread(target=periodic_chain_analysis, daemon=True).start()
-    # # Запускаем мониторинг трендов спотовых пар и новых пар в отдельных потоках
     
-    # threading.Thread(target=spot_trend_watcher_loop, daemon=True).start()
-    
-    # threading.Thread(target=periodic_fgi_analysis, daemon=True).start() 
-    
+    timeUTC = bybit_client.get_server_time()
     config_manager = ConfigManager()
+    tracker = TimeframeAnalysisTracker()
+    
+    # Пауза между полными циклами (в секундах)
+    CYCLE_PAUSE = 60  # 1 минута - проверяем часто, но сам анализ контролируется tracker
+    
+    logging.info("="*60)
+    logging.info("🚀 Бот запущен. Начало работы.")
+    logging.info(f"UTC время сервера: {timeUTC.get('datetime_utc')}")
+    logging.info("="*60)
 
     while True:
+        cycle_start = time.time()
         symbols = load_dynamic_symbols()
+        
         for symbol in symbols:
             try:
+                # 1D анализ - каждые 12 часов
+                if not tracker.should_analyze(symbol, '1D'):
+                    continue  # Пропускаем, если еще рано
+                
                 df_D = bybit_client.get_klines(symbol, interval='D')
                 one_d_analyze_result = analyze_1d_ma_macd_volume(df_D, symbol)
                 if one_d_analyze_result:
@@ -174,33 +70,34 @@ def main():
                     # Получаем action от Volume
                     volume_action = volume_result.get('action') if volume_result else None
                     
-                    # Получаем action от MACD (нужно получить из analyze_1d_ma_macd_volume)
-                    # Предполагаем, что в one_d_analyze_result есть macd_action
+                    # Получаем action от MACD
                     macd_action = one_d_analyze_result.get("macd_action")
                     
-                    # Проверяем условия для отправки сообщения
-                    # Volume теперь только BUY (есть движение) или WAIT (нет движения)
-                    # Поэтому проверяем только наличие движения
                     all_buy = (
                         (ema_verdict == "STRONG_BUY" or ema_verdict == "CAUTIOUS_BUY") and 
                         macd_action == "BUY" and 
-                        volume_action == "BUY"  # Есть движение
+                        volume_action == "BUY"
                     )
                     
                     all_sell = (
                         ema_verdict == "STRONG_SELL" and 
                         macd_action == "SELL" and 
-                        volume_action == "BUY"  # Есть движение (не SELL, т.к. volume не определяет направление)
+                        volume_action == "BUY"  # Volume BUY = есть движение/объем
                     )
                     
                     if all_buy or all_sell:
                         signal_type = "🟢 ПОКУПАТЬ" if all_buy else "🔴 ПРОДАВАТЬ"
                         trend_1d = "BULLISH" if all_buy else "BEARISH"
                         
+                        logging.info(f"[1D] {symbol} → {signal_type} (trend: {trend_1d})")
+                        
                         # send_telegram_message(
                         #     f"⚡ {signal_type}\n[1D] {symbol}\n{one_d_analyze_result.get('summary', '')}"
                         # )
-                        time.sleep(3)
+                        
+                        # 12H анализ - каждые 4 часа (только если есть сигнал 1D)
+                        if not tracker.should_analyze(symbol, '12H'):
+                            continue  # Еще рано для 12H анализа
                         
                         # Анализ 12H с учетом тренда 1D
                         df_12h = bybit_client.get_klines(symbol, interval='720')
@@ -209,12 +106,18 @@ def main():
                         if twelve_h_result:
                             print(f"[12H] {symbol}\n{twelve_h_result.get('summary', '')}")
                             
+                            twelve_h_action = twelve_h_result.get('action')
+                            logging.info(f"[12H] {symbol} → {twelve_h_action}")
+                            
                             # Если 12H дает GO или ATTENTION - переходим на 4H
-                            if twelve_h_result.get('action') in ['GO', 'ATTENTION']:
-                                send_telegram_message(
-                                    f"{'🟢' if twelve_h_result.get('action') == 'GO' else '🟡'} 12H СИГНАЛ!\n{symbol}\n{twelve_h_result.get('summary', '')}"
-                                )
-                                time.sleep(3)
+                            if twelve_h_action in ['GO', 'ATTENTION']:
+                                # send_telegram_message(
+                                #     f"{'🟢' if twelve_h_action == 'GO' else '🟡'} 12H СИГНАЛ!\n{symbol}\n{twelve_h_result.get('summary', '')}"
+                                # )
+                                
+                                # 4H анализ - каждые 2 часа (только если 12H дал GO/ATTENTION)
+                                if not tracker.should_analyze(symbol, '4H'):
+                                    continue  # Еще рано для 4H анализа
                                 
                                 # Анализ 4H - тактический фильтр для перехода к 1H
                                 df_4h = bybit_client.get_klines(symbol, interval='240')
@@ -223,12 +126,20 @@ def main():
                                 if four_h_result:
                                     print(f"[4H] {symbol}\n{four_h_result.get('summary', '')}")
                                     
+                                    four_h_action = four_h_result.get('action')
+                                    logging.info(f"[4H] {symbol} → {four_h_action}")
+                                    
                                     # Если 4H дает GO или ATTENTION - анализируем 1H для точного входа
-                                    if four_h_result.get('action') in ['GO', 'ATTENTION']:
-                                        send_telegram_message(
-                                            f"{'✅' if four_h_result.get('action') == 'GO' else '⚠️'} 4H {'ГОТОВНОСТЬ' if four_h_result.get('action') == 'GO' else 'ОСТОРОЖНО'}!\n{symbol}\n{four_h_result.get('summary', '')}"
-                                        )
-                                        time.sleep(5)
+                                    if four_h_action in ['GO', 'ATTENTION']:
+                                        # Отправляем 4H сигнал (с дедупликацией)
+                                        if tracker.should_send_signal(symbol, four_h_action, '4H'):
+                                            send_telegram_message(
+                                                f"{'✅' if four_h_action == 'GO' else '⚠️'} 4H {'ГОТОВНОСТЬ' if four_h_action == 'GO' else 'ОСТОРОЖНО'}!\n{symbol}\n{four_h_result.get('summary', '')}"
+                                            )
+                                        
+                                        # 1H анализ - каждые 15 минут (только если 4H дал GO/ATTENTION)
+                                        if not tracker.should_analyze(symbol, '1H'):
+                                            continue  # Еще рано для 1H анализа
                                         
                                         # Анализ 1H для точного входа
                                         df_1h = bybit_client.get_klines(symbol, interval='60')
@@ -237,51 +148,52 @@ def main():
                                         if one_h_result:
                                             print(f"[1H] {symbol}\n{one_h_result.get('summary', '')}")
                                             
-                                            # Если 1H дает ENTER - отправляем сигнал на вход
-                                            if one_h_result.get('action') == 'ENTER':
-                                                entry_price = one_h_result.get('entry_price', 0)
-                                                stop_loss = one_h_result.get('stop_loss', 0)
-                                                take_profit = one_h_result.get('take_profit', 0)
-                                                risk_percent = one_h_result.get('risk_percent', 0)
-                                                
-                                                send_telegram_message(
-                                                    f"🎯 1H ВХОД В СДЕЛКУ!\n"
-                                                    f"{symbol}\n"
-                                                    f"Направление: {'LONG' if trend_1d == 'BULLISH' else 'SHORT'}\n"
-                                                    f"Вход: {entry_price:.4f}\n"
-                                                    f"Стоп: {stop_loss:.4f}\n"
-                                                    f"Тейк: {take_profit:.4f}\n"
-                                                    f"Риск: {risk_percent:.2f}%\n"
-                                                    f"R:R = 1:2\n\n"
-                                                    f"{one_h_result.get('summary', '')}"
-                                                )
-                                                time.sleep(5)
+                                            one_h_action = one_h_result.get('action')
+                                            logging.info(f"[1H] {symbol} → {one_h_action}")
                                             
-                                            elif one_h_result.get('action') == 'WAIT_BETTER':
-                                                send_telegram_message(
-                                                    f"🟡 1H ЖДАТЬ ЛУЧШЕЙ ЦЕНЫ!\n{symbol}\n{one_h_result.get('summary', '')}"
-                                                )
-                                                time.sleep(3)
+                                            # Отправляем 1H сигналы (с дедупликацией)
+                                            if one_h_action == 'ENTER':
+                                                if tracker.should_send_signal(symbol, 'ENTER', '1H'):
+                                                    entry_price = one_h_result.get('entry_price', 0)
+                                                    stop_loss = one_h_result.get('stop_loss', 0)
+                                                    take_profit = one_h_result.get('take_profit', 0)
+                                                    risk_percent = one_h_result.get('risk_percent', 0)
+                                                    
+                                                    send_telegram_message(
+                                                        f"🎯 1H ВХОД В СДЕЛКУ!\n"
+                                                        f"{symbol}\n"
+                                                        f"Направление: {'LONG' if trend_1d == 'BULLISH' else 'SHORT'}\n"
+                                                        f"Вход: {entry_price:.4f}\n"
+                                                        f"Стоп: {stop_loss:.4f}\n"
+                                                        f"Тейк: {take_profit:.4f}\n"
+                                                        f"Риск: {risk_percent:.2f}%\n"
+                                                        f"R:R = 1:2\n\n"
+                                                        f"{one_h_result.get('summary', '')}"
+                                                    )
                                             
-                                            elif one_h_result.get('action') == 'SKIP':
-                                                send_telegram_message(
-                                                    f"🔴 1H ПРОПУСТИТЬ!\n{symbol}\n{one_h_result.get('summary', '')}"
-                                                )
-                                                time.sleep(3)
-                            
-                            elif twelve_h_result.get('action') == 'ATTENTION':
-                                send_telegram_message(
-                                    f"🟡 12H ВНИМАНИЕ!\n{symbol}\n{twelve_h_result.get('summary', '')}"
-                                )
-                                time.sleep(3)
-
-                time.sleep(4)
+                                            elif one_h_action == 'WAIT_BETTER':
+                                                if tracker.should_send_signal(symbol, 'WAIT_BETTER', '1H'):
+                                                    send_telegram_message(
+                                                        f"🟡 1H ЖДАТЬ ЛУЧШЕЙ ЦЕНЫ!\n{symbol}\n{one_h_result.get('summary', '')}"
+                                                    )
+                                            
+                                            elif one_h_action == 'SKIP':
+                                                if tracker.should_send_signal(symbol, 'SKIP', '1H'):
+                                                    send_telegram_message(
+                                                        f"🔴 1H ПРОПУСТИТЬ!\n{symbol}\n{one_h_result.get('summary', '')}"
+                                                    )
 
             except Exception as e:
-                print(f"❌ Ошибка анализа {symbol}: {e}")
-                logging.error("Ошибка анализа %s: %s", symbol, e)
-                time.sleep(10)
+                error_msg = f"❌ Ошибка анализа {symbol}: {e}"
+                print(error_msg)
+                logging.error(error_msg)
                 continue
+        
+        # Пауза между циклами
+        cycle_duration = time.time() - cycle_start
+        print(f"\n⏱️  Цикл завершен за {cycle_duration:.1f}s. Пауза {CYCLE_PAUSE}s...\n")
+        time.sleep(CYCLE_PAUSE)
 
 if __name__ == "__main__":
+    # print(timeUTC.get('datetime_utc'))
     main()

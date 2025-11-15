@@ -1155,6 +1155,7 @@ def analyze_1h_execution(df_1h, four_h_signal, trend_1d, symbol="UNKNOWN"):
         dict: Результаты анализа с точкой входа и управлением рисками
     """
     from analyzes.multi_timeframe_ma_analysis import calculate_ema
+    from bybit_client import bybit_client
     
     if len(df_1h) < 20:
         return None
@@ -1233,6 +1234,187 @@ def analyze_1h_execution(df_1h, four_h_signal, trend_1d, symbol="UNKNOWN"):
     # Расстояние до ключевых уровней
     distance_to_support = ((current_price - support_level) / current_price * 100) if support_level > 0 else 100
     distance_to_resistance = ((resistance_level - current_price) / current_price * 100) if resistance_level > 0 else 100
+    
+    # === АНАЛИЗ ORDERBOOK (СТАКАНА) ===
+    orderbook_score = 0
+    orderbook_signals = []
+    
+    try:
+        # Получаем стакан цен
+        bids, asks, bid_volume, ask_volume, whale_bids, whale_asks = bybit_client.get_orderbook(
+            symbol=symbol, 
+            levels=50,  # Берем 50 уровней для детального анализа
+            whale_size=None
+        )
+        
+        if bids and asks:
+            # === КЛАСТЕРИЗАЦИЯ ОРДЕРОВ ПО УРОВНЯМ ===
+            # Группируем ордера по ценовым кластерам (шаг 0.1% от текущей цены)
+            cluster_step = current_price * 0.001  # 0.1% шаг
+            
+            bid_clusters = {}
+            ask_clusters = {}
+            
+            # Группируем биды (заявки на покупку)
+            for bid in bids:
+                price = float(bid[0])
+                volume = float(bid[1])
+                cluster_level = round(price / cluster_step) * cluster_step
+                bid_clusters[cluster_level] = bid_clusters.get(cluster_level, 0) + volume
+            
+            # Группируем аски (заявки на продажу)
+            for ask in asks:
+                price = float(ask[0])
+                volume = float(ask[1])
+                cluster_level = round(price / cluster_step) * cluster_step
+                ask_clusters[cluster_level] = ask_clusters.get(cluster_level, 0) + volume
+            
+            # === ПОИСК КРУПНЫХ КЛАСТЕРОВ ===
+            total_bid_volume = sum(bid_clusters.values())
+            total_ask_volume = sum(ask_clusters.values())
+            total_volume = total_bid_volume + total_ask_volume
+            
+            # Порог для "крупного" кластера - 5% от общего объема
+            large_cluster_threshold = total_volume * 0.05
+            
+            # Крупные кластеры поддержки (биды)
+            large_support_clusters = {
+                level: vol for level, vol in bid_clusters.items() 
+                if vol > large_cluster_threshold and level < current_price
+            }
+            
+            # Крупные кластеры сопротивления (аски)
+            large_resistance_clusters = {
+                level: vol for level, vol in ask_clusters.items() 
+                if vol > large_cluster_threshold and level > current_price
+            }
+            
+            # === АНАЛИЗ БАЛАНСА ОБЪЕМОВ ===
+            bid_ask_ratio = bid_volume / ask_volume if ask_volume > 0 else 1.0
+            
+            if bid_ask_ratio > 1.5:
+                orderbook_signals.append(f"✅ Сильное давление покупателей (Bid/Ask: {bid_ask_ratio:.2f})")
+                if trend_1d == "BULLISH":
+                    orderbook_score += 2
+                else:
+                    orderbook_score += 1
+            elif bid_ask_ratio > 1.2:
+                orderbook_signals.append(f"✅ Умеренное давление покупателей (Bid/Ask: {bid_ask_ratio:.2f})")
+                if trend_1d == "BULLISH":
+                    orderbook_score += 1
+            elif bid_ask_ratio < 0.67:
+                orderbook_signals.append(f"✅ Сильное давление продавцов (Bid/Ask: {bid_ask_ratio:.2f})")
+                if trend_1d == "BEARISH":
+                    orderbook_score += 2
+                else:
+                    orderbook_score += 1
+            elif bid_ask_ratio < 0.83:
+                orderbook_signals.append(f"✅ Умеренное давление продавцов (Bid/Ask: {bid_ask_ratio:.2f})")
+                if trend_1d == "BEARISH":
+                    orderbook_score += 1
+            else:
+                orderbook_signals.append(f"⚖️ Баланс покупателей/продавцов (Bid/Ask: {bid_ask_ratio:.2f})")
+            
+            # === АНАЛИЗ КРУПНЫХ КЛАСТЕРОВ ПОДДЕРЖКИ ===
+            if large_support_clusters:
+                # Сортируем по близости к текущей цене
+                sorted_supports = sorted(
+                    large_support_clusters.items(), 
+                    key=lambda x: abs(x[0] - current_price)
+                )
+                
+                for level, volume in sorted_supports[:3]:  # Берем 3 ближайших
+                    distance_pct = abs(level - current_price) / current_price * 100
+                    volume_pct = (volume / total_volume) * 100
+                    
+                    if distance_pct < 0.5:  # Очень близко (<0.5%)
+                        orderbook_signals.append(
+                            f"✅✅ МОЩНАЯ поддержка: {level:.4f} "
+                            f"({volume_pct:.1f}% объема, -{distance_pct:.2f}%)"
+                        )
+                        if trend_1d == "BULLISH":
+                            orderbook_score += 3
+                        else:
+                            orderbook_score += 1
+                    elif distance_pct < 1.0:  # Близко (<1%)
+                        orderbook_signals.append(
+                            f"✅ Крупная поддержка: {level:.4f} "
+                            f"({volume_pct:.1f}% объема, -{distance_pct:.2f}%)"
+                        )
+                        if trend_1d == "BULLISH":
+                            orderbook_score += 2
+                        else:
+                            orderbook_score += 1
+            
+            # === АНАЛИЗ КРУПНЫХ КЛАСТЕРОВ СОПРОТИВЛЕНИЯ ===
+            if large_resistance_clusters:
+                # Сортируем по близости к текущей цене
+                sorted_resistances = sorted(
+                    large_resistance_clusters.items(), 
+                    key=lambda x: abs(x[0] - current_price)
+                )
+                
+                for level, volume in sorted_resistances[:3]:  # Берем 3 ближайших
+                    distance_pct = abs(level - current_price) / current_price * 100
+                    volume_pct = (volume / total_volume) * 100
+                    
+                    if distance_pct < 0.5:  # Очень близко (<0.5%)
+                        orderbook_signals.append(
+                            f"⚠️⚠️ МОЩНОЕ сопротивление: {level:.4f} "
+                            f"({volume_pct:.1f}% объема, +{distance_pct:.2f}%)"
+                        )
+                        if trend_1d == "BULLISH":
+                            orderbook_score -= 2  # Плохо для лонга
+                        else:
+                            orderbook_score += 3  # Хорошо для шорта
+                    elif distance_pct < 1.0:  # Близко (<1%)
+                        orderbook_signals.append(
+                            f"⚠️ Крупное сопротивление: {level:.4f} "
+                            f"({volume_pct:.1f}% объема, +{distance_pct:.2f}%)"
+                        )
+                        if trend_1d == "BULLISH":
+                            orderbook_score -= 1
+                        else:
+                            orderbook_score += 2
+            
+            # === ПРОВЕРКА "СТЕНЫ" (WALLS) ===
+            # Стена - это экстремально крупный ордер (>10% общего объема)
+            wall_threshold = total_volume * 0.10
+            
+            bid_walls = {level: vol for level, vol in bid_clusters.items() if vol > wall_threshold}
+            ask_walls = {level: vol for level, vol in ask_clusters.items() if vol > wall_threshold}
+            
+            if bid_walls:
+                closest_bid_wall = min(bid_walls.items(), key=lambda x: abs(x[0] - current_price))
+                wall_distance = abs(closest_bid_wall[0] - current_price) / current_price * 100
+                wall_volume_pct = (closest_bid_wall[1] / total_volume) * 100
+                
+                if wall_distance < 2.0:
+                    orderbook_signals.append(
+                        f"🧱 СТЕНА поддержки: {closest_bid_wall[0]:.4f} "
+                        f"({wall_volume_pct:.1f}% объема!)"
+                    )
+                    if trend_1d == "BULLISH":
+                        orderbook_score += 2
+            
+            if ask_walls:
+                closest_ask_wall = min(ask_walls.items(), key=lambda x: abs(x[0] - current_price))
+                wall_distance = abs(closest_ask_wall[0] - current_price) / current_price * 100
+                wall_volume_pct = (closest_ask_wall[1] / total_volume) * 100
+                
+                if wall_distance < 2.0:
+                    orderbook_signals.append(
+                        f"🧱 СТЕНА сопротивления: {closest_ask_wall[0]:.4f} "
+                        f"({wall_volume_pct:.1f}% объема!)"
+                    )
+                    if trend_1d == "BEARISH":
+                        orderbook_score += 2
+                    else:
+                        orderbook_score -= 1
+    
+    except Exception as e:
+        orderbook_signals.append(f"⚠️ Ошибка анализа orderbook: {e}")
+        orderbook_score = 0
     
     # === АНАЛИЗ СВЕЧНЫХ ПАТТЕРНОВ 1H ===
     candlestick_pattern = None
@@ -1388,6 +1570,18 @@ def analyze_1h_execution(df_1h, four_h_signal, trend_1d, symbol="UNKNOWN"):
         elif distance_to_resistance < 1.0:
             signals_1h.append(f"⚠️ Близко к сопротивлению: {distance_to_resistance:.2f}%")
             entry_score -= 1
+        
+        # 8. ORDERBOOK АНАЛИЗ
+        if orderbook_signals:
+            for signal in orderbook_signals:
+                signals_1h.append(f"📚 {signal}")
+            
+            if orderbook_score > 0:
+                signals_1h.append(f"✅ Orderbook поддерживает LONG (+{orderbook_score} баллов)")
+                entry_score += min(orderbook_score, 3)  # Максимум +3 балла
+            elif orderbook_score < 0:
+                signals_1h.append(f"⚠️ Orderbook против LONG ({orderbook_score} баллов)")
+                entry_score += orderbook_score  # Вычитаем баллы
     
     elif trend_1d == "BEARISH":
         # === МЕДВЕЖИЙ СЦЕНАРИЙ - поиск входа в SHORT ===
@@ -1465,6 +1659,18 @@ def analyze_1h_execution(df_1h, four_h_signal, trend_1d, symbol="UNKNOWN"):
         elif distance_to_support < 1.0:
             signals_1h.append(f"⚠️ Близко к поддержке: {distance_to_support:.2f}%")
             entry_score -= 1
+        
+        # 8. ORDERBOOK АНАЛИЗ
+        if orderbook_signals:
+            for signal in orderbook_signals:
+                signals_1h.append(f"📚 {signal}")
+            
+            if orderbook_score > 0:
+                signals_1h.append(f"✅ Orderbook поддерживает SHORT (+{orderbook_score} баллов)")
+                entry_score += min(orderbook_score, 3)  # Максимум +3 балла
+            elif orderbook_score < 0:
+                signals_1h.append(f"⚠️ Orderbook против SHORT ({orderbook_score} баллов)")
+                entry_score += orderbook_score  # Вычитаем баллы
     
     # === РАСЧЕТ РИСК-МЕНЕДЖМЕНТА ===
     if stop_loss == 0 and entry_score >= 5:
