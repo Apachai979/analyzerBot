@@ -15,6 +15,7 @@ from telegram_utils import send_telegram_message
 from chain_market_analyzer import analyze_chains_and_market
 from analyzes.analytics_center import handle_12h_correction_buy_signal
 from time_frame_tracker import TimeframeAnalysisTracker
+from range_trading import analyze_range_trading_signal
 
 # Настройка логирования
 logging.basicConfig(
@@ -24,6 +25,30 @@ logging.basicConfig(
     level=logging.INFO,
     encoding='utf-8'
 )
+
+# Создаем отдельные логгеры для каждого таймфрейма
+def setup_timeframe_loggers():
+    """Настройка отдельных логгеров для каждого таймфрейма"""
+    timeframes = ['1D', '12H', '4H', '1H', 'RANGE']  # Добавили RANGE
+    loggers = {}
+    
+    for tf in timeframes:
+        logger = logging.getLogger(f'TF_{tf}')
+        logger.setLevel(logging.INFO)
+        
+        # Создаем handler для записи в отдельный файл
+        handler = logging.FileHandler(
+            f'logs/timeframe_{tf.lower()}_analysis.log',
+            mode='a',
+            encoding='utf-8'
+        )
+        handler.setFormatter(
+            logging.Formatter('%(asctime)s | %(message)s', datefmt='%d.%m.%Y %H:%M:%S')
+        )
+        logger.addHandler(handler)
+        loggers[tf] = logger
+    
+    return loggers
 
 
 def load_dynamic_symbols():
@@ -36,6 +61,12 @@ def main():
     timeUTC = bybit_client.get_server_time()
     config_manager = ConfigManager()
     tracker = TimeframeAnalysisTracker()
+    
+    # Настраиваем логгеры для таймфреймов
+    tf_loggers = setup_timeframe_loggers()
+    
+    # Создаем директорию для логов если не существует
+    os.makedirs('logs', exist_ok=True)
     
     # Пауза между полными циклами (в секундах)
     CYCLE_PAUSE = 60  # 1 минута - проверяем часто, но сам анализ контролируется tracker
@@ -51,6 +82,43 @@ def main():
         
         for symbol in symbols:
             try:
+                # === ПАРАЛЛЕЛЬНЫЙ АНАЛИЗ: Range Trading Strategy ===
+                # Работает независимо от многотаймфреймового анализа
+                # Анализируем на 1H таймфрейме для Range Trading (больше возможностей)
+                if tracker.should_analyze(symbol, '1H'):  # Используем интервал 1H для более частых сигналов
+                    df_1h_range = bybit_client.get_klines(symbol, interval='60')
+                    range_result = analyze_range_trading_signal(df_1h_range, symbol)
+                    
+                    if range_result and range_result['action'] in ['BUY', 'SELL']:
+                        # Логируем результат Range Trading
+                        tf_loggers['RANGE'].info(
+                            f"{symbol} | Action: {range_result['action']} | "
+                            f"Confidence: {range_result['confidence']}/10 | "
+                            f"Entry: {range_result['entry_price']:.4f} | "
+                            f"SL: {range_result['stop_loss']:.4f} | "
+                            f"TP: {range_result['take_profit']:.4f} | "
+                            f"R:R = 1:{range_result['risk_reward_ratio']:.2f} | "
+                            f"{range_result['summary']}"
+                        )
+                        
+                        # Отправляем сигнал если уверенность >= 7 и R:R >= 1.5
+                        if (range_result['confidence'] >= 7 and 
+                            range_result['risk_reward_ratio'] >= 1.5 and
+                            tracker.should_send_signal(symbol, range_result['action'], 'RANGE')):
+                            
+                            send_telegram_message(
+                                f"📊 RANGE TRADING SIGNAL (1H)!\n"
+                                f"{symbol}\n"
+                                f"{'🟢 LONG' if range_result['action'] == 'BUY' else '🔴 SHORT'}\n"
+                                f"Уверенность: {range_result['confidence']}/10\n\n"
+                                f"Вход: {range_result['entry_price']:.4f}\n"
+                                f"Стоп: {range_result['stop_loss']:.4f}\n"
+                                f"Тейк: {range_result['take_profit']:.4f}\n"
+                                f"R:R = 1:{range_result['risk_reward_ratio']:.2f}\n\n"
+                                f"Сигналы:\n" + "\n".join(range_result['signals'][:5])  # Первые 5 сигналов
+                            )
+                
+                # === ОСНОВНАЯ СТРАТЕГИЯ: Многотаймфреймовый анализ ===
                 # 1D анализ - каждые 12 часов
                 if not tracker.should_analyze(symbol, '1D'):
                     continue  # Пропускаем, если еще рано
@@ -59,6 +127,9 @@ def main():
                 one_d_analyze_result = analyze_1d_ma_macd_volume(df_D, symbol)
                 if one_d_analyze_result:
                     print(f"[1D] {symbol}\n{one_d_analyze_result.get('summary', '')}")
+                    
+                    # Логируем результат 1D анализа
+                    tf_loggers['1D'].info(f"{symbol} | {one_d_analyze_result.get('summary', 'N/A')}")
                     
                     # Извлекаем сигналы для принятия решения
                     ema_result = one_d_analyze_result.get("ema_result")
@@ -109,6 +180,12 @@ def main():
                             twelve_h_action = twelve_h_result.get('action')
                             logging.info(f"[12H] {symbol} → {twelve_h_action}")
                             
+                            # Логируем результат 12H анализа
+                            tf_loggers['12H'].info(
+                                f"{symbol} | Action: {twelve_h_action} | Trend: {trend_1d} | "
+                                f"{twelve_h_result.get('summary', 'N/A')}"
+                            )
+                            
                             # Если 12H дает GO или ATTENTION - переходим на 4H
                             if twelve_h_action in ['GO', 'ATTENTION']:
                                 # send_telegram_message(
@@ -128,6 +205,13 @@ def main():
                                     
                                     four_h_action = four_h_result.get('action')
                                     logging.info(f"[4H] {symbol} → {four_h_action}")
+                                    
+                                    # Логируем результат 4H анализа
+                                    tf_loggers['4H'].info(
+                                        f"{symbol} | Action: {four_h_action} | Trend: {trend_1d} | "
+                                        f"Readiness: {four_h_result.get('readiness_score', 'N/A')} | "
+                                        f"{four_h_result.get('summary', 'N/A')}"
+                                    )
                                     
                                     # Если 4H дает GO или ATTENTION - анализируем 1H для точного входа
                                     if four_h_action in ['GO', 'ATTENTION']:
@@ -151,14 +235,23 @@ def main():
                                             one_h_action = one_h_result.get('action')
                                             logging.info(f"[1H] {symbol} → {one_h_action}")
                                             
+                                            # Логируем результат 1H анализа
+                                            entry_price = one_h_result.get('entry_price', 0)
+                                            stop_loss = one_h_result.get('stop_loss', 0)
+                                            take_profit = one_h_result.get('take_profit', 0)
+                                            risk_percent = one_h_result.get('risk_percent', 0)
+                                            entry_score = one_h_result.get('entry_score', 0)
+                                            
+                                            tf_loggers['1H'].info(
+                                                f"{symbol} | Action: {one_h_action} | Trend: {trend_1d} | "
+                                                f"Score: {entry_score} | Entry: {entry_price:.4f} | "
+                                                f"SL: {stop_loss:.4f} | TP: {take_profit:.4f} | "
+                                                f"Risk: {risk_percent:.2f}% | {one_h_result.get('summary', 'N/A')}"
+                                            )
+                                            
                                             # Отправляем 1H сигналы (с дедупликацией)
                                             if one_h_action == 'ENTER':
                                                 if tracker.should_send_signal(symbol, 'ENTER', '1H'):
-                                                    entry_price = one_h_result.get('entry_price', 0)
-                                                    stop_loss = one_h_result.get('stop_loss', 0)
-                                                    take_profit = one_h_result.get('take_profit', 0)
-                                                    risk_percent = one_h_result.get('risk_percent', 0)
-                                                    
                                                     send_telegram_message(
                                                         f"🎯 1H ВХОД В СДЕЛКУ!\n"
                                                         f"{symbol}\n"
