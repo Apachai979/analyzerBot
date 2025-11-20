@@ -142,3 +142,6395 @@ BB_upper: 0.00
 BB_lower: 0.00
 Сигнал: NEUTRAL
 ---
+2025-11-17 23:22:03.719027 | BTCUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 93171.20
+BB_middle: 99031.46
+BB_upper: 108032.69
+BB_lower: 90030.22
+Сигнал: NEUTRAL
+---
+2025-11-17 23:22:11.116610 | SOLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 135.03
+BB_middle: 149.21
+BB_upper: 171.73
+BB_lower: 126.70
+Сигнал: NEUTRAL
+---
+2025-11-17 23:22:16.579480 | DOGEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.16
+BB_middle: 0.17
+BB_upper: 0.18
+BB_lower: 0.15
+Сигнал: NEUTRAL
+---
+2025-11-17 23:22:18.063548 | ADAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.48
+BB_middle: 0.53
+BB_upper: 0.61
+BB_lower: 0.45
+Сигнал: NEUTRAL
+---
+2025-11-17 23:22:20.367910 | HYPEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 37.30
+BB_middle: 39.24
+BB_upper: 42.15
+BB_lower: 36.33
+Сигнал: NEUTRAL
+---
+2025-11-17 23:22:22.687728 | WBTCUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 93158.30
+BB_middle: 98986.10
+BB_upper: 107902.46
+BB_lower: 90069.74
+Сигнал: NEUTRAL
+---
+2025-11-17 23:22:25.690161 | LINKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 13.56
+BB_middle: 14.75
+BB_upper: 16.72
+BB_lower: 12.78
+Сигнал: NEUTRAL
+---
+2025-11-17 23:22:29.066505 | XLMUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.25
+BB_middle: 0.27
+BB_upper: 0.31
+BB_lower: 0.24
+Сигнал: NEUTRAL
+---
+2025-11-17 23:22:34.481397 | SUIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.66
+BB_middle: 1.89
+BB_upper: 2.26
+BB_lower: 1.51
+Сигнал: NEUTRAL
+---
+2025-11-17 23:22:36.283020 | SHIBUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-17 23:22:40.482356 | TONUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.77
+BB_middle: 1.94
+BB_upper: 2.19
+BB_lower: 1.68
+Сигнал: NEUTRAL
+---
+2025-11-17 23:22:47.085888 | PYUSDUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.00
+BB_middle: 1.00
+BB_upper: 1.00
+BB_lower: 1.00
+Сигнал: SELL
+---
+2025-11-17 23:22:51.925636 | AAVEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 173.48
+BB_middle: 191.80
+BB_upper: 229.69
+BB_lower: 153.91
+Сигнал: NEUTRAL
+---
+2025-11-17 23:22:58.598131 | ENAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.27
+BB_middle: 0.30
+BB_upper: 0.35
+BB_lower: 0.25
+Сигнал: NEUTRAL
+---
+2025-11-17 23:23:03.760497 | POLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.15
+BB_middle: 0.16
+BB_upper: 0.19
+BB_lower: 0.14
+Сигнал: NEUTRAL
+---
+2025-11-17 23:23:07.093242 | XAUTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 4043.50
+BB_middle: 4073.53
+BB_upper: 4199.17
+BB_lower: 3947.90
+Сигнал: NEUTRAL
+---
+2025-11-17 23:23:10.090235 | ALGOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.16
+BB_middle: 0.17
+BB_upper: 0.19
+BB_lower: 0.15
+Сигнал: NEUTRAL
+---
+2025-11-17 23:23:15.493622 | ARBUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.23
+BB_middle: 0.26
+BB_upper: 0.31
+BB_lower: 0.20
+Сигнал: NEUTRAL
+---
+2025-11-17 23:23:18.500119 | KASUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.05
+BB_upper: 0.05
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-17 23:23:26.230018 | RLUSDUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.00
+BB_middle: 1.00
+BB_upper: 1.00
+BB_lower: 1.00
+Сигнал: NEUTRAL
+---
+2025-11-17 23:23:29.298502 | XDCUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.06
+BB_upper: 0.06
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-17 23:23:31.098619 | JUPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.27
+BB_middle: 0.31
+BB_upper: 0.38
+BB_lower: 0.24
+Сигнал: NEUTRAL
+---
+2025-11-17 23:23:32.899270 | BONKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-17 23:23:40.494824 | STRKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.21
+BB_middle: 0.17
+BB_upper: 0.24
+BB_lower: 0.11
+Сигнал: NEUTRAL
+---
+2025-11-17 23:23:42.285509 | IMXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.38
+BB_middle: 0.41
+BB_upper: 0.47
+BB_lower: 0.34
+Сигнал: NEUTRAL
+---
+2025-11-17 23:23:50.090570 | LDOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.72
+BB_middle: 0.78
+BB_upper: 0.88
+BB_lower: 0.68
+Сигнал: NEUTRAL
+---
+2025-11-17 23:23:53.465315 | STXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.35
+BB_middle: 0.38
+BB_upper: 0.44
+BB_lower: 0.32
+Сигнал: NEUTRAL
+---
+2025-11-17 23:23:56.631700 | NEXOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.99
+BB_middle: 1.04
+BB_upper: 1.14
+BB_lower: 0.94
+Сигнал: NEUTRAL
+---
+2025-11-17 23:24:01.082628 | GRTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.06
+BB_middle: 0.06
+BB_upper: 0.07
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-17 23:24:05.813626 | KAIAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.09
+BB_middle: 0.09
+BB_upper: 0.11
+BB_lower: 0.08
+Сигнал: NEUTRAL
+---
+2025-11-17 23:24:10.028105 | PYTHUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.09
+BB_middle: 0.10
+BB_upper: 0.11
+BB_lower: 0.08
+Сигнал: NEUTRAL
+---
+2025-11-17 23:24:13.015461 | SPXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.48
+BB_middle: 0.60
+BB_upper: 0.78
+BB_lower: 0.41
+Сигнал: NEUTRAL
+---
+2025-11-17 23:24:19.619552 | TELUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-17 23:24:23.818279 | JASMYUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-17 23:24:28.028871 | THETAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.41
+BB_middle: 0.44
+BB_upper: 0.51
+BB_lower: 0.37
+Сигнал: NEUTRAL
+---
+2025-11-17 23:24:31.023925 | WIFUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.40
+BB_middle: 0.44
+BB_upper: 0.50
+BB_lower: 0.37
+Сигнал: NEUTRAL
+---
+2025-11-17 23:24:40.625547 | PENDLEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 2.33
+BB_middle: 2.52
+BB_upper: 3.01
+BB_lower: 2.03
+Сигнал: NEUTRAL
+---
+2025-11-17 23:24:59.472196 | WUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.06
+BB_upper: 0.07
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-17 23:25:01.274699 | XECUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-17 23:25:03.340159 | APEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.34
+BB_middle: 0.37
+BB_upper: 0.41
+BB_lower: 0.32
+Сигнал: NEUTRAL
+---
+2025-11-17 23:25:17.983340 | WEMIXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.52
+BB_middle: 0.54
+BB_upper: 0.57
+BB_lower: 0.52
+Сигнал: BUY
+---
+2025-11-17 23:25:29.983155 | CTCUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.34
+BB_middle: 0.38
+BB_upper: 0.45
+BB_lower: 0.31
+Сигнал: NEUTRAL
+---
+2025-11-17 23:25:35.392451 | KMNOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.06
+BB_upper: 0.06
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-17 23:25:39.588865 | LUNCUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-17 23:25:49.790719 | YFIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 4271.00
+BB_middle: 4676.64
+BB_upper: 5058.73
+BB_lower: 4294.55
+Сигнал: BUY
+---
+2025-11-17 23:25:53.798536 | AXLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.14
+BB_middle: 0.15
+BB_upper: 0.18
+BB_lower: 0.12
+Сигнал: NEUTRAL
+---
+2025-11-17 23:26:03.212827 | ZILUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-17 23:26:09.343612 | BABYDOGEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-17 23:26:20.351348 | PLUMEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.03
+BB_middle: 0.04
+BB_upper: 0.06
+BB_lower: 0.02
+Сигнал: NEUTRAL
+---
+2025-11-17 23:26:25.699256 | IDUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.09
+BB_middle: 0.09
+BB_upper: 0.11
+BB_lower: 0.08
+Сигнал: NEUTRAL
+---
+2025-11-17 23:26:27.411383 | PROVEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.51
+BB_middle: 0.55
+BB_upper: 0.62
+BB_lower: 0.49
+Сигнал: NEUTRAL
+---
+2025-11-17 23:26:32.888563 | PNUTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.10
+BB_middle: 0.11
+BB_upper: 0.13
+BB_lower: 0.09
+Сигнал: NEUTRAL
+---
+2025-11-17 23:26:36.940311 | ZIGUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.07
+BB_middle: 0.07
+BB_upper: 0.08
+BB_lower: 0.06
+Сигнал: NEUTRAL
+---
+2025-11-17 23:26:56.323899 | UMAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.91
+BB_middle: 0.97
+BB_upper: 1.07
+BB_lower: 0.86
+Сигнал: NEUTRAL
+---
+2025-11-17 23:27:00.367490 | WAVESUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.65
+BB_middle: 0.69
+BB_upper: 0.77
+BB_lower: 0.61
+Сигнал: NEUTRAL
+---
+2025-11-17 23:27:03.364971 | SOLOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.18
+BB_middle: 0.20
+BB_upper: 0.23
+BB_lower: 0.18
+Сигнал: NEUTRAL
+---
+2025-11-17 23:27:08.591019 | MASKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.70
+BB_middle: 0.76
+BB_upper: 0.87
+BB_lower: 0.64
+Сигнал: NEUTRAL
+---
+2025-11-17 23:27:24.804136 | SXTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-17 23:27:26.860876 | MPLXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.10
+BB_middle: 0.12
+BB_upper: 0.18
+BB_lower: 0.07
+Сигнал: NEUTRAL
+---
+2025-11-17 23:27:42.648719 | AIXBTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.06
+BB_upper: 0.07
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-17 23:28:06.512547 | VVVUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.10
+BB_middle: 1.20
+BB_upper: 1.39
+BB_lower: 1.02
+Сигнал: NEUTRAL
+---
+2025-11-17 23:28:10.769628 | B3USDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-17 23:28:14.902969 | VRAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-17 23:28:18.902534 | GOATUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-17 23:28:34.426437 | YBUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.41
+BB_middle: 0.46
+BB_upper: 0.57
+BB_lower: 0.35
+Сигнал: NEUTRAL
+---
+2025-11-17 23:28:38.973081 | DEGENUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-17 23:28:45.647172 | AGIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.02
+BB_middle: 0.02
+BB_upper: 0.03
+BB_lower: 0.02
+Сигнал: NEUTRAL
+---
+2025-11-17 23:28:56.835158 | ZEREBROUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.03
+BB_middle: 0.03
+BB_upper: 0.05
+BB_lower: 0.02
+Сигнал: NEUTRAL
+---
+2025-11-17 23:29:04.806412 | CATUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-17 23:29:06.441368 | TAIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.03
+BB_middle: 0.03
+BB_upper: 0.04
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-17 23:29:15.467877 | PONKEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.05
+BB_upper: 0.06
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-17 23:29:25.813673 | PAALUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.02
+BB_middle: 0.03
+BB_upper: 0.03
+BB_lower: 0.02
+Сигнал: NEUTRAL
+---
+2025-11-17 23:29:32.068817 | CATIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.06
+BB_middle: 0.06
+BB_upper: 0.07
+BB_lower: 0.06
+Сигнал: NEUTRAL
+---
+2025-11-17 23:29:36.273378 | ROAMUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.07
+BB_middle: 0.07
+BB_upper: 0.08
+BB_lower: 0.06
+Сигнал: NEUTRAL
+---
+2025-11-17 23:29:46.719702 | MBOXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-17 23:29:49.720077 | XIONUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.46
+BB_middle: 0.49
+BB_upper: 0.58
+BB_lower: 0.40
+Сигнал: NEUTRAL
+---
+2025-11-17 23:29:55.123397 | CHILLGUYUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.02
+BB_middle: 0.02
+BB_upper: 0.03
+BB_lower: 0.02
+Сигнал: NEUTRAL
+---
+2025-11-17 23:29:57.768151 | XUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-17 23:30:09.588579 | COQUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-17 23:30:20.991935 | PRCLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.03
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-17 23:30:25.191735 | RACAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-17 23:30:32.999232 | ESUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.10
+BB_middle: 0.10
+BB_upper: 0.11
+BB_lower: 0.10
+Сигнал: NEUTRAL
+---
+2025-11-17 23:30:37.196817 | WENUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-17 23:30:41.224719 | SWELLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-17 23:30:46.635048 | CRCLXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 77.98
+BB_middle: 91.71
+BB_upper: 112.90
+BB_lower: 70.52
+Сигнал: NEUTRAL
+---
+2025-11-17 23:30:53.038900 | CTAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.02
+BB_middle: 0.02
+BB_upper: 0.03
+BB_lower: 0.02
+Сигнал: NEUTRAL
+---
+2025-11-17 23:31:01.925893 | FHEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.02
+BB_middle: 0.03
+BB_upper: 0.04
+BB_lower: 0.02
+Сигнал: NEUTRAL
+---
+2025-11-17 23:31:05.177566 | JUVUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.68
+BB_middle: 0.74
+BB_upper: 0.82
+BB_lower: 0.65
+Сигнал: NEUTRAL
+---
+2025-11-17 23:31:15.751364 | OBOLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.07
+BB_middle: 0.07
+BB_upper: 0.08
+BB_lower: 0.06
+Сигнал: NEUTRAL
+---
+2025-11-17 23:31:19.961321 | MYRIAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-17 23:31:31.355725 | ULTIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 21:58:39.159538 | GALAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-18 21:58:49.983830 | AUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.23
+BB_middle: 0.25
+BB_upper: 0.30
+BB_lower: 0.21
+Сигнал: NEUTRAL
+---
+2025-11-18 21:59:22.908473 | CHZUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.03
+BB_middle: 0.03
+BB_upper: 0.03
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-18 21:59:46.010217 | WUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.06
+BB_upper: 0.07
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-18 21:59:53.917033 | APEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.33
+BB_middle: 0.36
+BB_upper: 0.41
+BB_lower: 0.31
+Сигнал: NEUTRAL
+---
+2025-11-18 22:00:17.012019 | JTOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.56
+BB_middle: 0.65
+BB_upper: 0.84
+BB_lower: 0.46
+Сигнал: NEUTRAL
+---
+2025-11-18 22:00:47.010823 | BRETTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.02
+BB_middle: 0.02
+BB_upper: 0.03
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-18 22:01:08.792275 | LUNCUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 22:01:19.090780 | YFIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 4382.00
+BB_middle: 4619.42
+BB_upper: 5052.51
+BB_lower: 4186.33
+Сигнал: NEUTRAL
+---
+2025-11-18 22:01:22.152191 | AXLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.13
+BB_middle: 0.15
+BB_upper: 0.18
+BB_lower: 0.12
+Сигнал: NEUTRAL
+---
+2025-11-18 22:01:32.374004 | ZILUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-18 22:01:36.507973 | BABYDOGEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 22:01:38.127635 | AVNTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.44
+BB_middle: 0.49
+BB_upper: 0.57
+BB_lower: 0.42
+Сигнал: NEUTRAL
+---
+2025-11-18 22:01:40.248707 | MEWUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 22:01:53.881063 | IDUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.09
+BB_middle: 0.09
+BB_upper: 0.10
+BB_lower: 0.08
+Сигнал: NEUTRAL
+---
+2025-11-18 22:02:03.485193 | ZIGUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.06
+BB_middle: 0.07
+BB_upper: 0.08
+BB_lower: 0.06
+Сигнал: NEUTRAL
+---
+2025-11-18 22:03:25.158341 | SOLOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.19
+BB_middle: 0.20
+BB_upper: 0.22
+BB_lower: 0.18
+Сигнал: NEUTRAL
+---
+2025-11-18 22:03:38.301915 | MASKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.70
+BB_middle: 0.74
+BB_upper: 0.86
+BB_lower: 0.63
+Сигнал: NEUTRAL
+---
+2025-11-18 22:04:20.150630 | MEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.38
+BB_middle: 0.40
+BB_upper: 0.44
+BB_lower: 0.36
+Сигнал: NEUTRAL
+---
+2025-11-18 22:04:23.472568 | IOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.25
+BB_middle: 0.27
+BB_upper: 0.33
+BB_lower: 0.22
+Сигнал: NEUTRAL
+---
+2025-11-18 22:04:34.385535 | SXTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-18 22:06:19.781691 | VVVUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.12
+BB_middle: 1.19
+BB_upper: 1.37
+BB_lower: 1.00
+Сигнал: NEUTRAL
+---
+2025-11-18 22:06:24.691284 | B3USDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 22:06:31.820094 | GOATUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-18 22:06:39.619630 | CBKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.37
+BB_middle: 0.39
+BB_upper: 0.43
+BB_lower: 0.35
+Сигнал: NEUTRAL
+---
+2025-11-18 22:06:47.934307 | YBUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.44
+BB_middle: 0.46
+BB_upper: 0.55
+BB_lower: 0.37
+Сигнал: NEUTRAL
+---
+2025-11-18 22:06:49.811681 | SLPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 22:07:18.141124 | CATUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 22:07:20.246209 | TAIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.03
+BB_middle: 0.03
+BB_upper: 0.04
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-18 22:07:46.241237 | CATIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.06
+BB_middle: 0.06
+BB_upper: 0.07
+BB_lower: 0.06
+Сигнал: NEUTRAL
+---
+2025-11-18 22:07:50.262304 | ROAMUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.07
+BB_middle: 0.07
+BB_upper: 0.08
+BB_lower: 0.06
+Сигнал: NEUTRAL
+---
+2025-11-18 22:08:01.455322 | MBOXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-18 22:08:11.038915 | XUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 22:08:40.494204 | RACAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 22:08:53.499828 | WENUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 22:08:58.656399 | PSGUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.91
+BB_middle: 0.96
+BB_upper: 1.05
+BB_lower: 0.86
+Сигнал: NEUTRAL
+---
+2025-11-18 22:09:01.689827 | CRCLXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 77.26
+BB_middle: 89.01
+BB_upper: 110.54
+BB_lower: 67.49
+Сигнал: NEUTRAL
+---
+2025-11-18 22:09:04.948413 | XEMUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 22:09:23.060018 | LADYSUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 22:09:25.069074 | JUVUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.69
+BB_middle: 0.72
+BB_upper: 0.81
+BB_lower: 0.64
+Сигнал: NEUTRAL
+---
+2025-11-18 22:11:04.405762 | SOLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 138.92
+BB_middle: 146.94
+BB_upper: 170.63
+BB_lower: 123.25
+Сигнал: NEUTRAL
+---
+2025-11-18 22:11:08.692302 | DOGEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.16
+BB_middle: 0.16
+BB_upper: 0.18
+BB_lower: 0.15
+Сигнал: NEUTRAL
+---
+2025-11-18 22:11:10.972332 | ADAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.47
+BB_middle: 0.52
+BB_upper: 0.60
+BB_lower: 0.43
+Сигнал: NEUTRAL
+---
+2025-11-18 22:11:12.530053 | HYPEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 38.73
+BB_middle: 39.51
+BB_upper: 42.28
+BB_lower: 36.74
+Сигнал: NEUTRAL
+---
+2025-11-18 22:11:17.928221 | LINKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 13.54
+BB_middle: 14.51
+BB_upper: 16.66
+BB_lower: 12.36
+Сигнал: NEUTRAL
+---
+2025-11-18 22:11:20.677573 | XLMUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.25
+BB_middle: 0.27
+BB_upper: 0.30
+BB_lower: 0.23
+Сигнал: NEUTRAL
+---
+2025-11-18 22:11:33.514898 | HBARUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.15
+BB_middle: 0.16
+BB_upper: 0.19
+BB_lower: 0.13
+Сигнал: NEUTRAL
+---
+2025-11-18 22:11:35.776095 | AVAXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 14.54
+BB_middle: 15.92
+BB_upper: 18.46
+BB_lower: 13.37
+Сигнал: NEUTRAL
+---
+2025-11-18 22:11:37.735240 | SUIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.64
+BB_middle: 1.84
+BB_upper: 2.24
+BB_lower: 1.45
+Сигнал: NEUTRAL
+---
+2025-11-18 22:11:39.475715 | SHIBUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 22:11:42.493215 | DOTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 2.72
+BB_middle: 2.86
+BB_upper: 3.25
+BB_lower: 2.48
+Сигнал: NEUTRAL
+---
+2025-11-18 22:11:44.110823 | TONUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.79
+BB_middle: 1.91
+BB_upper: 2.18
+BB_lower: 1.64
+Сигнал: NEUTRAL
+---
+2025-11-18 22:11:55.902409 | AAVEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 173.56
+BB_middle: 188.01
+BB_upper: 228.93
+BB_lower: 147.08
+Сигнал: NEUTRAL
+---
+2025-11-18 22:12:01.610889 | PEPEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 22:12:03.474218 | ENAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.27
+BB_middle: 0.29
+BB_upper: 0.35
+BB_lower: 0.24
+Сигнал: NEUTRAL
+---
+2025-11-18 22:12:05.162997 | ONDOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.53
+BB_middle: 0.59
+BB_upper: 0.70
+BB_lower: 0.48
+Сигнал: NEUTRAL
+---
+2025-11-18 22:12:08.117077 | POLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.15
+BB_middle: 0.16
+BB_upper: 0.19
+BB_lower: 0.13
+Сигнал: NEUTRAL
+---
+2025-11-18 22:12:13.519968 | ALGOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.16
+BB_middle: 0.16
+BB_upper: 0.19
+BB_lower: 0.14
+Сигнал: NEUTRAL
+---
+2025-11-18 22:12:18.923620 | ARBUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.23
+BB_middle: 0.25
+BB_upper: 0.31
+BB_lower: 0.20
+Сигнал: NEUTRAL
+---
+2025-11-18 22:12:20.721433 | PUMPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 22:12:24.262587 | SKYUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.05
+BB_upper: 0.06
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-18 22:12:29.269867 | RENDERUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.96
+BB_middle: 2.14
+BB_upper: 2.54
+BB_lower: 1.74
+Сигнал: NEUTRAL
+---
+2025-11-18 22:12:38.445002 | SEIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.15
+BB_middle: 0.16
+BB_upper: 0.19
+BB_lower: 0.14
+Сигнал: NEUTRAL
+---
+2025-11-18 22:12:43.136172 | JUPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.27
+BB_middle: 0.30
+BB_upper: 0.38
+BB_lower: 0.23
+Сигнал: NEUTRAL
+---
+2025-11-18 22:12:45.544006 | BONKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 22:13:00.721700 | TIAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.81
+BB_middle: 0.87
+BB_upper: 1.03
+BB_lower: 0.71
+Сигнал: NEUTRAL
+---
+2025-11-18 22:13:06.206235 | LDOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.71
+BB_middle: 0.76
+BB_upper: 0.88
+BB_lower: 0.65
+Сигнал: NEUTRAL
+---
+2025-11-18 22:13:07.831728 | STXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.34
+BB_middle: 0.37
+BB_upper: 0.44
+BB_lower: 0.30
+Сигнал: NEUTRAL
+---
+2025-11-18 22:13:09.657546 | NEXOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.97
+BB_middle: 1.03
+BB_upper: 1.14
+BB_lower: 0.92
+Сигнал: NEUTRAL
+---
+2025-11-18 22:13:14.091243 | GRTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.06
+BB_middle: 0.06
+BB_upper: 0.07
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-18 23:01:14.231998 | SOLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 139.78
+BB_middle: 147.02
+BB_upper: 170.64
+BB_lower: 123.40
+Сигнал: NEUTRAL
+---
+2025-11-18 23:01:18.443257 | DOGEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.16
+BB_middle: 0.16
+BB_upper: 0.18
+BB_lower: 0.15
+Сигнал: NEUTRAL
+---
+2025-11-18 23:01:20.245607 | ADAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.47
+BB_middle: 0.52
+BB_upper: 0.60
+BB_lower: 0.43
+Сигнал: NEUTRAL
+---
+2025-11-18 23:01:21.950808 | HYPEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 38.90
+BB_middle: 39.53
+BB_upper: 42.29
+BB_lower: 36.76
+Сигнал: NEUTRAL
+---
+2025-11-18 23:01:27.250860 | LINKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 13.72
+BB_middle: 14.53
+BB_upper: 16.65
+BB_lower: 12.40
+Сигнал: NEUTRAL
+---
+2025-11-18 23:01:29.063388 | XLMUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.25
+BB_middle: 0.27
+BB_upper: 0.30
+BB_lower: 0.23
+Сигнал: NEUTRAL
+---
+2025-11-18 23:01:32.053890 | HBARUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.15
+BB_middle: 0.16
+BB_upper: 0.19
+BB_lower: 0.13
+Сигнал: NEUTRAL
+---
+2025-11-18 23:01:33.855954 | AVAXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 14.72
+BB_middle: 15.93
+BB_upper: 18.45
+BB_lower: 13.41
+Сигнал: NEUTRAL
+---
+2025-11-18 23:01:35.658675 | SUIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.67
+BB_middle: 1.84
+BB_upper: 2.24
+BB_lower: 1.45
+Сигнал: NEUTRAL
+---
+2025-11-18 23:01:37.473349 | SHIBUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 23:01:40.558673 | DOTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 2.75
+BB_middle: 2.87
+BB_upper: 3.25
+BB_lower: 2.48
+Сигнал: NEUTRAL
+---
+2025-11-18 23:01:42.347136 | TONUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.80
+BB_middle: 1.91
+BB_upper: 2.18
+BB_lower: 1.64
+Сигнал: NEUTRAL
+---
+2025-11-18 23:01:53.776749 | AAVEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 176.03
+BB_middle: 188.24
+BB_upper: 228.92
+BB_lower: 147.56
+Сигнал: NEUTRAL
+---
+2025-11-18 23:01:59.189080 | PEPEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 23:02:00.954557 | ENAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.27
+BB_middle: 0.29
+BB_upper: 0.35
+BB_lower: 0.24
+Сигнал: NEUTRAL
+---
+2025-11-18 23:02:02.911830 | ONDOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.54
+BB_middle: 0.59
+BB_upper: 0.70
+BB_lower: 0.49
+Сигнал: NEUTRAL
+---
+2025-11-18 23:02:04.558262 | WLDUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.68
+BB_middle: 0.72
+BB_upper: 0.84
+BB_lower: 0.60
+Сигнал: NEUTRAL
+---
+2025-11-18 23:02:06.375347 | POLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.15
+BB_middle: 0.16
+BB_upper: 0.19
+BB_lower: 0.13
+Сигнал: NEUTRAL
+---
+2025-11-18 23:02:11.939481 | ALGOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.16
+BB_middle: 0.16
+BB_upper: 0.19
+BB_lower: 0.14
+Сигнал: NEUTRAL
+---
+2025-11-18 23:02:17.502753 | ARBUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.24
+BB_middle: 0.25
+BB_upper: 0.31
+BB_lower: 0.20
+Сигнал: NEUTRAL
+---
+2025-11-18 23:02:19.061677 | PUMPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 23:02:22.662840 | SKYUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.05
+BB_upper: 0.06
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-18 23:02:24.546816 | RENDERUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 2.01
+BB_middle: 2.15
+BB_upper: 2.54
+BB_lower: 1.75
+Сигнал: NEUTRAL
+---
+2025-11-18 23:02:31.554575 | SEIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.15
+BB_middle: 0.16
+BB_upper: 0.19
+BB_lower: 0.14
+Сигнал: NEUTRAL
+---
+2025-11-18 23:02:35.165220 | JUPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.27
+BB_middle: 0.30
+BB_upper: 0.38
+BB_lower: 0.23
+Сигнал: NEUTRAL
+---
+2025-11-18 23:02:36.884244 | BONKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 23:02:43.658795 | STRKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.19
+BB_middle: 0.17
+BB_upper: 0.23
+BB_lower: 0.12
+Сигнал: NEUTRAL
+---
+2025-11-18 23:02:48.450407 | TIAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.81
+BB_middle: 0.87
+BB_upper: 1.03
+BB_lower: 0.71
+Сигнал: NEUTRAL
+---
+2025-11-18 23:02:53.874663 | LDOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.73
+BB_middle: 0.76
+BB_upper: 0.88
+BB_lower: 0.65
+Сигнал: NEUTRAL
+---
+2025-11-18 23:02:55.677017 | STXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.35
+BB_middle: 0.37
+BB_upper: 0.44
+BB_lower: 0.30
+Сигнал: NEUTRAL
+---
+2025-11-18 23:02:57.476351 | NEXOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.97
+BB_middle: 1.03
+BB_upper: 1.14
+BB_lower: 0.92
+Сигнал: NEUTRAL
+---
+2025-11-18 23:03:01.884784 | GRTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.06
+BB_middle: 0.06
+BB_upper: 0.07
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-18 23:03:07.899230 | FLOKIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 23:03:09.686274 | PYTHUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.09
+BB_middle: 0.09
+BB_upper: 0.11
+BB_lower: 0.08
+Сигнал: NEUTRAL
+---
+2025-11-18 23:03:12.704518 | SPXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.51
+BB_middle: 0.58
+BB_upper: 0.77
+BB_lower: 0.39
+Сигнал: NEUTRAL
+---
+2025-11-18 23:03:18.091538 | SANDUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.18
+BB_middle: 0.19
+BB_upper: 0.21
+BB_lower: 0.16
+Сигнал: NEUTRAL
+---
+2025-11-18 23:03:28.662943 | THETAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.41
+BB_middle: 0.43
+BB_upper: 0.50
+BB_lower: 0.36
+Сигнал: NEUTRAL
+---
+2025-11-18 23:03:31.652154 | WIFUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.41
+BB_middle: 0.43
+BB_upper: 0.50
+BB_lower: 0.36
+Сигнал: NEUTRAL
+---
+2025-11-18 23:03:33.462653 | GALAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-18 23:03:35.345549 | MANAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.20
+BB_middle: 0.21
+BB_upper: 0.24
+BB_lower: 0.18
+Сигнал: NEUTRAL
+---
+2025-11-18 23:03:38.277997 | AUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.24
+BB_middle: 0.25
+BB_upper: 0.30
+BB_lower: 0.21
+Сигнал: NEUTRAL
+---
+2025-11-18 23:04:01.064983 | WUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.06
+BB_upper: 0.07
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-18 23:04:04.184487 | APEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.34
+BB_middle: 0.36
+BB_upper: 0.41
+BB_lower: 0.31
+Сигнал: NEUTRAL
+---
+2025-11-18 23:04:15.591031 | JTOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.57
+BB_middle: 0.65
+BB_upper: 0.84
+BB_lower: 0.47
+Сигнал: NEUTRAL
+---
+2025-11-18 23:04:26.995732 | BRETTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.02
+BB_middle: 0.02
+BB_upper: 0.03
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-18 23:04:40.202257 | LUNCUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 23:04:51.245184 | YFIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 4413.00
+BB_middle: 4622.37
+BB_upper: 5050.75
+BB_lower: 4193.99
+Сигнал: NEUTRAL
+---
+2025-11-18 23:04:54.412761 | AXLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.14
+BB_middle: 0.15
+BB_upper: 0.18
+BB_lower: 0.12
+Сигнал: NEUTRAL
+---
+2025-11-18 23:05:03.830247 | ZILUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-18 23:05:07.864447 | BABYDOGEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 23:05:09.594738 | AVNTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.45
+BB_middle: 0.50
+BB_upper: 0.56
+BB_lower: 0.43
+Сигнал: NEUTRAL
+---
+2025-11-18 23:05:23.474293 | IDUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.09
+BB_middle: 0.09
+BB_upper: 0.10
+BB_lower: 0.08
+Сигнал: NEUTRAL
+---
+2025-11-18 23:05:33.378457 | ZIGUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.07
+BB_middle: 0.07
+BB_upper: 0.08
+BB_lower: 0.06
+Сигнал: NEUTRAL
+---
+2025-11-18 23:05:44.170470 | LRCUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.06
+BB_middle: 0.06
+BB_upper: 0.07
+BB_lower: 0.06
+Сигнал: NEUTRAL
+---
+2025-11-18 23:05:58.233745 | SOLOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.20
+BB_middle: 0.20
+BB_upper: 0.22
+BB_lower: 0.18
+Сигнал: NEUTRAL
+---
+2025-11-18 23:06:03.163293 | MASKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.71
+BB_middle: 0.75
+BB_upper: 0.86
+BB_lower: 0.64
+Сигнал: NEUTRAL
+---
+2025-11-18 23:06:16.368289 | MEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.38
+BB_middle: 0.40
+BB_upper: 0.44
+BB_lower: 0.36
+Сигнал: NEUTRAL
+---
+2025-11-18 23:06:20.583578 | SXTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-18 23:07:00.040680 | VVVUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.15
+BB_middle: 1.19
+BB_upper: 1.37
+BB_lower: 1.01
+Сигнал: NEUTRAL
+---
+2025-11-18 23:07:04.485437 | B3USDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 23:07:11.676776 | GOATUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-18 23:07:19.497253 | CBKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.38
+BB_middle: 0.39
+BB_upper: 0.43
+BB_lower: 0.35
+Сигнал: NEUTRAL
+---
+2025-11-18 23:07:27.188384 | YBUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.44
+BB_middle: 0.46
+BB_upper: 0.55
+BB_lower: 0.37
+Сигнал: NEUTRAL
+---
+2025-11-18 23:07:29.098115 | SLPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 23:07:57.032955 | CATUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 23:07:58.933551 | TAIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.03
+BB_middle: 0.03
+BB_upper: 0.04
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-18 23:08:25.594191 | CATIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.06
+BB_middle: 0.06
+BB_upper: 0.07
+BB_lower: 0.06
+Сигнал: NEUTRAL
+---
+2025-11-18 23:08:29.790686 | ROAMUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.07
+BB_middle: 0.07
+BB_upper: 0.08
+BB_lower: 0.06
+Сигнал: NEUTRAL
+---
+2025-11-18 23:08:40.875317 | MBOXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-18 23:08:51.319505 | XUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 23:09:19.707189 | RACAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 23:09:31.087170 | WENUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 23:09:36.760528 | PSGUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.91
+BB_middle: 0.96
+BB_upper: 1.05
+BB_lower: 0.86
+Сигнал: NEUTRAL
+---
+2025-11-18 23:09:39.676458 | CRCLXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 77.48
+BB_middle: 89.03
+BB_upper: 110.54
+BB_lower: 67.53
+Сигнал: NEUTRAL
+---
+2025-11-18 23:09:54.480774 | SOLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 140.18
+BB_middle: 147.06
+BB_upper: 170.65
+BB_lower: 123.47
+Сигнал: NEUTRAL
+---
+2025-11-18 23:09:58.684164 | DOGEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.16
+BB_middle: 0.17
+BB_upper: 0.18
+BB_lower: 0.15
+Сигнал: NEUTRAL
+---
+2025-11-18 23:10:00.484009 | ADAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.48
+BB_middle: 0.52
+BB_upper: 0.60
+BB_lower: 0.43
+Сигнал: NEUTRAL
+---
+2025-11-18 23:10:02.216636 | HYPEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 39.07
+BB_middle: 39.54
+BB_upper: 42.30
+BB_lower: 36.78
+Сигнал: NEUTRAL
+---
+2025-11-18 23:10:08.597995 | LINKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 13.85
+BB_middle: 14.54
+BB_upper: 16.65
+BB_lower: 12.43
+Сигнал: NEUTRAL
+---
+2025-11-18 23:10:10.400280 | XLMUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.26
+BB_middle: 0.27
+BB_upper: 0.30
+BB_lower: 0.23
+Сигнал: NEUTRAL
+---
+2025-11-18 23:10:13.482210 | HBARUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.15
+BB_middle: 0.16
+BB_upper: 0.19
+BB_lower: 0.13
+Сигнал: NEUTRAL
+---
+2025-11-18 23:10:15.200584 | AVAXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 14.81
+BB_middle: 15.94
+BB_upper: 18.45
+BB_lower: 13.43
+Сигнал: NEUTRAL
+---
+2025-11-18 23:10:17.252915 | SUIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.68
+BB_middle: 1.84
+BB_upper: 2.24
+BB_lower: 1.45
+Сигнал: NEUTRAL
+---
+2025-11-18 23:10:19.060369 | SHIBUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 23:10:21.968829 | DOTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 2.77
+BB_middle: 2.87
+BB_upper: 3.25
+BB_lower: 2.49
+Сигнал: NEUTRAL
+---
+2025-11-18 23:10:23.849478 | TONUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.81
+BB_middle: 1.91
+BB_upper: 2.18
+BB_lower: 1.64
+Сигнал: NEUTRAL
+---
+2025-11-18 23:10:35.255403 | AAVEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 177.17
+BB_middle: 188.35
+BB_upper: 228.93
+BB_lower: 147.78
+Сигнал: NEUTRAL
+---
+2025-11-18 23:10:40.661379 | PEPEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 23:10:43.660750 | ONDOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.55
+BB_middle: 0.59
+BB_upper: 0.70
+BB_lower: 0.49
+Сигнал: NEUTRAL
+---
+2025-11-18 23:10:45.378633 | WLDUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.69
+BB_middle: 0.72
+BB_upper: 0.84
+BB_lower: 0.60
+Сигнал: NEUTRAL
+---
+2025-11-18 23:10:47.501573 | POLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.15
+BB_middle: 0.16
+BB_upper: 0.19
+BB_lower: 0.13
+Сигнал: NEUTRAL
+---
+2025-11-18 23:10:52.904505 | ALGOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.16
+BB_middle: 0.17
+BB_upper: 0.19
+BB_lower: 0.14
+Сигнал: NEUTRAL
+---
+2025-11-18 23:10:58.979596 | ARBUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.24
+BB_middle: 0.25
+BB_upper: 0.31
+BB_lower: 0.20
+Сигнал: NEUTRAL
+---
+2025-11-18 23:11:00.778007 | PUMPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 23:11:04.303615 | SKYUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.05
+BB_upper: 0.06
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-18 23:11:06.185044 | RENDERUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 2.02
+BB_middle: 2.15
+BB_upper: 2.54
+BB_lower: 1.75
+Сигнал: NEUTRAL
+---
+2025-11-18 23:11:12.786077 | SEIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.15
+BB_middle: 0.16
+BB_upper: 0.19
+BB_lower: 0.14
+Сигнал: NEUTRAL
+---
+2025-11-18 23:11:16.387673 | JUPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.27
+BB_middle: 0.30
+BB_upper: 0.38
+BB_lower: 0.23
+Сигнал: NEUTRAL
+---
+2025-11-18 23:11:18.187874 | BONKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 23:11:24.790826 | STRKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.19
+BB_middle: 0.17
+BB_upper: 0.23
+BB_lower: 0.12
+Сигнал: NEUTRAL
+---
+2025-11-18 23:11:29.508939 | TIAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.82
+BB_middle: 0.87
+BB_upper: 1.03
+BB_lower: 0.72
+Сигнал: NEUTRAL
+---
+2025-11-18 23:11:35.988273 | LDOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.73
+BB_middle: 0.77
+BB_upper: 0.88
+BB_lower: 0.65
+Сигнал: NEUTRAL
+---
+2025-11-18 23:11:37.781222 | STXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.35
+BB_middle: 0.37
+BB_upper: 0.44
+BB_lower: 0.30
+Сигнал: NEUTRAL
+---
+2025-11-18 23:11:39.605261 | NEXOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.97
+BB_middle: 1.03
+BB_upper: 1.14
+BB_lower: 0.92
+Сигнал: NEUTRAL
+---
+2025-11-18 23:11:44.029685 | GRTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.06
+BB_middle: 0.06
+BB_upper: 0.07
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-18 23:11:50.035763 | FLOKIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 23:11:51.602463 | PYTHUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.09
+BB_middle: 0.09
+BB_upper: 0.11
+BB_lower: 0.08
+Сигнал: NEUTRAL
+---
+2025-11-18 23:11:54.603453 | SPXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.51
+BB_middle: 0.58
+BB_upper: 0.77
+BB_lower: 0.39
+Сигнал: NEUTRAL
+---
+2025-11-18 23:11:59.993660 | SANDUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.18
+BB_middle: 0.19
+BB_upper: 0.21
+BB_lower: 0.16
+Сигнал: NEUTRAL
+---
+2025-11-18 23:12:10.199418 | THETAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.41
+BB_middle: 0.43
+BB_upper: 0.50
+BB_lower: 0.36
+Сигнал: NEUTRAL
+---
+2025-11-18 23:12:13.200014 | WIFUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.41
+BB_middle: 0.43
+BB_upper: 0.50
+BB_lower: 0.36
+Сигнал: NEUTRAL
+---
+2025-11-18 23:12:16.203547 | MANAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.20
+BB_middle: 0.21
+BB_upper: 0.24
+BB_lower: 0.18
+Сигнал: NEUTRAL
+---
+2025-11-18 23:12:19.120582 | AUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.24
+BB_middle: 0.25
+BB_upper: 0.30
+BB_lower: 0.21
+Сигнал: NEUTRAL
+---
+2025-11-18 23:12:42.086454 | WUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.06
+BB_upper: 0.07
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-18 23:12:45.087646 | APEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.34
+BB_middle: 0.36
+BB_upper: 0.41
+BB_lower: 0.31
+Сигнал: NEUTRAL
+---
+2025-11-18 23:12:56.502149 | JTOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.57
+BB_middle: 0.65
+BB_upper: 0.84
+BB_lower: 0.47
+Сигнал: NEUTRAL
+---
+2025-11-18 23:13:08.579043 | BRETTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.02
+BB_middle: 0.02
+BB_upper: 0.03
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-18 23:13:18.264354 | KMNOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.06
+BB_middle: 0.06
+BB_upper: 0.06
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-18 23:13:22.875518 | LUNCUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 23:13:34.827627 | YFIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 4446.00
+BB_middle: 4625.51
+BB_upper: 5049.33
+BB_lower: 4201.70
+Сигнал: NEUTRAL
+---
+2025-11-18 23:13:37.582454 | AXLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.14
+BB_middle: 0.15
+BB_upper: 0.18
+BB_lower: 0.12
+Сигнал: NEUTRAL
+---
+2025-11-18 23:13:46.587106 | ZILUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-18 23:13:50.792051 | BABYDOGEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 23:13:52.513522 | AVNTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.45
+BB_middle: 0.50
+BB_upper: 0.56
+BB_lower: 0.43
+Сигнал: NEUTRAL
+---
+2025-11-18 23:14:06.995750 | IDUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.09
+BB_middle: 0.09
+BB_upper: 0.10
+BB_lower: 0.08
+Сигнал: NEUTRAL
+---
+2025-11-18 23:14:16.601835 | ZIGUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.07
+BB_middle: 0.07
+BB_upper: 0.08
+BB_lower: 0.06
+Сигнал: NEUTRAL
+---
+2025-11-18 23:14:28.141098 | LRCUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.06
+BB_middle: 0.06
+BB_upper: 0.07
+BB_lower: 0.06
+Сигнал: NEUTRAL
+---
+2025-11-18 23:14:41.872579 | SOLOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.20
+BB_middle: 0.20
+BB_upper: 0.22
+BB_lower: 0.18
+Сигнал: NEUTRAL
+---
+2025-11-18 23:14:46.677219 | MASKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.71
+BB_middle: 0.75
+BB_upper: 0.86
+BB_lower: 0.64
+Сигнал: NEUTRAL
+---
+2025-11-18 23:15:02.335184 | MEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.38
+BB_middle: 0.40
+BB_upper: 0.44
+BB_lower: 0.36
+Сигнал: NEUTRAL
+---
+2025-11-18 23:15:06.535897 | SXTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-18 23:15:46.547298 | VVVUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.15
+BB_middle: 1.19
+BB_upper: 1.37
+BB_lower: 1.01
+Сигнал: NEUTRAL
+---
+2025-11-18 23:15:50.746703 | B3USDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 23:15:58.690878 | GOATUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-18 23:16:06.655680 | CBKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.38
+BB_middle: 0.39
+BB_upper: 0.43
+BB_lower: 0.35
+Сигнал: NEUTRAL
+---
+2025-11-18 23:16:14.211786 | YBUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.45
+BB_middle: 0.46
+BB_upper: 0.55
+BB_lower: 0.37
+Сигнал: NEUTRAL
+---
+2025-11-18 23:16:16.094386 | SLPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 23:16:44.204170 | CATUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 23:16:46.007719 | TAIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.03
+BB_middle: 0.03
+BB_upper: 0.04
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-18 23:17:12.909436 | CATIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.06
+BB_middle: 0.06
+BB_upper: 0.07
+BB_lower: 0.06
+Сигнал: NEUTRAL
+---
+2025-11-18 23:17:17.113093 | ROAMUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.07
+BB_middle: 0.07
+BB_upper: 0.08
+BB_lower: 0.06
+Сигнал: NEUTRAL
+---
+2025-11-18 23:17:27.314152 | MBOXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-18 23:17:38.118363 | XUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 23:18:06.934343 | RACAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 23:18:19.625937 | WENUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 23:18:25.204961 | PSGUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.91
+BB_middle: 0.96
+BB_upper: 1.05
+BB_lower: 0.86
+Сигнал: NEUTRAL
+---
+2025-11-18 23:18:28.213543 | CRCLXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 77.64
+BB_middle: 89.05
+BB_upper: 110.53
+BB_lower: 67.57
+Сигнал: NEUTRAL
+---
+2025-11-18 23:18:31.541690 | XEMUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 23:18:44.994828 | LADYSUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-18 23:18:46.558930 | JUVUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.69
+BB_middle: 0.72
+BB_upper: 0.81
+BB_lower: 0.64
+Сигнал: NEUTRAL
+---
+2025-11-19 10:01:17.483766 | B3USDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-19 10:03:30.060823 | WENUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-19 10:03:33.144499 | SWELLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-19 16:57:16.005889 | AAVEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 175.53
+BB_middle: 187.23
+BB_upper: 228.36
+BB_lower: 146.09
+Сигнал: NEUTRAL
+---
+2025-11-19 16:57:58.004757 | STRKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.24
+BB_middle: 0.18
+BB_upper: 0.25
+BB_lower: 0.12
+Сигнал: NEUTRAL
+---
+2025-11-19 16:58:07.008577 | LDOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.72
+BB_middle: 0.76
+BB_upper: 0.88
+BB_lower: 0.64
+Сигнал: NEUTRAL
+---
+2025-11-19 16:58:08.809606 | STXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.35
+BB_middle: 0.37
+BB_upper: 0.44
+BB_lower: 0.30
+Сигнал: NEUTRAL
+---
+2025-11-19 16:58:16.612184 | KAIAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.08
+BB_middle: 0.09
+BB_upper: 0.11
+BB_lower: 0.08
+Сигнал: NEUTRAL
+---
+2025-11-19 16:58:23.214476 | SPXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.55
+BB_middle: 0.58
+BB_upper: 0.76
+BB_lower: 0.39
+Сигнал: NEUTRAL
+---
+2025-11-19 16:58:37.306845 | THETAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.40
+BB_middle: 0.43
+BB_upper: 0.49
+BB_lower: 0.36
+Сигнал: NEUTRAL
+---
+2025-11-19 16:59:15.767982 | DEEPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.06
+BB_upper: 0.07
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-19 16:59:25.453794 | WEMIXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.45
+BB_middle: 0.52
+BB_upper: 0.59
+BB_lower: 0.46
+Сигнал: BUY
+---
+2025-11-19 17:00:13.509557 | CELOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.18
+BB_middle: 0.21
+BB_upper: 0.25
+BB_lower: 0.16
+Сигнал: NEUTRAL
+---
+2025-11-19 17:00:33.954135 | ZIGUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.06
+BB_middle: 0.07
+BB_upper: 0.08
+BB_lower: 0.06
+Сигнал: NEUTRAL
+---
+2025-11-19 17:00:51.002457 | ETHWUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.69
+BB_middle: 0.78
+BB_upper: 0.90
+BB_lower: 0.66
+Сигнал: NEUTRAL
+---
+2025-11-19 17:00:55.994944 | UMAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.92
+BB_middle: 0.95
+BB_upper: 1.05
+BB_lower: 0.86
+Сигнал: NEUTRAL
+---
+2025-11-19 17:01:21.808117 | SXTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-19 17:02:04.297986 | B3USDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-19 17:02:08.496245 | VRAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-19 17:02:24.703245 | NYMUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.05
+BB_upper: 0.05
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-19 17:02:58.641536 | SCRUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.12
+BB_middle: 0.14
+BB_upper: 0.17
+BB_lower: 0.11
+Сигнал: NEUTRAL
+---
+2025-11-19 17:04:22.533336 | WENUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-19 17:04:27.580582 | SWELLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-19 17:04:32.976520 | CRCLXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 77.58
+BB_middle: 87.90
+BB_upper: 108.83
+BB_lower: 66.96
+Сигнал: NEUTRAL
+---
+2025-11-19 17:04:39.572034 | UUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-19 22:52:13.321859 | SOLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 134.51
+BB_middle: 145.17
+BB_upper: 168.04
+BB_lower: 122.31
+Сигнал: NEUTRAL
+---
+2025-11-19 22:52:24.617329 | LINKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 13.02
+BB_middle: 14.29
+BB_upper: 16.52
+BB_lower: 12.07
+Сигнал: NEUTRAL
+---
+2025-11-19 22:52:26.522473 | XLMUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.24
+BB_middle: 0.26
+BB_upper: 0.30
+BB_lower: 0.22
+Сигнал: NEUTRAL
+---
+2025-11-19 22:52:30.610988 | AVAXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 14.09
+BB_middle: 15.62
+BB_upper: 18.26
+BB_lower: 12.98
+Сигнал: NEUTRAL
+---
+2025-11-19 22:52:32.596223 | SUIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.59
+BB_middle: 1.80
+BB_upper: 2.19
+BB_lower: 1.41
+Сигнал: NEUTRAL
+---
+2025-11-19 22:52:34.247039 | SHIBUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-19 22:52:48.639948 | AAVEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 168.18
+BB_middle: 185.31
+BB_upper: 226.92
+BB_lower: 143.71
+Сигнал: NEUTRAL
+---
+2025-11-19 22:53:02.059781 | POLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.14
+BB_middle: 0.16
+BB_upper: 0.18
+BB_lower: 0.13
+Сигнал: NEUTRAL
+---
+2025-11-19 22:53:07.426996 | ALGOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.15
+BB_middle: 0.16
+BB_upper: 0.19
+BB_lower: 0.14
+Сигнал: NEUTRAL
+---
+2025-11-19 22:53:12.926449 | ARBUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.23
+BB_middle: 0.25
+BB_upper: 0.30
+BB_lower: 0.20
+Сигнал: NEUTRAL
+---
+2025-11-19 22:53:14.709983 | PUMPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-19 22:53:18.908886 | RENDERUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.98
+BB_middle: 2.13
+BB_upper: 2.53
+BB_lower: 1.72
+Сигнал: NEUTRAL
+---
+2025-11-19 22:53:26.764729 | XDCUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.05
+BB_upper: 0.06
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-19 22:53:31.007721 | JUPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.26
+BB_middle: 0.30
+BB_upper: 0.37
+BB_lower: 0.22
+Сигнал: NEUTRAL
+---
+2025-11-19 22:53:42.717368 | IMXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.36
+BB_middle: 0.39
+BB_upper: 0.46
+BB_lower: 0.32
+Сигнал: NEUTRAL
+---
+2025-11-19 22:53:50.523889 | LDOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.70
+BB_middle: 0.76
+BB_upper: 0.88
+BB_lower: 0.64
+Сигнал: NEUTRAL
+---
+2025-11-19 22:53:54.886039 | STXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.34
+BB_middle: 0.37
+BB_upper: 0.43
+BB_lower: 0.30
+Сигнал: NEUTRAL
+---
+2025-11-19 22:54:05.513728 | KAIAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.08
+BB_middle: 0.09
+BB_upper: 0.10
+BB_lower: 0.07
+Сигнал: NEUTRAL
+---
+2025-11-19 22:54:12.317314 | SPXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.52
+BB_middle: 0.57
+BB_upper: 0.75
+BB_lower: 0.39
+Сигнал: NEUTRAL
+---
+2025-11-19 22:54:20.322513 | HNTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 2.11
+BB_middle: 2.30
+BB_upper: 2.49
+BB_lower: 2.12
+Сигнал: BUY
+---
+2025-11-19 22:54:23.322764 | JASMYUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-19 22:54:27.523869 | THETAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.39
+BB_middle: 0.42
+BB_upper: 0.49
+BB_lower: 0.36
+Сигнал: NEUTRAL
+---
+2025-11-19 22:54:30.542418 | WIFUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.40
+BB_middle: 0.43
+BB_upper: 0.49
+BB_lower: 0.36
+Сигнал: NEUTRAL
+---
+2025-11-19 22:54:43.737290 | JSTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.04
+BB_upper: 0.04
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-19 22:55:06.314875 | DEEPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.06
+BB_upper: 0.07
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-19 22:55:14.623305 | WEMIXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.44
+BB_middle: 0.52
+BB_upper: 0.59
+BB_lower: 0.44
+Сигнал: NEUTRAL
+---
+2025-11-19 22:55:22.431373 | BRETTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.02
+BB_middle: 0.02
+BB_upper: 0.03
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-19 22:55:29.346183 | CTCUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.31
+BB_middle: 0.36
+BB_upper: 0.44
+BB_lower: 0.28
+Сигнал: NEUTRAL
+---
+2025-11-19 22:55:46.253023 | AIOZUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.13
+BB_middle: 0.14
+BB_upper: 0.18
+BB_lower: 0.11
+Сигнал: NEUTRAL
+---
+2025-11-19 22:56:05.524427 | ZILUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-19 22:56:09.718230 | BABYDOGEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-19 22:56:11.440897 | AVNTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.42
+BB_middle: 0.48
+BB_upper: 0.56
+BB_lower: 0.40
+Сигнал: NEUTRAL
+---
+2025-11-19 22:56:14.940456 | CELOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.18
+BB_middle: 0.20
+BB_upper: 0.25
+BB_lower: 0.16
+Сигнал: NEUTRAL
+---
+2025-11-19 22:56:20.335795 | PLUMEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.03
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.02
+Сигнал: NEUTRAL
+---
+2025-11-19 22:56:25.775269 | ZETAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.09
+BB_middle: 0.10
+BB_upper: 0.11
+BB_lower: 0.09
+Сигнал: NEUTRAL
+---
+2025-11-19 22:56:30.675105 | IDUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.08
+BB_middle: 0.09
+BB_upper: 0.10
+BB_lower: 0.08
+Сигнал: NEUTRAL
+---
+2025-11-19 22:56:32.410833 | PROVEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.49
+BB_middle: 0.54
+BB_upper: 0.60
+BB_lower: 0.48
+Сигнал: NEUTRAL
+---
+2025-11-19 22:56:35.485704 | ACHUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-19 22:56:40.876653 | ZIGUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.06
+BB_middle: 0.07
+BB_upper: 0.08
+BB_lower: 0.06
+Сигнал: NEUTRAL
+---
+2025-11-19 22:56:52.284087 | REDUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.27
+BB_middle: 0.29
+BB_upper: 0.33
+BB_lower: 0.25
+Сигнал: NEUTRAL
+---
+2025-11-19 22:56:56.493159 | ETHWUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.67
+BB_middle: 0.77
+BB_upper: 0.90
+BB_lower: 0.64
+Сигнал: NEUTRAL
+---
+2025-11-19 22:56:59.487265 | UMAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.89
+BB_middle: 0.95
+BB_upper: 1.04
+BB_lower: 0.85
+Сигнал: NEUTRAL
+---
+2025-11-19 22:57:06.222521 | WAVESUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.63
+BB_middle: 0.67
+BB_upper: 0.77
+BB_lower: 0.58
+Сигнал: NEUTRAL
+---
+2025-11-19 22:57:09.320299 | SOLOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.19
+BB_middle: 0.20
+BB_upper: 0.22
+BB_lower: 0.18
+Сигнал: NEUTRAL
+---
+2025-11-19 22:57:14.294612 | MASKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.70
+BB_middle: 0.74
+BB_upper: 0.84
+BB_lower: 0.63
+Сигнал: NEUTRAL
+---
+2025-11-19 22:58:08.666013 | VVVUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.08
+BB_middle: 1.17
+BB_upper: 1.35
+BB_lower: 1.00
+Сигнал: NEUTRAL
+---
+2025-11-19 22:58:17.058884 | VRAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-19 22:58:20.067724 | GOATUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-19 22:58:34.158799 | NYMUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.05
+BB_upper: 0.05
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-19 22:58:39.558582 | DEGENUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-19 22:58:48.573019 | AGIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.02
+BB_middle: 0.02
+BB_upper: 0.03
+BB_lower: 0.02
+Сигнал: NEUTRAL
+---
+2025-11-19 22:59:08.774945 | CATUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-19 22:59:10.395836 | TAIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.03
+BB_middle: 0.03
+BB_upper: 0.04
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-19 22:59:13.523995 | SCRUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.11
+BB_middle: 0.14
+BB_upper: 0.17
+BB_lower: 0.10
+Сигнал: NEUTRAL
+---
+2025-11-19 22:59:19.005063 | ZRCUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-19 22:59:20.808418 | BOBAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.05
+BB_upper: 0.06
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-19 22:59:23.822423 | PONKEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.05
+BB_upper: 0.05
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-19 22:59:30.710225 | HFTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-19 22:59:41.710173 | CATIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.06
+BB_middle: 0.06
+BB_upper: 0.07
+BB_lower: 0.06
+Сигнал: NEUTRAL
+---
+2025-11-19 22:59:45.908561 | ROAMUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.07
+BB_middle: 0.07
+BB_upper: 0.08
+BB_lower: 0.06
+Сигнал: NEUTRAL
+---
+2025-11-19 23:00:01.515805 | LMWRUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.05
+BB_upper: 0.06
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-19 23:00:12.539548 | SDUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.28
+BB_middle: 0.34
+BB_upper: 0.41
+BB_lower: 0.26
+Сигнал: NEUTRAL
+---
+2025-11-19 23:00:32.242117 | RSS3USDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.02
+BB_middle: 0.02
+BB_upper: 0.02
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-19 23:00:34.047611 | MAVIAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.07
+BB_middle: 0.08
+BB_upper: 0.09
+BB_lower: 0.06
+Сигнал: NEUTRAL
+---
+2025-11-19 23:00:35.845103 | RACAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-19 23:00:50.253245 | SWELLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-19 23:00:55.647660 | CRCLXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 69.79
+BB_middle: 86.18
+BB_upper: 106.98
+BB_lower: 65.38
+Сигнал: NEUTRAL
+---
+2025-11-19 23:07:35.611162 | SOLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 135.12
+BB_middle: 145.23
+BB_upper: 168.03
+BB_lower: 122.43
+Сигнал: NEUTRAL
+---
+2025-11-19 23:07:46.481673 | LINKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 13.12
+BB_middle: 14.30
+BB_upper: 16.51
+BB_lower: 12.09
+Сигнал: NEUTRAL
+---
+2025-11-19 23:07:48.289286 | XLMUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.24
+BB_middle: 0.26
+BB_upper: 0.30
+BB_lower: 0.22
+Сигнал: NEUTRAL
+---
+2025-11-19 23:07:52.484364 | AVAXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 14.14
+BB_middle: 15.62
+BB_upper: 18.26
+BB_lower: 12.99
+Сигнал: NEUTRAL
+---
+2025-11-19 23:07:54.284151 | SUIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.59
+BB_middle: 1.80
+BB_upper: 2.19
+BB_lower: 1.41
+Сигнал: NEUTRAL
+---
+2025-11-19 23:07:56.083609 | SHIBUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-19 23:08:10.490255 | AAVEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 169.22
+BB_middle: 185.41
+BB_upper: 226.90
+BB_lower: 143.92
+Сигнал: NEUTRAL
+---
+2025-11-19 23:08:21.623528 | POLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.14
+BB_middle: 0.16
+BB_upper: 0.18
+BB_lower: 0.13
+Сигнал: NEUTRAL
+---
+2025-11-19 23:08:26.967888 | ALGOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.15
+BB_middle: 0.16
+BB_upper: 0.19
+BB_lower: 0.14
+Сигнал: NEUTRAL
+---
+2025-11-19 23:08:32.671586 | ARBUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.23
+BB_middle: 0.25
+BB_upper: 0.30
+BB_lower: 0.20
+Сигнал: NEUTRAL
+---
+2025-11-19 23:08:34.471046 | PUMPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-19 23:08:36.276523 | KASUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.05
+BB_upper: 0.05
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-19 23:08:38.001992 | SKYUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.05
+BB_upper: 0.06
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-19 23:08:39.884768 | RENDERUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.99
+BB_middle: 2.13
+BB_upper: 2.53
+BB_lower: 1.73
+Сигнал: NEUTRAL
+---
+2025-11-19 23:08:46.477248 | SEIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.15
+BB_middle: 0.16
+BB_upper: 0.19
+BB_lower: 0.13
+Сигнал: NEUTRAL
+---
+2025-11-19 23:08:48.277961 | XDCUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.05
+BB_upper: 0.06
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-19 23:08:55.507265 | JUPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.26
+BB_middle: 0.30
+BB_upper: 0.37
+BB_lower: 0.22
+Сигнал: NEUTRAL
+---
+2025-11-19 23:09:05.927908 | IMXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.36
+BB_middle: 0.39
+BB_upper: 0.46
+BB_lower: 0.32
+Сигнал: NEUTRAL
+---
+2025-11-19 23:09:13.987880 | LDOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.70
+BB_middle: 0.76
+BB_upper: 0.88
+BB_lower: 0.64
+Сигнал: NEUTRAL
+---
+2025-11-19 23:09:15.782562 | STXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.34
+BB_middle: 0.37
+BB_upper: 0.43
+BB_lower: 0.30
+Сигнал: NEUTRAL
+---
+2025-11-19 23:09:21.780667 | GRTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.06
+BB_upper: 0.07
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-19 23:09:24.781353 | KAIAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.08
+BB_middle: 0.09
+BB_upper: 0.10
+BB_lower: 0.07
+Сигнал: NEUTRAL
+---
+2025-11-19 23:09:31.379091 | SPXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.52
+BB_middle: 0.57
+BB_upper: 0.75
+BB_lower: 0.39
+Сигнал: NEUTRAL
+---
+2025-11-19 23:19:42.407094 | XDCUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.05
+BB_upper: 0.06
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-19 23:19:47.286325 | JUPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.26
+BB_middle: 0.29
+BB_upper: 0.37
+BB_lower: 0.22
+Сигнал: NEUTRAL
+---
+2025-11-19 23:23:35.979073 | XDCUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.05
+BB_upper: 0.06
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-19 23:23:44.176096 | JUPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.25
+BB_middle: 0.29
+BB_upper: 0.37
+BB_lower: 0.22
+Сигнал: NEUTRAL
+---
+2025-11-19 23:29:40.445502 | XDCUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.05
+BB_upper: 0.06
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-19 23:29:47.815294 | JUPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.26
+BB_middle: 0.29
+BB_upper: 0.37
+BB_lower: 0.22
+Сигнал: NEUTRAL
+---
+2025-11-19 23:36:20.718490 | XDCUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.05
+BB_upper: 0.06
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-19 23:36:28.030816 | JUPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.25
+BB_middle: 0.29
+BB_upper: 0.37
+BB_lower: 0.22
+Сигнал: NEUTRAL
+---
+2025-11-19 23:49:49.537218 | SOLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 133.20
+BB_middle: 145.05
+BB_upper: 168.07
+BB_lower: 122.03
+Сигнал: NEUTRAL
+---
+2025-11-19 23:49:55.608478 | DOGEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.15
+BB_middle: 0.16
+BB_upper: 0.18
+BB_lower: 0.14
+Сигнал: NEUTRAL
+---
+2025-11-19 23:50:06.942392 | LINKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 12.93
+BB_middle: 14.28
+BB_upper: 16.52
+BB_lower: 12.04
+Сигнал: NEUTRAL
+---
+2025-11-19 23:50:09.695265 | XLMUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.24
+BB_middle: 0.26
+BB_upper: 0.30
+BB_lower: 0.22
+Сигнал: NEUTRAL
+---
+2025-11-19 23:50:14.904586 | HBARUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.14
+BB_middle: 0.16
+BB_upper: 0.19
+BB_lower: 0.12
+Сигнал: NEUTRAL
+---
+2025-11-19 23:50:17.483667 | AVAXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 13.89
+BB_middle: 15.60
+BB_upper: 18.27
+BB_lower: 12.93
+Сигнал: NEUTRAL
+---
+2025-11-19 23:50:20.059689 | SUIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.55
+BB_middle: 1.80
+BB_upper: 2.19
+BB_lower: 1.40
+Сигнал: NEUTRAL
+---
+2025-11-19 23:50:22.458714 | SHIBUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-19 23:50:39.871927 | NEARUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 2.20
+BB_middle: 2.37
+BB_upper: 2.75
+BB_lower: 1.99
+Сигнал: NEUTRAL
+---
+2025-11-19 23:50:48.290141 | AAVEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 167.17
+BB_middle: 185.22
+BB_upper: 226.94
+BB_lower: 143.50
+Сигнал: NEUTRAL
+---
+2025-11-19 23:51:04.210350 | POLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.14
+BB_middle: 0.16
+BB_upper: 0.18
+BB_lower: 0.13
+Сигнал: NEUTRAL
+---
+2025-11-19 23:51:12.459235 | ALGOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.15
+BB_middle: 0.16
+BB_upper: 0.19
+BB_lower: 0.14
+Сигнал: NEUTRAL
+---
+2025-11-19 23:51:20.334782 | ARBUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.22
+BB_middle: 0.25
+BB_upper: 0.30
+BB_lower: 0.20
+Сигнал: NEUTRAL
+---
+2025-11-19 23:51:22.668474 | PUMPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-19 23:51:25.134379 | KASUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.05
+BB_upper: 0.05
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-19 23:51:27.475296 | SKYUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.05
+BB_upper: 0.06
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-19 23:51:29.936205 | RENDERUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.95
+BB_middle: 2.12
+BB_upper: 2.53
+BB_lower: 1.72
+Сигнал: NEUTRAL
+---
+2025-11-19 23:51:32.341024 | FLRUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.02
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-19 23:51:40.161800 | SEIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.14
+BB_middle: 0.16
+BB_upper: 0.19
+BB_lower: 0.13
+Сигнал: NEUTRAL
+---
+2025-11-19 23:51:42.562262 | XDCUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.05
+BB_upper: 0.06
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-19 23:51:49.053242 | JUPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.25
+BB_middle: 0.29
+BB_upper: 0.37
+BB_lower: 0.22
+Сигнал: NEUTRAL
+---
+2025-11-19 23:51:51.273498 | BONKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-19 23:52:03.649470 | IMXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.35
+BB_middle: 0.39
+BB_upper: 0.46
+BB_lower: 0.32
+Сигнал: NEUTRAL
+---
+2025-11-19 23:52:15.895875 | LDOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.69
+BB_middle: 0.76
+BB_upper: 0.88
+BB_lower: 0.64
+Сигнал: NEUTRAL
+---
+2025-11-19 23:52:21.599868 | STXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.33
+BB_middle: 0.37
+BB_upper: 0.43
+BB_lower: 0.30
+Сигнал: NEUTRAL
+---
+2025-11-19 23:52:30.008513 | GRTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.06
+BB_upper: 0.07
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-19 23:52:34.209288 | KAIAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.08
+BB_middle: 0.09
+BB_upper: 0.10
+BB_lower: 0.07
+Сигнал: NEUTRAL
+---
+2025-11-19 23:52:43.812172 | SPXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.49
+BB_middle: 0.57
+BB_upper: 0.75
+BB_lower: 0.39
+Сигнал: NEUTRAL
+---
+2025-11-19 23:52:55.396207 | HNTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 2.07
+BB_middle: 2.30
+BB_upper: 2.49
+BB_lower: 2.11
+Сигнал: BUY
+---
+2025-11-19 23:52:59.416312 | JASMYUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-19 23:53:05.362576 | BTTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-19 23:53:09.553138 | THETAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.39
+BB_middle: 0.42
+BB_upper: 0.49
+BB_lower: 0.36
+Сигнал: NEUTRAL
+---
+2025-11-19 23:53:13.755852 | WIFUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.38
+BB_middle: 0.43
+BB_upper: 0.50
+BB_lower: 0.36
+Сигнал: NEUTRAL
+---
+2025-11-19 23:53:16.158117 | GALAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-19 23:53:35.054285 | JSTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.04
+BB_upper: 0.04
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-19 23:53:37.458361 | ZROUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.35
+BB_middle: 1.47
+BB_upper: 1.63
+BB_lower: 1.31
+Сигнал: NEUTRAL
+---
+2025-11-19 23:53:43.473178 | COMPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 31.50
+BB_middle: 32.66
+BB_upper: 34.95
+BB_lower: 30.36
+Сигнал: NEUTRAL
+---
+2025-11-19 23:53:56.661902 | WUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.06
+BB_upper: 0.07
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-19 23:54:10.167067 | DEEPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.06
+BB_upper: 0.07
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-19 23:54:21.876517 | WEMIXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.43
+BB_middle: 0.51
+BB_upper: 0.59
+BB_lower: 0.44
+Сигнал: BUY
+---
+2025-11-19 23:54:29.682492 | BBSOLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 148.80
+BB_middle: 162.10
+BB_upper: 187.77
+BB_lower: 136.42
+Сигнал: NEUTRAL
+---
+2025-11-19 23:54:33.878714 | BRETTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.02
+BB_middle: 0.02
+BB_upper: 0.03
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-19 23:54:43.532394 | CTCUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.31
+BB_middle: 0.36
+BB_upper: 0.44
+BB_lower: 0.28
+Сигнал: NEUTRAL
+---
+2025-11-19 23:54:56.736255 | LUNCUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-19 23:55:03.294334 | AIOZUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.12
+BB_middle: 0.14
+BB_upper: 0.18
+BB_lower: 0.11
+Сигнал: NEUTRAL
+---
+2025-11-19 23:55:16.977336 | AXLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.13
+BB_middle: 0.15
+BB_upper: 0.17
+BB_lower: 0.12
+Сигнал: NEUTRAL
+---
+2025-11-19 23:55:34.424875 | ZILUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-19 23:55:40.438046 | BABYDOGEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-19 23:55:46.369225 | AVNTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.41
+BB_middle: 0.48
+BB_upper: 0.56
+BB_lower: 0.40
+Сигнал: NEUTRAL
+---
+2025-11-19 23:55:50.644831 | CELOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.17
+BB_middle: 0.20
+BB_upper: 0.25
+BB_lower: 0.15
+Сигнал: NEUTRAL
+---
+2025-11-19 23:55:53.038833 | DRIFTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.24
+BB_middle: 0.30
+BB_upper: 0.37
+BB_lower: 0.22
+Сигнал: NEUTRAL
+---
+2025-11-19 23:55:55.620274 | SAFEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.15
+BB_middle: 0.17
+BB_upper: 0.22
+BB_lower: 0.13
+Сигнал: NEUTRAL
+---
+2025-11-19 23:55:59.642292 | PLUMEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.03
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.02
+Сигнал: NEUTRAL
+---
+2025-11-19 23:56:04.443925 | ZETAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.09
+BB_middle: 0.10
+BB_upper: 0.11
+BB_lower: 0.09
+Сигнал: NEUTRAL
+---
+2025-11-19 23:56:08.645817 | IDUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.08
+BB_middle: 0.09
+BB_upper: 0.10
+BB_lower: 0.08
+Сигнал: NEUTRAL
+---
+2025-11-19 23:56:10.974071 | PROVEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.48
+BB_middle: 0.54
+BB_upper: 0.60
+BB_lower: 0.47
+Сигнал: NEUTRAL
+---
+2025-11-19 23:56:15.852271 | ACHUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-19 23:56:20.054347 | PNUTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.09
+BB_middle: 0.10
+BB_upper: 0.12
+BB_lower: 0.08
+Сигнал: NEUTRAL
+---
+2025-11-19 23:56:24.256277 | ZIGUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.06
+BB_middle: 0.07
+BB_upper: 0.08
+BB_lower: 0.06
+Сигнал: NEUTRAL
+---
+2025-11-19 23:56:30.252859 | CSPRUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-19 23:56:41.657327 | REDUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.26
+BB_middle: 0.29
+BB_upper: 0.33
+BB_lower: 0.25
+Сигнал: NEUTRAL
+---
+2025-11-19 23:56:48.341407 | ETHWUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.65
+BB_middle: 0.77
+BB_upper: 0.90
+BB_lower: 0.64
+Сигнал: NEUTRAL
+---
+2025-11-19 23:56:52.540405 | UMAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.88
+BB_middle: 0.95
+BB_upper: 1.04
+BB_lower: 0.85
+Сигнал: NEUTRAL
+---
+2025-11-19 23:56:56.741562 | ICXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.07
+BB_middle: 0.08
+BB_upper: 0.08
+BB_lower: 0.07
+Сигнал: NEUTRAL
+---
+2025-11-19 23:56:59.141495 | WAVESUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.61
+BB_middle: 0.67
+BB_upper: 0.77
+BB_lower: 0.57
+Сигнал: NEUTRAL
+---
+2025-11-19 23:57:03.343275 | SOLOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.19
+BB_middle: 0.20
+BB_upper: 0.22
+BB_lower: 0.18
+Сигнал: NEUTRAL
+---
+2025-11-19 23:57:09.346220 | MASKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.68
+BB_middle: 0.74
+BB_upper: 0.84
+BB_lower: 0.63
+Сигнал: NEUTRAL
+---
+2025-11-19 23:57:33.367170 | MEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.37
+BB_middle: 0.39
+BB_upper: 0.43
+BB_lower: 0.35
+Сигнал: NEUTRAL
+---
+2025-11-19 23:57:35.770518 | IOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.25
+BB_middle: 0.27
+BB_upper: 0.32
+BB_lower: 0.22
+Сигнал: NEUTRAL
+---
+2025-11-19 23:57:42.741041 | MPLXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.09
+BB_middle: 0.11
+BB_upper: 0.16
+BB_lower: 0.07
+Сигнал: NEUTRAL
+---
+2025-11-19 23:58:23.264123 | WAXPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-19 23:58:38.267607 | VVVUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.07
+BB_middle: 1.17
+BB_upper: 1.35
+BB_lower: 1.00
+Сигнал: NEUTRAL
+---
+2025-11-19 23:58:50.679179 | VRAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-19 23:58:58.408563 | GOATUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-19 23:59:22.189644 | NYMUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.05
+BB_upper: 0.05
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-19 23:59:30.063775 | DEGENUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-19 23:59:43.108157 | AGIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.02
+BB_middle: 0.02
+BB_upper: 0.03
+BB_lower: 0.02
+Сигнал: NEUTRAL
+---
+2025-11-19 23:59:54.745714 | GLMRUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.03
+BB_middle: 0.03
+BB_upper: 0.04
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-20 00:00:11.032493 | CATUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 00:00:13.153742 | TAIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.03
+BB_middle: 0.03
+BB_upper: 0.04
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-20 00:00:17.733189 | SCRUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.11
+BB_middle: 0.14
+BB_upper: 0.17
+BB_lower: 0.10
+Сигнал: NEUTRAL
+---
+2025-11-20 00:00:21.916055 | ZRCUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-20 00:00:24.313948 | BOBAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.05
+BB_upper: 0.06
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-20 00:00:28.516932 | PONKEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.05
+BB_upper: 0.05
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-20 00:00:38.120150 | HFTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-20 00:00:51.326628 | CATIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.06
+BB_middle: 0.06
+BB_upper: 0.07
+BB_lower: 0.06
+Сигнал: NEUTRAL
+---
+2025-11-20 00:00:57.335147 | ROAMUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.07
+BB_middle: 0.07
+BB_upper: 0.08
+BB_lower: 0.06
+Сигнал: NEUTRAL
+---
+2025-11-20 00:01:35.568518 | SDUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.28
+BB_middle: 0.34
+BB_upper: 0.41
+BB_lower: 0.26
+Сигнал: NEUTRAL
+---
+2025-11-20 00:02:04.138223 | RSS3USDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.02
+BB_middle: 0.02
+BB_upper: 0.02
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-20 00:02:06.536078 | MAVIAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.07
+BB_middle: 0.08
+BB_upper: 0.09
+BB_lower: 0.06
+Сигнал: NEUTRAL
+---
+2025-11-20 00:02:08.937454 | RACAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 00:02:30.224045 | SWELLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 00:02:34.425656 | PSGUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.88
+BB_middle: 0.95
+BB_upper: 1.04
+BB_lower: 0.85
+Сигнал: NEUTRAL
+---
+2025-11-20 00:02:42.386629 | CRCLXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 69.87
+BB_middle: 86.19
+BB_upper: 106.97
+BB_lower: 65.40
+Сигнал: NEUTRAL
+---
+2025-11-20 00:02:52.592612 | UUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.01
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 00:03:04.089535 | MILKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.02
+BB_middle: 0.03
+BB_upper: 0.03
+BB_lower: 0.02
+Сигнал: NEUTRAL
+---
+2025-11-20 00:03:06.480126 | FHEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.02
+BB_middle: 0.03
+BB_upper: 0.04
+BB_lower: 0.02
+Сигнал: NEUTRAL
+---
+2025-11-20 00:03:14.380940 | JUVUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.66
+BB_middle: 0.71
+BB_upper: 0.80
+BB_lower: 0.62
+Сигнал: NEUTRAL
+---
+2025-11-20 00:03:33.503676 | COINXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 251.06
+BB_middle: 282.60
+BB_upper: 323.74
+BB_lower: 241.47
+Сигнал: NEUTRAL
+---
+2025-11-20 00:03:39.561429 | MYRIAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 00:03:52.801826 | TOKENUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 00:06:29.163639 | GOATUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-20 00:17:35.021217 | GOATUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-20 00:19:16.467332 | GOATUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-20 00:24:10.035293 | GOATUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-20 00:26:34.192944 | GOATUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-20 00:28:55.693799 | GOATUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-20 00:30:36.257407 | GOATUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-20 00:33:07.253009 | GOATUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-20 00:35:56.168491 | GOATUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-20 01:18:23.410925 | GOATUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-20 01:18:57.881337 | SOLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 131.34
+BB_middle: 144.87
+BB_upper: 168.13
+BB_lower: 121.62
+Сигнал: NEUTRAL
+---
+2025-11-20 01:19:02.389084 | DOGEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.15
+BB_middle: 0.16
+BB_upper: 0.18
+BB_lower: 0.14
+Сигнал: NEUTRAL
+---
+2025-11-20 01:19:04.856487 | ADAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.44
+BB_middle: 0.51
+BB_upper: 0.60
+BB_lower: 0.41
+Сигнал: NEUTRAL
+---
+2025-11-20 01:19:11.112516 | LINKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 12.88
+BB_middle: 14.28
+BB_upper: 16.53
+BB_lower: 12.03
+Сигнал: NEUTRAL
+---
+2025-11-20 01:19:12.670687 | XLMUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.24
+BB_middle: 0.26
+BB_upper: 0.30
+BB_lower: 0.22
+Сигнал: NEUTRAL
+---
+2025-11-20 01:19:15.662930 | HBARUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.14
+BB_middle: 0.16
+BB_upper: 0.19
+BB_lower: 0.12
+Сигнал: NEUTRAL
+---
+2025-11-20 01:19:17.460573 | AVAXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 13.85
+BB_middle: 15.60
+BB_upper: 18.28
+BB_lower: 12.92
+Сигнал: NEUTRAL
+---
+2025-11-20 01:19:19.284374 | SUIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.54
+BB_middle: 1.80
+BB_upper: 2.19
+BB_lower: 1.40
+Сигнал: NEUTRAL
+---
+2025-11-20 01:19:21.324712 | SHIBUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 01:19:23.035468 | DAIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.00
+BB_middle: 1.00
+BB_upper: 1.00
+BB_lower: 1.00
+Сигнал: NEUTRAL
+---
+2025-11-20 01:19:33.111532 | PYUSDUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.00
+BB_middle: 1.00
+BB_upper: 1.00
+BB_lower: 1.00
+Сигнал: NEUTRAL
+---
+2025-11-20 01:19:34.877404 | NEARUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 2.21
+BB_middle: 2.37
+BB_upper: 2.75
+BB_lower: 2.00
+Сигнал: NEUTRAL
+---
+2025-11-20 01:19:41.563491 | AAVEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 164.84
+BB_middle: 184.99
+BB_upper: 227.00
+BB_lower: 142.98
+Сигнал: NEUTRAL
+---
+2025-11-20 01:19:49.537201 | ONDOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.51
+BB_middle: 0.58
+BB_upper: 0.70
+BB_lower: 0.46
+Сигнал: NEUTRAL
+---
+2025-11-20 01:19:52.372756 | POLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.14
+BB_middle: 0.16
+BB_upper: 0.18
+BB_lower: 0.13
+Сигнал: NEUTRAL
+---
+2025-11-20 01:19:57.303640 | TRUMPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 6.65
+BB_middle: 7.21
+BB_upper: 8.38
+BB_lower: 6.05
+Сигнал: NEUTRAL
+---
+2025-11-20 01:19:59.479766 | ALGOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.15
+BB_middle: 0.16
+BB_upper: 0.19
+BB_lower: 0.14
+Сигнал: NEUTRAL
+---
+2025-11-20 01:20:07.101087 | ARBUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.22
+BB_middle: 0.25
+BB_upper: 0.30
+BB_lower: 0.20
+Сигнал: NEUTRAL
+---
+2025-11-20 01:20:08.902193 | PUMPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 01:20:10.704936 | KASUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.05
+BB_upper: 0.05
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-20 01:20:12.425037 | SKYUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.05
+BB_upper: 0.06
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-20 01:20:14.303658 | RENDERUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.91
+BB_middle: 2.12
+BB_upper: 2.53
+BB_lower: 1.71
+Сигнал: NEUTRAL
+---
+2025-11-20 01:20:19.571551 | FLRUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.02
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-20 01:20:24.968244 | SEIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.14
+BB_middle: 0.16
+BB_upper: 0.19
+BB_lower: 0.13
+Сигнал: NEUTRAL
+---
+2025-11-20 01:20:26.770020 | XDCUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.05
+BB_upper: 0.06
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-20 01:20:32.049503 | JUPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.25
+BB_middle: 0.29
+BB_upper: 0.37
+BB_lower: 0.22
+Сигнал: NEUTRAL
+---
+2025-11-20 01:20:33.860509 | BONKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 01:20:42.252363 | IMXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.35
+BB_middle: 0.39
+BB_upper: 0.46
+BB_lower: 0.32
+Сигнал: NEUTRAL
+---
+2025-11-20 01:20:50.657443 | LDOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.69
+BB_middle: 0.75
+BB_upper: 0.88
+BB_lower: 0.63
+Сигнал: NEUTRAL
+---
+2025-11-20 01:20:56.512473 | STXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.33
+BB_middle: 0.37
+BB_upper: 0.44
+BB_lower: 0.30
+Сигнал: NEUTRAL
+---
+2025-11-20 01:21:06.455077 | GRTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.06
+BB_upper: 0.07
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-20 01:21:09.433306 | KAIAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.08
+BB_middle: 0.09
+BB_upper: 0.10
+BB_lower: 0.07
+Сигнал: NEUTRAL
+---
+2025-11-20 01:21:16.038039 | SPXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.49
+BB_middle: 0.57
+BB_upper: 0.75
+BB_lower: 0.39
+Сигнал: NEUTRAL
+---
+2025-11-20 01:21:22.221176 | ENSUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 11.72
+BB_middle: 12.97
+BB_upper: 14.78
+BB_lower: 11.15
+Сигнал: NEUTRAL
+---
+2025-11-20 01:21:27.392427 | TELUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 01:21:29.172795 | HNTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 2.05
+BB_middle: 2.30
+BB_upper: 2.50
+BB_lower: 2.10
+Сигнал: BUY
+---
+2025-11-20 01:21:32.204605 | JASMYUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-20 01:21:37.656868 | BTTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 01:21:40.578260 | THETAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.38
+BB_middle: 0.42
+BB_upper: 0.49
+BB_lower: 0.36
+Сигнал: NEUTRAL
+---
+2025-11-20 01:21:43.581914 | WIFUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.38
+BB_middle: 0.43
+BB_upper: 0.50
+BB_lower: 0.36
+Сигнал: NEUTRAL
+---
+2025-11-20 01:21:45.381379 | GALAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-20 01:21:47.175030 | MANAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.19
+BB_middle: 0.21
+BB_upper: 0.24
+BB_lower: 0.17
+Сигнал: NEUTRAL
+---
+2025-11-20 01:21:58.566819 | JSTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.04
+BB_upper: 0.04
+BB_lower: 0.04
+Сигнал: SELL
+---
+2025-11-20 01:22:00.538716 | ZROUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.36
+BB_middle: 1.47
+BB_upper: 1.63
+BB_lower: 1.31
+Сигнал: NEUTRAL
+---
+2025-11-20 01:22:10.047054 | COMPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 31.07
+BB_middle: 32.62
+BB_upper: 34.97
+BB_lower: 30.26
+Сигнал: NEUTRAL
+---
+2025-11-20 01:22:21.434918 | FLUIDUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 3.10
+BB_middle: 3.56
+BB_upper: 4.21
+BB_lower: 2.91
+Сигнал: NEUTRAL
+---
+2025-11-20 01:22:23.230474 | WUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.06
+BB_upper: 0.07
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-20 01:22:32.245529 | DEEPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.06
+BB_upper: 0.07
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-20 01:22:44.213227 | WEMIXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.42
+BB_middle: 0.51
+BB_upper: 0.59
+BB_lower: 0.43
+Сигнал: BUY
+---
+2025-11-20 01:22:49.626697 | BBSOLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 147.20
+BB_middle: 161.94
+BB_upper: 187.82
+BB_lower: 136.06
+Сигнал: NEUTRAL
+---
+2025-11-20 01:22:52.640342 | BRETTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.02
+BB_middle: 0.02
+BB_upper: 0.03
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-20 01:23:00.356060 | CTCUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.31
+BB_middle: 0.36
+BB_upper: 0.44
+BB_lower: 0.28
+Сигнал: NEUTRAL
+---
+2025-11-20 01:23:05.728094 | KMNOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.06
+BB_upper: 0.06
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-20 01:23:09.439618 | COREUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.16
+BB_middle: 0.18
+BB_upper: 0.22
+BB_lower: 0.14
+Сигнал: NEUTRAL
+---
+2025-11-20 01:23:11.636111 | LUNCUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 01:23:15.772677 | AIOZUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.12
+BB_middle: 0.14
+BB_upper: 0.18
+BB_lower: 0.11
+Сигнал: NEUTRAL
+---
+2025-11-20 01:23:22.241586 | YFIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 4240.00
+BB_middle: 4569.27
+BB_upper: 5027.02
+BB_lower: 4111.53
+Сигнал: NEUTRAL
+---
+2025-11-20 01:23:25.246009 | AXLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.13
+BB_middle: 0.15
+BB_upper: 0.17
+BB_lower: 0.12
+Сигнал: NEUTRAL
+---
+2025-11-20 01:23:37.543873 | ROSEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.02
+BB_middle: 0.02
+BB_upper: 0.02
+BB_lower: 0.02
+Сигнал: NEUTRAL
+---
+2025-11-20 01:23:39.336872 | ZILUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-20 01:23:43.547179 | BABYDOGEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 01:23:48.873206 | AVNTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.41
+BB_middle: 0.48
+BB_upper: 0.56
+BB_lower: 0.40
+Сигнал: NEUTRAL
+---
+2025-11-20 01:23:51.039767 | MEWUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 01:23:52.593179 | CELOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.17
+BB_middle: 0.20
+BB_upper: 0.25
+BB_lower: 0.15
+Сигнал: NEUTRAL
+---
+2025-11-20 01:23:54.397051 | DRIFTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.24
+BB_middle: 0.30
+BB_upper: 0.37
+BB_lower: 0.22
+Сигнал: NEUTRAL
+---
+2025-11-20 01:23:56.207911 | SAFEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.14
+BB_middle: 0.17
+BB_upper: 0.22
+BB_lower: 0.13
+Сигнал: NEUTRAL
+---
+2025-11-20 01:23:59.275870 | PLUMEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.03
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.02
+Сигнал: NEUTRAL
+---
+2025-11-20 01:24:02.796017 | ZETAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.09
+BB_middle: 0.10
+BB_upper: 0.11
+BB_lower: 0.09
+Сигнал: NEUTRAL
+---
+2025-11-20 01:24:09.293736 | IDUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.08
+BB_middle: 0.09
+BB_upper: 0.10
+BB_lower: 0.08
+Сигнал: NEUTRAL
+---
+2025-11-20 01:24:11.089164 | PROVEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.48
+BB_middle: 0.54
+BB_upper: 0.60
+BB_lower: 0.47
+Сигнал: NEUTRAL
+---
+2025-11-20 01:24:16.778150 | VTHOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 01:24:18.654776 | ACHUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-20 01:24:21.589592 | PNUTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.09
+BB_middle: 0.10
+BB_upper: 0.12
+BB_lower: 0.08
+Сигнал: NEUTRAL
+---
+2025-11-20 01:24:24.496820 | ZIGUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.06
+BB_middle: 0.07
+BB_upper: 0.08
+BB_lower: 0.06
+Сигнал: NEUTRAL
+---
+2025-11-20 01:24:28.774536 | CSPRUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-20 01:24:34.171496 | CFGUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.13
+BB_middle: 0.16
+BB_upper: 0.19
+BB_lower: 0.13
+Сигнал: NEUTRAL
+---
+2025-11-20 01:24:37.193219 | REDUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.26
+BB_middle: 0.29
+BB_upper: 0.33
+BB_lower: 0.25
+Сигнал: NEUTRAL
+---
+2025-11-20 01:24:41.375488 | ETHWUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.65
+BB_middle: 0.77
+BB_upper: 0.90
+BB_lower: 0.63
+Сигнал: NEUTRAL
+---
+2025-11-20 01:24:44.376122 | UMAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.87
+BB_middle: 0.94
+BB_upper: 1.04
+BB_lower: 0.84
+Сигнал: NEUTRAL
+---
+2025-11-20 01:24:47.380330 | ICXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.07
+BB_middle: 0.08
+BB_upper: 0.08
+BB_lower: 0.07
+Сигнал: NEUTRAL
+---
+2025-11-20 01:24:49.183019 | WAVESUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.60
+BB_middle: 0.67
+BB_upper: 0.77
+BB_lower: 0.57
+Сигнал: NEUTRAL
+---
+2025-11-20 01:24:52.181040 | SOLOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.19
+BB_middle: 0.20
+BB_upper: 0.22
+BB_lower: 0.18
+Сигнал: NEUTRAL
+---
+2025-11-20 01:24:56.396194 | MASKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.67
+BB_middle: 0.74
+BB_upper: 0.85
+BB_lower: 0.63
+Сигнал: NEUTRAL
+---
+2025-11-20 01:25:09.466345 | MEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.36
+BB_middle: 0.39
+BB_upper: 0.43
+BB_lower: 0.35
+Сигнал: NEUTRAL
+---
+2025-11-20 01:25:11.032067 | IOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.24
+BB_middle: 0.27
+BB_upper: 0.32
+BB_lower: 0.22
+Сигнал: NEUTRAL
+---
+2025-11-20 01:25:16.507511 | MPLXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.09
+BB_middle: 0.11
+BB_upper: 0.16
+BB_lower: 0.07
+Сигнал: NEUTRAL
+---
+2025-11-20 01:25:31.299835 | AIXBTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.06
+BB_upper: 0.07
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-20 01:25:43.888137 | WAXPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-20 01:25:58.348377 | VVVUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.06
+BB_middle: 1.17
+BB_upper: 1.35
+BB_lower: 0.99
+Сигнал: NEUTRAL
+---
+2025-11-20 01:26:06.772689 | VRAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 01:26:14.225264 | GOATUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-20 01:26:20.993818 | FLOCKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.14
+BB_middle: 0.17
+BB_upper: 0.21
+BB_lower: 0.13
+Сигнал: NEUTRAL
+---
+2025-11-20 01:26:36.177095 | NYMUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.05
+BB_upper: 0.05
+BB_lower: 0.04
+Сигнал: BUY
+---
+2025-11-20 01:26:41.671570 | DEGENUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 01:26:52.148772 | AGIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.02
+BB_middle: 0.02
+BB_upper: 0.03
+BB_lower: 0.02
+Сигнал: NEUTRAL
+---
+2025-11-20 01:27:03.842484 | GLMRUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.03
+BB_middle: 0.03
+BB_upper: 0.04
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-20 01:27:11.028166 | GODSUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.07
+BB_middle: 0.08
+BB_upper: 0.09
+BB_lower: 0.07
+Сигнал: NEUTRAL
+---
+2025-11-20 01:27:15.256644 | CATUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 01:27:17.268244 | TAIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.03
+BB_middle: 0.03
+BB_upper: 0.04
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-20 01:27:20.037789 | SCRUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.11
+BB_middle: 0.14
+BB_upper: 0.17
+BB_lower: 0.10
+Сигнал: NEUTRAL
+---
+2025-11-20 01:27:23.034075 | ZRCUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-20 01:27:24.831756 | BOBAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.05
+BB_upper: 0.06
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-20 01:27:28.113756 | PONKEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.05
+BB_upper: 0.05
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-20 01:27:34.468482 | HFTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.03
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-20 01:27:42.270973 | PAALUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.02
+BB_middle: 0.02
+BB_upper: 0.03
+BB_lower: 0.02
+Сигнал: NEUTRAL
+---
+2025-11-20 01:27:47.683885 | CATIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.06
+BB_middle: 0.06
+BB_upper: 0.07
+BB_lower: 0.06
+Сигнал: NEUTRAL
+---
+2025-11-20 01:27:51.880825 | ROAMUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.07
+BB_middle: 0.07
+BB_upper: 0.08
+BB_lower: 0.06
+Сигнал: NEUTRAL
+---
+2025-11-20 01:28:07.494140 | LMWRUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.05
+BB_upper: 0.06
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-20 01:28:10.478366 | CHILLGUYUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.02
+BB_middle: 0.02
+BB_upper: 0.02
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-20 01:28:18.880088 | SDUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.27
+BB_middle: 0.33
+BB_upper: 0.41
+BB_lower: 0.26
+Сигнал: NEUTRAL
+---
+2025-11-20 01:28:39.380676 | RSS3USDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.02
+BB_middle: 0.02
+BB_upper: 0.02
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-20 01:28:41.180043 | MAVIAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.06
+BB_middle: 0.08
+BB_upper: 0.09
+BB_lower: 0.06
+Сигнал: NEUTRAL
+---
+2025-11-20 01:28:46.618964 | RACAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 01:29:01.636847 | SWELLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 01:29:04.617396 | PSGUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.87
+BB_middle: 0.95
+BB_upper: 1.04
+BB_lower: 0.85
+Сигнал: NEUTRAL
+---
+2025-11-20 01:29:11.074851 | CRCLXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 67.96
+BB_middle: 86.01
+BB_upper: 107.13
+BB_lower: 64.88
+Сигнал: NEUTRAL
+---
+2025-11-20 01:29:20.039844 | CTAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.02
+BB_middle: 0.02
+BB_upper: 0.03
+BB_lower: 0.02
+Сигнал: NEUTRAL
+---
+2025-11-20 01:29:21.847625 | UUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.01
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 01:29:31.629362 | MILKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.02
+BB_middle: 0.03
+BB_upper: 0.03
+BB_lower: 0.02
+Сигнал: NEUTRAL
+---
+2025-11-20 01:29:33.428217 | FHEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.02
+BB_middle: 0.03
+BB_upper: 0.04
+BB_lower: 0.02
+Сигнал: NEUTRAL
+---
+2025-11-20 01:29:39.095761 | LADYSUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 01:29:44.311235 | JUVUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.66
+BB_middle: 0.71
+BB_upper: 0.80
+BB_lower: 0.62
+Сигнал: NEUTRAL
+---
+2025-11-20 01:29:48.526973 | MYROUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-20 01:29:58.119686 | COINXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 249.71
+BB_middle: 282.47
+BB_upper: 323.86
+BB_lower: 241.09
+Сигнал: NEUTRAL
+---
+2025-11-20 01:30:04.122459 | MYRIAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 01:30:13.720185 | TOKENUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 01:30:27.498199 | METAXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 585.19
+BB_middle: 612.41
+BB_upper: 637.79
+BB_lower: 587.03
+Сигнал: BUY
+---
+2025-11-20 05:20:25.888434 | SOLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 134.36
+BB_middle: 145.16
+BB_upper: 168.04
+BB_lower: 122.28
+Сигнал: NEUTRAL
+---
+2025-11-20 05:20:26.496476 | DOGEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.15
+BB_middle: 0.16
+BB_upper: 0.18
+BB_lower: 0.14
+Сигнал: NEUTRAL
+---
+2025-11-20 05:20:27.099015 | ADAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.45
+BB_middle: 0.51
+BB_upper: 0.60
+BB_lower: 0.41
+Сигнал: NEUTRAL
+---
+2025-11-20 05:20:28.286355 | LINKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 13.24
+BB_middle: 14.31
+BB_upper: 16.51
+BB_lower: 12.12
+Сигнал: NEUTRAL
+---
+2025-11-20 05:20:28.896183 | XLMUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.24
+BB_middle: 0.26
+BB_upper: 0.30
+BB_lower: 0.22
+Сигнал: NEUTRAL
+---
+2025-11-20 05:20:29.490403 | HBARUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.14
+BB_middle: 0.16
+BB_upper: 0.19
+BB_lower: 0.12
+Сигнал: NEUTRAL
+---
+2025-11-20 05:20:30.088144 | AVAXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 14.15
+BB_middle: 15.62
+BB_upper: 18.26
+BB_lower: 12.99
+Сигнал: NEUTRAL
+---
+2025-11-20 05:20:30.687365 | SUIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.57
+BB_middle: 1.80
+BB_upper: 2.19
+BB_lower: 1.41
+Сигнал: NEUTRAL
+---
+2025-11-20 05:20:31.288528 | SHIBUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 05:20:31.828797 | DAIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.00
+BB_middle: 1.00
+BB_upper: 1.00
+BB_lower: 1.00
+Сигнал: NEUTRAL
+---
+2025-11-20 05:20:33.090197 | PYUSDUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.00
+BB_middle: 1.00
+BB_upper: 1.00
+BB_lower: 1.00
+Сигнал: NEUTRAL
+---
+2025-11-20 05:20:34.287377 | NEARUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 2.29
+BB_middle: 2.38
+BB_upper: 2.75
+BB_lower: 2.01
+Сигнал: NEUTRAL
+---
+2025-11-20 05:20:34.878293 | AAVEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 172.56
+BB_middle: 185.73
+BB_upper: 226.88
+BB_lower: 144.58
+Сигнал: NEUTRAL
+---
+2025-11-20 05:20:35.511282 | ONDOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.52
+BB_middle: 0.58
+BB_upper: 0.70
+BB_lower: 0.47
+Сигнал: NEUTRAL
+---
+2025-11-20 05:20:36.088035 | POLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.14
+BB_middle: 0.16
+BB_upper: 0.18
+BB_lower: 0.13
+Сигнал: NEUTRAL
+---
+2025-11-20 05:20:36.689981 | TRUMPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 6.76
+BB_middle: 7.23
+BB_upper: 8.38
+BB_lower: 6.07
+Сигнал: NEUTRAL
+---
+2025-11-20 05:20:37.299923 | ALGOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.15
+BB_middle: 0.16
+BB_upper: 0.19
+BB_lower: 0.14
+Сигнал: NEUTRAL
+---
+2025-11-20 05:20:41.415568 | ARBUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.23
+BB_middle: 0.25
+BB_upper: 0.30
+BB_lower: 0.20
+Сигнал: NEUTRAL
+---
+2025-11-20 05:20:41.935865 | PUMPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 05:20:42.603423 | KASUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.05
+BB_upper: 0.05
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-20 05:20:43.150746 | SKYUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.05
+BB_upper: 0.06
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-20 05:20:43.804137 | RENDERUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.99
+BB_middle: 2.13
+BB_upper: 2.53
+BB_lower: 1.73
+Сигнал: NEUTRAL
+---
+2025-11-20 05:20:45.013405 | FLRUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.02
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-20 05:20:45.602896 | SEIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.15
+BB_middle: 0.16
+BB_upper: 0.19
+BB_lower: 0.13
+Сигнал: NEUTRAL
+---
+2025-11-20 05:20:46.146374 | XDCUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.05
+BB_upper: 0.06
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-20 05:20:47.415729 | JUPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.26
+BB_middle: 0.29
+BB_upper: 0.37
+BB_lower: 0.22
+Сигнал: NEUTRAL
+---
+2025-11-20 05:20:48.020380 | BONKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 05:20:52.676040 | IMXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.36
+BB_middle: 0.39
+BB_upper: 0.46
+BB_lower: 0.32
+Сигнал: NEUTRAL
+---
+2025-11-20 05:20:53.879865 | LDOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.71
+BB_middle: 0.76
+BB_upper: 0.88
+BB_lower: 0.64
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:01.146478 | STXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.34
+BB_middle: 0.37
+BB_upper: 0.43
+BB_lower: 0.30
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:02.757529 | GRTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.06
+BB_upper: 0.07
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:03.308749 | KAIAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.08
+BB_middle: 0.09
+BB_upper: 0.10
+BB_lower: 0.07
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:03.973621 | SPXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.54
+BB_middle: 0.57
+BB_upper: 0.75
+BB_lower: 0.40
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:05.174318 | ENSUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 12.12
+BB_middle: 13.01
+BB_upper: 14.76
+BB_lower: 11.25
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:05.706300 | TELUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:06.357918 | HNTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 2.08
+BB_middle: 2.30
+BB_upper: 2.49
+BB_lower: 2.11
+Сигнал: BUY
+---
+2025-11-20 05:24:07.576290 | JASMYUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:08.780406 | BTTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:12.824566 | THETAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.40
+BB_middle: 0.42
+BB_upper: 0.49
+BB_lower: 0.36
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:13.438508 | WIFUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.39
+BB_middle: 0.43
+BB_upper: 0.50
+BB_lower: 0.36
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:14.026692 | GALAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:14.623984 | MANAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.19
+BB_middle: 0.21
+BB_upper: 0.24
+BB_lower: 0.18
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:15.825063 | JSTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.04
+BB_upper: 0.04
+BB_lower: 0.04
+Сигнал: SELL
+---
+2025-11-20 05:24:20.231611 | ZROUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.39
+BB_middle: 1.47
+BB_upper: 1.63
+BB_lower: 1.32
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:20.821473 | COMPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 31.34
+BB_middle: 32.64
+BB_upper: 34.96
+BB_lower: 30.33
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:22.016827 | FLUIDUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 3.17
+BB_middle: 3.57
+BB_upper: 4.20
+BB_lower: 2.93
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:22.628991 | WUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.06
+BB_upper: 0.07
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:26.722674 | DEEPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.06
+BB_upper: 0.07
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:28.521682 | WEMIXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.44
+BB_middle: 0.51
+BB_upper: 0.59
+BB_lower: 0.44
+Сигнал: BUY
+---
+2025-11-20 05:24:29.057110 | BBSOLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 150.46
+BB_middle: 162.25
+BB_upper: 187.74
+BB_lower: 136.77
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:29.721931 | BRETTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.02
+BB_middle: 0.02
+BB_upper: 0.03
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:30.925364 | CTCUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.31
+BB_middle: 0.36
+BB_upper: 0.44
+BB_lower: 0.28
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:31.525059 | KMNOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.06
+BB_upper: 0.06
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:32.125447 | COREUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.16
+BB_middle: 0.18
+BB_upper: 0.22
+BB_lower: 0.14
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:32.723462 | LUNCUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:33.259140 | AIOZUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.12
+BB_middle: 0.14
+BB_upper: 0.18
+BB_lower: 0.11
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:33.923527 | YFIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 4325.00
+BB_middle: 4577.37
+BB_upper: 5020.41
+BB_lower: 4134.33
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:34.733300 | AXLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.14
+BB_middle: 0.15
+BB_upper: 0.17
+BB_lower: 0.12
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:36.791270 | ROSEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.02
+BB_middle: 0.02
+BB_upper: 0.02
+BB_lower: 0.02
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:37.459959 | ZILUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:38.060857 | BABYDOGEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:39.192180 | AVNTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.42
+BB_middle: 0.48
+BB_upper: 0.56
+BB_lower: 0.40
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:39.868773 | MEWUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:40.462869 | CELOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.17
+BB_middle: 0.20
+BB_upper: 0.25
+BB_lower: 0.15
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:41.062765 | DRIFTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.24
+BB_middle: 0.30
+BB_upper: 0.37
+BB_lower: 0.22
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:42.261390 | SAFEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.15
+BB_middle: 0.17
+BB_upper: 0.22
+BB_lower: 0.13
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:42.861031 | PLUMEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.03
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.02
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:44.062747 | ZETAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.09
+BB_middle: 0.10
+BB_upper: 0.11
+BB_lower: 0.09
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:45.267076 | IDUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.08
+BB_middle: 0.09
+BB_upper: 0.10
+BB_lower: 0.08
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:45.794005 | PROVEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.49
+BB_middle: 0.54
+BB_upper: 0.60
+BB_lower: 0.48
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:47.063329 | VTHOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:47.665634 | ACHUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:51.802932 | PNUTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.09
+BB_middle: 0.10
+BB_upper: 0.12
+BB_lower: 0.08
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:52.401529 | ZIGUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.06
+BB_middle: 0.07
+BB_upper: 0.08
+BB_lower: 0.06
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:56.769287 | CSPRUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-20 05:24:57.297978 | CFGUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.13
+BB_middle: 0.16
+BB_upper: 0.19
+BB_lower: 0.13
+Сигнал: NEUTRAL
+---
+2025-11-20 05:25:01.522693 | REDUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.27
+BB_middle: 0.29
+BB_upper: 0.33
+BB_lower: 0.25
+Сигнал: NEUTRAL
+---
+2025-11-20 05:25:02.122555 | ETHWUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.65
+BB_middle: 0.77
+BB_upper: 0.90
+BB_lower: 0.63
+Сигнал: NEUTRAL
+---
+2025-11-20 05:25:03.324116 | UMAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.89
+BB_middle: 0.95
+BB_upper: 1.04
+BB_lower: 0.85
+Сигнал: NEUTRAL
+---
+2025-11-20 05:25:03.925245 | ICXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.07
+BB_middle: 0.08
+BB_upper: 0.08
+BB_lower: 0.07
+Сигнал: NEUTRAL
+---
+2025-11-20 05:25:04.523497 | WAVESUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.61
+BB_middle: 0.67
+BB_upper: 0.77
+BB_lower: 0.57
+Сигнал: NEUTRAL
+---
+2025-11-20 05:25:08.644464 | SOLOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.19
+BB_middle: 0.20
+BB_upper: 0.22
+BB_lower: 0.18
+Сигнал: NEUTRAL
+---
+2025-11-20 05:25:09.242356 | MASKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.69
+BB_middle: 0.74
+BB_upper: 0.84
+BB_lower: 0.63
+Сигнал: NEUTRAL
+---
+2025-11-20 05:25:13.356794 | MEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.37
+BB_middle: 0.39
+BB_upper: 0.43
+BB_lower: 0.35
+Сигнал: NEUTRAL
+---
+2025-11-20 05:25:13.961947 | IOUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.25
+BB_middle: 0.27
+BB_upper: 0.32
+BB_lower: 0.22
+Сигнал: NEUTRAL
+---
+2025-11-20 05:26:42.429296 | MPLXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.09
+BB_middle: 0.11
+BB_upper: 0.16
+BB_lower: 0.07
+Сигнал: NEUTRAL
+---
+2025-11-20 05:26:43.027593 | AIXBTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.06
+BB_upper: 0.07
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-20 05:26:43.628992 | WAXPUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-20 05:26:44.764602 | VVVUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 1.09
+BB_middle: 1.17
+BB_upper: 1.35
+BB_lower: 1.00
+Сигнал: NEUTRAL
+---
+2025-11-20 05:26:46.029204 | VRAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 05:26:47.163211 | GOATUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-20 05:26:47.831362 | FLOCKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.14
+BB_middle: 0.17
+BB_upper: 0.21
+BB_lower: 0.13
+Сигнал: NEUTRAL
+---
+2025-11-20 05:26:48.430871 | NYMUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.05
+BB_upper: 0.05
+BB_lower: 0.04
+Сигнал: BUY
+---
+2025-11-20 05:26:49.629299 | DEGENUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 05:27:49.992100 | AGIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.02
+BB_middle: 0.02
+BB_upper: 0.03
+BB_lower: 0.02
+Сигнал: NEUTRAL
+---
+2025-11-20 05:27:50.588534 | GLMRUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.03
+BB_middle: 0.03
+BB_upper: 0.04
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-20 05:27:51.792715 | GODSUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.07
+BB_middle: 0.08
+BB_upper: 0.09
+BB_lower: 0.07
+Сигнал: NEUTRAL
+---
+2025-11-20 05:27:52.331909 | CATUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 05:27:52.989927 | TAIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.03
+BB_middle: 0.03
+BB_upper: 0.04
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-20 05:27:53.593676 | SCRUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.11
+BB_middle: 0.14
+BB_upper: 0.17
+BB_lower: 0.10
+Сигнал: NEUTRAL
+---
+2025-11-20 05:27:54.190179 | ZRCUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-20 05:27:54.790885 | BOBAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.05
+BB_middle: 0.05
+BB_upper: 0.06
+BB_lower: 0.05
+Сигнал: NEUTRAL
+---
+2025-11-20 05:27:55.390641 | PONKEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.05
+BB_upper: 0.05
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-20 05:27:55.991999 | HFTUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.04
+BB_upper: 0.05
+BB_lower: 0.03
+Сигнал: NEUTRAL
+---
+2025-11-20 05:27:56.593483 | PAALUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.02
+BB_middle: 0.02
+BB_upper: 0.03
+BB_lower: 0.02
+Сигнал: NEUTRAL
+---
+2025-11-20 05:27:57.586687 | CATIUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.06
+BB_middle: 0.06
+BB_upper: 0.07
+BB_lower: 0.06
+Сигнал: NEUTRAL
+---
+2025-11-20 05:27:57.943462 | ROAMUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.07
+BB_middle: 0.07
+BB_upper: 0.08
+BB_lower: 0.06
+Сигнал: NEUTRAL
+---
+2025-11-20 05:29:32.270518 | LMWRUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.04
+BB_middle: 0.05
+BB_upper: 0.06
+BB_lower: 0.04
+Сигнал: NEUTRAL
+---
+2025-11-20 05:29:36.366956 | CHILLGUYUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.02
+BB_middle: 0.02
+BB_upper: 0.02
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-20 05:29:37.563690 | SDUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.28
+BB_middle: 0.34
+BB_upper: 0.41
+BB_lower: 0.26
+Сигнал: NEUTRAL
+---
+2025-11-20 05:29:39.950095 | RSS3USDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.02
+BB_middle: 0.02
+BB_upper: 0.02
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-20 05:29:44.000035 | MAVIAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.07
+BB_middle: 0.08
+BB_upper: 0.09
+BB_lower: 0.06
+Сигнал: NEUTRAL
+---
+2025-11-20 05:29:44.599640 | RACAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 05:29:46.598874 | SWELLUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 05:29:46.998332 | PSGUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.89
+BB_middle: 0.95
+BB_upper: 1.04
+BB_lower: 0.86
+Сигнал: NEUTRAL
+---
+2025-11-20 05:29:47.530435 | CRCLXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 70.92
+BB_middle: 86.29
+BB_upper: 106.90
+BB_lower: 65.67
+Сигнал: NEUTRAL
+---
+2025-11-20 05:29:48.200125 | CTAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.02
+BB_middle: 0.02
+BB_upper: 0.03
+BB_lower: 0.02
+Сигнал: NEUTRAL
+---
+2025-11-20 05:29:48.731044 | UUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.01
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 05:29:49.404467 | MILKUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.03
+BB_middle: 0.03
+BB_upper: 0.03
+BB_lower: 0.02
+Сигнал: NEUTRAL
+---
+2025-11-20 05:29:50.001081 | FHEUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.02
+BB_middle: 0.03
+BB_upper: 0.04
+BB_lower: 0.02
+Сигнал: NEUTRAL
+---
+2025-11-20 05:29:50.601026 | LADYSUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 05:29:51.132248 | JUVUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.67
+BB_middle: 0.71
+BB_upper: 0.80
+BB_lower: 0.62
+Сигнал: NEUTRAL
+---
+2025-11-20 05:29:51.801465 | MYROUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.01
+Сигнал: NEUTRAL
+---
+2025-11-20 05:32:44.409502 | COINXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 260.52
+BB_middle: 283.50
+BB_upper: 323.08
+BB_lower: 243.93
+Сигнал: NEUTRAL
+---
+2025-11-20 05:32:45.684567 | MYRIAUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.00
+BB_middle: 0.00
+BB_upper: 0.00
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 05:32:46.879676 | TOKENUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 0.01
+BB_middle: 0.01
+BB_upper: 0.01
+BB_lower: 0.00
+Сигнал: NEUTRAL
+---
+2025-11-20 05:32:48.608827 | METAXUSDT [12H] | Bollinger Bands | EMA
+Период: 20, Стд: 2
+Цена: 597.13
+BB_middle: 613.55
+BB_upper: 636.69
+BB_lower: 590.41
+Сигнал: NEUTRAL
+---

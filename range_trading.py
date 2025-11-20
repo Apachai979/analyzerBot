@@ -849,10 +849,10 @@ def analyze_range_trading_signal(df, symbol="UNKNOWN"):
             risk_reward = reward / risk if risk > 0 else 0
             
             # ВСТРОЕННАЯ ПРОВЕРКА R:R - защита от плохих сделок
-            if risk_reward < 1.2:
-                signals.append(f"⚠️ R:R слишком низкий: 1:{risk_reward:.2f} (требуется минимум 1:1.2)")
+            if risk_reward < 2.0:
+                signals.append(f"⚠️ R:R слишком низкий: 1:{risk_reward:.2f} (требуется минимум 1:2.0)")
                 confidence_score -= 2
-                if confidence_score < 6:
+                if confidence_score < 5:
                     action = "HOLD"
                     signals.append("❌ Сделка отменена: недостаточная уверенность после проверки R:R")
             
@@ -988,10 +988,10 @@ def analyze_range_trading_signal(df, symbol="UNKNOWN"):
             risk_reward = reward / risk if risk > 0 else 0
             
             # ВСТРОЕННАЯ ПРОВЕРКА R:R - защита от плохих сделок
-            if risk_reward < 1.2:
-                signals.append(f"⚠️ R:R слишком низкий: 1:{risk_reward:.2f} (требуется минимум 1:1.2)")
+            if risk_reward < 2.0:
+                signals.append(f"⚠️ R:R слишком низкий: 1:{risk_reward:.2f} (требуется минимум 1:2.0)")
                 confidence_score -= 2
-                if confidence_score < 6:
+                if confidence_score < 5:
                     action = "HOLD"
                     signals.append("❌ Сделка отменена: недостаточная уверенность после проверки R:R")
             

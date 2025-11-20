@@ -1511,9 +1511,26 @@ def analyze_1h_execution(df_1h, four_h_signal, trend_1d, symbol="UNKNOWN"):
             entry_score += pattern_strength
         
         # 2. ОТСКОК ОТ EMA - лучшая точка входа
+        distance_to_ema9 = abs(current_price - ema9_current) / ema9_current * 100
         distance_to_ema20 = abs(current_price - ema20_current) / ema20_current * 100
         
-        if distance_to_ema20 < 0.5:  # Очень близко к EMA20
+        # Проверяем близость к EMA9 (быстрая реакция)
+        if distance_to_ema9 < 0.3:  # Очень близко к EMA9
+            signals_1h.append(f"✅✅✅ ИДЕАЛЬНЫЙ ОТСКОК от EMA9 ({distance_to_ema9:.2f}%)")
+            entry_score += 4
+            entry_type = "BOUNCE_EMA9"
+            entry_price = current_price
+            stop_loss = min(ema9_current * 0.995, current_low * 0.995)
+        
+        elif distance_to_ema9 < 0.8:  # Хорошая зона у EMA9
+            signals_1h.append(f"✅✅ Хорошая зона у EMA9 ({distance_to_ema9:.2f}%)")
+            entry_score += 3
+            entry_type = "NEAR_EMA9"
+            entry_price = current_price
+            stop_loss = min(ema9_current * 0.992, current_low * 0.995)
+        
+        # Проверяем близость к EMA20 (основной тренд)
+        elif distance_to_ema20 < 0.5:  # Очень близко к EMA20
             signals_1h.append(f"✅✅ ИДЕАЛЬНЫЙ ОТСКОК от EMA20 ({distance_to_ema20:.2f}%)")
             entry_score += 3
             entry_type = "BOUNCE_EMA20"
@@ -1600,9 +1617,26 @@ def analyze_1h_execution(df_1h, four_h_signal, trend_1d, symbol="UNKNOWN"):
             entry_score += pattern_strength
         
         # 2. ОТСКОК ОТ EMA - лучшая точка входа
+        distance_to_ema9 = abs(current_price - ema9_current) / ema9_current * 100
         distance_to_ema20 = abs(current_price - ema20_current) / ema20_current * 100
         
-        if distance_to_ema20 < 0.5:  # Очень близко к EMA20
+        # Проверяем близость к EMA9 (быстрая реакция)
+        if distance_to_ema9 < 0.3:  # Очень близко к EMA9
+            signals_1h.append(f"✅✅✅ ИДЕАЛЬНЫЙ ОТСКОК от EMA9 ({distance_to_ema9:.2f}%)")
+            entry_score += 4
+            entry_type = "BOUNCE_EMA9"
+            entry_price = current_price
+            stop_loss = max(ema9_current * 1.005, current_high * 1.005)
+        
+        elif distance_to_ema9 < 0.8:  # Хорошая зона у EMA9
+            signals_1h.append(f"✅✅ Хорошая зона у EMA9 ({distance_to_ema9:.2f}%)")
+            entry_score += 3
+            entry_type = "NEAR_EMA9"
+            entry_price = current_price
+            stop_loss = max(ema9_current * 1.008, current_high * 1.005)
+        
+        # Проверяем близость к EMA20 (основной тренд)
+        elif distance_to_ema20 < 0.5:  # Очень близко к EMA20
             signals_1h.append(f"✅✅ ИДЕАЛЬНЫЙ ОТСКОК от EMA20 ({distance_to_ema20:.2f}%)")
             entry_score += 3
             entry_type = "BOUNCE_EMA20"
