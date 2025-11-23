@@ -9,6 +9,165 @@ from analyzes.multi_timeframe_ma_analysis import (
 )
 from analyzes.atr_rsi_stochastic import calculate_rsi, calculate_atr, calculate_stochastic
 
+
+def calculate_fibonacci_retracement(df, lookback_period=50, trend_1d=None):
+    """
+    Рассчитывает уровни Fibonacci retracement на основе последнего свинга.
+    
+    Args:
+        df: DataFrame с данными (high, low, close)
+        lookback_period: Период для поиска максимума/минимума
+        trend_1d: "BULLISH" или "BEARISH" - направление основного тренда (опционально)
+    
+    Returns:
+        dict: Уровни Фибоначчи и текущая позиция цены
+    """
+    if len(df) < lookback_period:
+        lookback_period = len(df)
+    
+    # Берем последние N свечей для определения swing high/low
+    recent_data = df.tail(lookback_period).copy()
+    recent_data = recent_data.reset_index(drop=True)  # Сбрасываем индексы для корректного сравнения
+    
+    # Находим максимум и минимум за период
+    swing_high = recent_data['high'].max()
+    swing_low = recent_data['low'].min()
+    
+    # Находим позиции где произошли эти экстремумы (теперь корректные индексы)
+    high_idx = recent_data['high'].idxmax()
+    low_idx = recent_data['low'].idxmin()
+    
+    # Определяем направление движения (что произошло раньше)
+    # Если есть trend_1d - используем его для правильной интерпретации
+    if trend_1d:
+        # BULLISH 1D: рост вверх до swing_high, затем коррекция вниз до текущей цены
+        # BEARISH 1D: падение вниз до swing_low, затем отскок вверх до текущей цены
+        trend_direction = "BULLISH_CORRECTION" if trend_1d == "BULLISH" else "BEARISH_BOUNCE"
+    else:
+        # Автоматическое определение: что произошло раньше
+        trend_direction = "DOWN" if high_idx < low_idx else "UP"
+    
+    # Рассчитываем диапазон
+    price_range = swing_high - swing_low
+    
+    if price_range == 0:
+        # Нет движения - возвращаем нейтральный результат
+        current_price = df['close'].iloc[-1]
+        return {
+            'swing_high': swing_high,
+            'swing_low': swing_low,
+            'price_range': 0,
+            'trend_direction': trend_direction,
+            'fib_levels': {},
+            'current_price': current_price,
+            'closest_level': None,
+            'current_zone': None,
+            'retracement_depth': 0.0,
+            'position_description': 'No movement (flat)'
+        }
+    
+    # Классические уровни Фибоначчи
+    fib_levels = {}
+    
+    # Рассчитываем уровни в зависимости от типа тренда
+    if trend_direction in ["UP", "BEARISH_BOUNCE"]:
+        # Восходящий тренд или отскок в медвежьем тренде:
+        # 0% = swing_low (начало), 100% = swing_high (конец)
+        fib_levels = {
+            '0.0': swing_low,
+            '23.6': swing_low + price_range * 0.236,
+            '38.2': swing_low + price_range * 0.382,
+            '50.0': swing_low + price_range * 0.500,
+            '61.8': swing_low + price_range * 0.618,
+            '78.6': swing_low + price_range * 0.786,
+            '100.0': swing_high
+        }
+    else:  # "DOWN" или "BULLISH_CORRECTION"
+        # Нисходящий тренд или коррекция в бычьем тренде:
+        # 0% = swing_high (начало), 100% = swing_low (конец движения вниз)
+        fib_levels = {
+            '0.0': swing_high,
+            '23.6': swing_high - price_range * 0.236,
+            '38.2': swing_high - price_range * 0.382,
+            '50.0': swing_high - price_range * 0.500,
+            '61.8': swing_high - price_range * 0.618,
+            '78.6': swing_high - price_range * 0.786,
+            '100.0': swing_low
+        }
+    
+    # Текущая цена
+    current_price = df['close'].iloc[-1]
+    
+    # Определяем ближайший уровень и расстояние до него
+    closest_level = None
+    min_distance = float('inf')
+    current_zone = None
+    
+    for level_name, level_price in fib_levels.items():
+        if level_price is None:
+            continue
+        distance = abs(current_price - level_price)
+        distance_pct = (distance / current_price) * 100
+        
+        if distance < min_distance:
+            min_distance = distance
+            closest_level = level_name
+        
+        # Определяем в какой зоне находится цена (±2% от уровня)
+        if distance_pct <= 2.0:
+            current_zone = level_name
+    
+    # Определяем глубину коррекции/отскока
+    retracement_depth = 0.0
+    position_description = "Unknown"
+    
+    if trend_direction in ["UP", "BEARISH_BOUNCE"]:
+        # Восходящее движение: измеряем откат вниз от максимума
+        # Если цена ниже максимума - это коррекция
+        if current_price <= swing_high:
+            retracement_depth = ((swing_high - current_price) / price_range) * 100
+        else:
+            retracement_depth = 0.0  # Цена выше максимума - новый хай
+    else:  # "DOWN" или "BULLISH_CORRECTION"
+        # Нисходящее движение: измеряем откат вверх от минимума
+        # Если цена выше минимума - это коррекция вверх
+        if current_price >= swing_low:
+            retracement_depth = ((current_price - swing_low) / price_range) * 100
+        else:
+            retracement_depth = 0.0  # Цена ниже минимума - новый лоу
+    
+    # Ограничиваем значение от 0 до 100+
+    retracement_depth = max(0.0, retracement_depth)
+    
+    # Классифицируем глубину коррекции
+    if retracement_depth < 23.6:
+        position_description = "Shallow retracement (< 23.6%)"
+    elif 23.6 <= retracement_depth < 38.2:
+        position_description = "Near 23.6% Fibonacci level"
+    elif 38.2 <= retracement_depth < 50.0:
+        position_description = "Near 38.2% Fibonacci level (ideal entry)"
+    elif 50.0 <= retracement_depth < 61.8:
+        position_description = "Near 50% retracement"
+    elif 61.8 <= retracement_depth < 78.6:
+        position_description = "Near 61.8% Fibonacci level (golden ratio)"
+    elif 78.6 <= retracement_depth < 100.0:
+        position_description = "Deep retracement (> 78.6%)"
+    else:
+        position_description = "Beyond 100% (full retracement or reversal)"
+    
+    return {
+        'swing_high': swing_high,
+        'swing_low': swing_low,
+        'price_range': price_range,
+        'trend_direction': trend_direction,
+        'fib_levels': fib_levels,
+        'current_price': current_price,
+        'closest_level': closest_level,
+        'current_zone': current_zone,
+        'retracement_depth': retracement_depth,
+        'position_description': position_description
+    }
+
 def adjust_periods_for_history(df, fast_period, slow_period, lookback_periods, min_required=6):
     """
     Если данных мало, уменьшает периоды индикаторов до максимально возможных.
@@ -278,6 +437,49 @@ def analyze_12h_correction_strategy(df, trend_1d, symbol="UNKNOWN"):
     correction_avg_volume = (prev_volume_1 + prev_volume_2) / 2
     reversal_vs_correction = (current_volume / correction_avg_volume) if correction_avg_volume > 0 else 1.0
     
+    # 7. Fibonacci Retracement - определение качественных уровней коррекции
+    fib_result = calculate_fibonacci_retracement(df, lookback_period=50, trend_1d=trend_1d)
+    
+    fib_swing_high = fib_result['swing_high']
+    fib_swing_low = fib_result['swing_low']
+    fib_levels = fib_result['fib_levels']
+    fib_closest_level = fib_result['closest_level']
+    fib_current_zone = fib_result['current_zone']
+    fib_retracement_depth = fib_result['retracement_depth']
+    fib_position = fib_result['position_description']
+    fib_trend = fib_result['trend_direction']
+    
+    # Проверяем соответствие Fibonacci тренду и наличие отскока от ключевых уровней
+    fib_signal = None
+    fib_score = 0
+    fib_details = []
+    
+    # Идеальные зоны для входа:
+    # - 38.2% (shallow retracement, сильный тренд)
+    # - 50.0% (классический уровень)
+    # - 61.8% (golden ratio, часто работает)
+    
+    if fib_current_zone in ['38.2', '50.0', '61.8']:
+        fib_signal = f"Price at key Fibonacci level {fib_current_zone}%"
+        fib_score = 2  # Сильный сигнал
+        fib_details.append(f"✅ Цена на ключевом уровне Фибоначчи {fib_current_zone}%")
+    elif 38.2 <= fib_retracement_depth <= 61.8:
+        fib_signal = f"Price in ideal retracement zone ({fib_retracement_depth:.1f}%)"
+        fib_score = 1  # Умеренный сигнал
+        fib_details.append(f"🟢 Цена в зоне коррекции {fib_retracement_depth:.1f}%")
+    elif fib_retracement_depth < 23.6:
+        fib_signal = "Shallow retracement (too early)"
+        fib_score = -1  # Слабый сигнал (рано входить)
+        fib_details.append(f"⚠️ Коррекция слишком мелкая ({fib_retracement_depth:.1f}%)")
+    elif fib_retracement_depth > 78.6:
+        fib_signal = "Deep retracement (trend may reverse)"
+        fib_score = -1  # Слабый сигнал (возможен разворот тренда)
+        fib_details.append(f"⚠️ Глубокая коррекция ({fib_retracement_depth:.1f}%), возможен разворот")
+    else:
+        fib_signal = f"Retracement {fib_retracement_depth:.1f}%"
+        fib_score = 0
+        fib_details.append(f"ℹ️ Коррекция {fib_retracement_depth:.1f}%")
+    
     # 6.5. ATR - фильтр волатильности (проверка адекватности условий для торговли)
     atr_log, atr_res = calculate_atr(df, period=14)
     
@@ -502,6 +704,14 @@ def analyze_12h_correction_strategy(df, trend_1d, symbol="UNKNOWN"):
             # Низкий объем - плохой знак для разворота
             signals.append("⚠️ Volume: НИЗКИЙ объем на развороте - слабое подтверждение")
             signal_strength -= 1
+        
+        # 7. Fibonacci Retracement: качество уровня коррекции
+        if fib_score > 0:
+            signals.extend(fib_details)
+            signal_strength += fib_score
+        elif fib_score < 0:
+            signals.extend(fib_details)
+            signal_strength += fib_score  # Вычитаем за плохую позицию
             
     else:  # trend_1d == "BEARISH"
         # МЕДВЕЖИЙ СЦЕНАРИЙ 1D - ищем завершение отскока вверх
@@ -624,6 +834,14 @@ def analyze_12h_correction_strategy(df, trend_1d, symbol="UNKNOWN"):
             # Низкий объем - плохой знак для разворота
             signals.append("⚠️ Volume: НИЗКИЙ объем на развороте - слабое подтверждение")
             signal_strength -= 1
+        
+        # 7. Fibonacci Retracement: качество уровня коррекции
+        if fib_score > 0:
+            signals.extend(fib_details)
+            signal_strength += fib_score
+        elif fib_score < 0:
+            signals.extend(fib_details)
+            signal_strength += fib_score  # Вычитаем за плохую позицию
     
     # === ОПРЕДЕЛЕНИЕ ДЕЙСТВИЯ (СВЕТОФОР) ===
     # Новая шкала: с учетом подтверждений можно набрать до 20+ баллов
@@ -681,6 +899,12 @@ def analyze_12h_correction_strategy(df, trend_1d, symbol="UNKNOWN"):
         f"Ожидаем на 12H: {expected_12h_direction}\n"
         f"✅ Подтверждение движения: {trend_strength} свечи ({correction_type})\n"
         f"Последние цены: {prev_price_2:.4f} → {prev_price_1:.4f} → {current_price:.4f}\n"
+        f"\n📊 Fibonacci Retracement:\n"
+        f"Swing: {fib_swing_low:.4f} → {fib_swing_high:.4f} (Range: {fib_result['price_range']:.4f})\n"
+        f"Текущая позиция: {fib_position}\n"
+        f"Глубина коррекции: {fib_retracement_depth:.1f}%\n"
+        f"Ближайший уровень: {fib_closest_level}% ({fib_levels.get(fib_closest_level, 0):.4f})\n"
+        f"Ключевые уровни: 38.2%={fib_levels['38.2']:.4f}, 50%={fib_levels['50.0']:.4f}, 61.8%={fib_levels['61.8']:.4f}\n"
         f"\n📊 СИГНАЛЫ ({signal_strength} баллов):\n"
         f"{chr(10).join(signals) if signals else 'Нет сигналов'}\n"
         f"\n{action_emoji} ДЕЙСТВИЕ: {action_text}\n"
@@ -712,6 +936,15 @@ def analyze_12h_correction_strategy(df, trend_1d, symbol="UNKNOWN"):
         "stoch_d": stoch_d,
         "macd_action": macd_action,
         "volume_ratio": volume_ratio,
+        "fibonacci": {
+            "retracement_depth": fib_retracement_depth,
+            "closest_level": fib_closest_level,
+            "current_zone": fib_current_zone,
+            "position": fib_position,
+            "swing_high": fib_swing_high,
+            "swing_low": fib_swing_low,
+            "levels": fib_levels
+        },
         "summary": summary
     }
 

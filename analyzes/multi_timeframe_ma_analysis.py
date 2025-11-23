@@ -527,25 +527,25 @@ def analyze_volume(df, volume_ma_period=20, symbol="UNKNOWN"):
     # Определение сигнала - фиксируем движение (есть или нет)
     if volume_ratio is None:
         signal = "Недостаточно данных для анализа объема"
-        action = "WAIT"
+        action = "LOW_VOLUME"
     elif volume_ratio > 2.0:
         # Высокий объем = движение есть
         signal = f"🚀 ВЫСОКИЙ ОБЪЕМ! Движение подтверждено"
-        action = "BUY"
+        action = "HIGH_VOLUME"
     elif volume_ratio < 0.5:
         # Низкий объем = движения нет
         signal = "⚠️ НИЗКИЙ ОБЪЕМ! Движение не подтверждено"
-        action = "WAIT"
+        action = "LOW_VOLUME"
     else:
         # Нормальный объем = есть движение
         signal = "Обычный объем, движение присутствует"
-        action = "BUY"
+        action = "NORMAL_VOLUME"
 
     # Логирование
     action_emoji = {
-        "BUY": "🟢 ПОКУПАТЬ",
-        "SELL": "🔴 ПРОДАВАТЬ",
-        "WAIT": "🟡 ЖДАТЬ"
+        "HIGH_VOLUME": "🟢 ВЫСОКИЙ ОБЪЕМ",
+        "NORMAL_VOLUME": "🟡 СРЕДНИЙ ОБЪЕМ",
+        "LOW_VOLUME": "🔴 НИЗКИЙ ОБЪЕМ"
     }
     
     log_str = (
@@ -563,7 +563,7 @@ def analyze_volume(df, volume_ma_period=20, symbol="UNKNOWN"):
         "avg_volume": avg_volume,
         "volume_ratio": volume_ratio,
         "signal": signal,
-        "action": action,  # BUY/SELL/WAIT
+        "action": action,  # HIGH_VOLUME/NORMAL_VOLUME/LOW_VOLUME
         "log": log_str
     }
 
