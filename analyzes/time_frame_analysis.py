@@ -4,7 +4,6 @@ from analyzes.multi_timeframe_ma_analysis import (
     calculate_macd,
     analyze_volume,
     calculate_bollinger_bands,
-    log_to_file,
     calculate_bollinger_bands_1D
 )
 from analyzes.atr_rsi_stochastic import calculate_rsi, calculate_atr, calculate_stochastic
@@ -233,9 +232,6 @@ def analyze_1d_ma_macd_volume(df, symbol="UNKNOWN"):
         f"---\n"
     )
 
-    # Логирование
-    log_to_file("ma_macd_volume_1d_log.txt", summary)
-
     return {
         "sma_result": sma_result,
         "ema_result": ema_result,
@@ -366,7 +362,6 @@ def analyze_12h_correction_strategy(df, trend_1d, symbol="UNKNOWN"):
             f"\n🔴 ДЕЙСТВИЕ: НЕ ВХОДИТЬ - Дождитесь подтверждения тренда\n"
             f"---\n"
         )
-        log_to_file("12h_correction_strategy_log.txt", summary)
         return {
             "action": "STOP",
             "signal_strength": 0,
@@ -921,8 +916,6 @@ def analyze_12h_correction_strategy(df, trend_1d, symbol="UNKNOWN"):
         f"---\n"
     )
     
-    log_to_file("12h_correction_strategy_log.txt", summary)
-    
     return {
         "action": action,
         "signal_strength": signal_strength,
@@ -1348,8 +1341,6 @@ def analyze_4h_entry_strategy(df_4h, trend_1d, twelve_h_signal, symbol="UNKNOWN"
         summary_4h += "🔴 НЕ анализируем 1H - ждем улучшения условий на 4H\n"
     
     summary_4h += "---\n"
-    
-    log_to_file("4h_entry_strategy_log.txt", summary_4h)
     
     return {
         "action": action_4h,
@@ -2007,8 +1998,6 @@ def analyze_1h_execution(df_1h, four_h_signal, trend_1d, symbol="UNKNOWN"):
     
     summary_1h += "---\n"
     
-    log_to_file("1h_execution_log.txt", summary_1h)
-    
     return {
         "action": action_1h,
         "entry_score": entry_score,
@@ -2067,9 +2056,6 @@ def analyze_15m_stoch_ema_volume(df, symbol="UNKNOWN"):
         f"Сигнал по объему: {volume_res.get('signal', 'n/a')}\n"
         f"---\n"
     )
-
-    # Логирование
-    log_to_file("stoch_ema_volume_15m_log.txt", summary)
 
     return {
         "stoch_k": stoch_k,

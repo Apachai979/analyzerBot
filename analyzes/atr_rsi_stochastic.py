@@ -1,16 +1,7 @@
 from datetime import datetime
 import numpy as np
 import pandas as pd
-import os
 
-LOGS_DIR = "logs"
-LOG_FILE = "atr_rsi_sto_full_log.txt"
-
-def log_to_file(text):
-    os.makedirs(LOGS_DIR, exist_ok=True)
-    full_path = os.path.join(LOGS_DIR, LOG_FILE)
-    with open(full_path, "a", encoding="utf-8") as f:
-        f.write(text)
 
 def calculate_atr(df, period=14):
     df = df.copy()
@@ -144,5 +135,4 @@ def full_atr_rsi_sto_multi_analysis(df_dict, symbol="UNKNOWN", atr_period=14, rs
             "rsi": rsi_res,
             "stochastic": stoch_res
         }
-    log_to_file("\n".join(all_logs))
     return all_results

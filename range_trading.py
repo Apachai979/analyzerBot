@@ -832,7 +832,7 @@ def analyze_range_trading_signal(df, symbol="UNKNOWN"):
         # УЛУЧШЕННЫЕ условия для входа
         # При дивергенции достаточно 1 подтверждения, обычно нужно 2
         # Дивергенция объема также считается как сильное подтверждение
-        has_volume_divergence = vol_divergence['divergence_type'] == 'BULLISH'
+        has_volume_divergence = vol_divergence and vol_divergence.get('divergence_type') == 'BULLISH'
         min_confirmations = 1 if (rsi_divergence == 'BULLISH' or has_volume_divergence) else 2
         
         # Дополнительная проверка минимальной уверенности
@@ -971,7 +971,7 @@ def analyze_range_trading_signal(df, symbol="UNKNOWN"):
         # УЛУЧШЕННЫЕ условия для входа
         # При дивергенции достаточно 1 подтверждения, обычно нужно 2
         # Дивергенция объема также считается как сильное подтверждение
-        has_volume_divergence = vol_divergence['divergence_type'] == 'BEARISH'
+        has_volume_divergence = vol_divergence and vol_divergence.get('divergence_type') == 'BEARISH'
         min_confirmations = 1 if (rsi_divergence == 'BEARISH' or has_volume_divergence) else 2
         
         # Дополнительная проверка минимальной уверенности

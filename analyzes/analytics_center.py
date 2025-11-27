@@ -5,7 +5,6 @@ from analyzes.multi_timeframe_ma_analysis import (
     calculate_macd,
     analyze_volume,
     calculate_bollinger_bands,
-    log_to_file,
     calculate_bollinger_bands_1D
 )
 
@@ -85,7 +84,6 @@ def handle_12h_correction_buy_signal(df, symbol="UNKNOWN"):
         f"---\n"
     )
 
-    log_to_file("correction_buy_12h_log.txt", summary)
     print(summary)
 
     return {

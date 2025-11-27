@@ -208,3 +208,7 @@ __marimo__/
 
 # Telegram bot data (personal chat IDs)
 data/telegram_subscribers.json
+
+# Old deprecated logs (removed from codebase)
+logs/*_log.txt
+logs/*_strategy_log.txt

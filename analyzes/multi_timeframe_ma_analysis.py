@@ -1,17 +1,7 @@
 import pandas as pd
 from datetime import datetime
-import os
 from analyzes.atr_rsi_stochastic import (calculate_atr, calculate_rsi, calculate_stochastic)
 
-
-LOGS_DIR = "logs"
-
-def log_to_file(filename, text):
-    # Создаём папку logs, если её нет
-    os.makedirs(LOGS_DIR, exist_ok=True)
-    full_path = os.path.join(LOGS_DIR, filename)
-    with open(full_path, "a", encoding="utf-8") as f:
-        f.write(text)
 
 def calculate_sma(data, period):
     """Рассчитывает SMA для заданного периода"""
@@ -130,8 +120,6 @@ def analyze_ma_signals(df, fast_period, slow_period, lookback_periods, symbol="U
     # Проверка статистики
     stats = calculate_distance_stats(df, fast_col, slow_col, lookback_periods)
     if stats[0] is None:
-        log_to_file(log_filename, 
-                   f"{datetime.now()} | {symbol} | Недостаточно данных для анализа {ma_type}\n")
         return None
     
     current_dist, mean_dist, std_dist, max_dist, min_dist = stats
@@ -287,7 +275,6 @@ def calculate_bollinger_bands(df, period=20, num_std=2, ma_type="SMA", symbol="U
         f"Сигнал: {last_row['bb_signal']}\n"
         f"---\n"
     )
-    log_to_file("bollinger_bands_log.txt", log_str)
 
     return df[['bb_middle', 'bb_upper', 'bb_lower', 'bb_signal']]
 
@@ -497,7 +484,6 @@ def _log_macd_analysis(symbol, last_macd, last_signal, last_hist, signal, detail
         f"⚡ ДЕЙСТВИЕ: {action_emoji.get(action, action)}\n"
         f"---\n"
     )
-    log_to_file("macd_log.txt", log_str)
     
 def analyze_volume(df, volume_ma_period=20, symbol="UNKNOWN"):
     """
@@ -555,7 +541,6 @@ def analyze_volume(df, volume_ma_period=20, symbol="UNKNOWN"):
         f"⚡ ДЕЙСТВИЕ: {action_emoji.get(action, action)}\n"
         f"---\n"
     )
-    # log_to_file("volume_analysis_log.txt", log_str)
 
     return {
         "symbol": symbol,
