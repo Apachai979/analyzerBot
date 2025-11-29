@@ -363,6 +363,72 @@ class BybitClient:
             print(f"❌ Ошибка получения серверного времени: {e}")
             return None
 
+    def get_wallet_balance(self, accountType="UNIFIED", coin=None):
+        """
+        Получает баланс кошелька (unified wallet).
+        Если coin указан — вернёт информацию по конкретной монете, иначе по всем.
+        Возвращает распарсенный словарь или None при ошибке.
+        """
+        try:
+            if not self.session:
+                self._initialize_session()
+                if not self.session:
+                    return None
+
+            # Rate limiting
+            self._wait_for_rate_limit()
+
+            params = {"accountType": accountType}
+            if coin:
+                params["coin"] = coin
+
+            response = self.session.get_wallet_balance(**params)
+
+            if response.get('retCode') != 0:
+                print(f"❌ Ошибка API при получении баланса: {response.get('retMsg')}")
+                return None
+
+            # Берём список аккаунтов из ответа
+            result_list = response.get('result', {}).get('list', [])
+            if not result_list:
+                return None
+
+            def _try_float(v):
+                try:
+                    return float(v)
+                except Exception:
+                    return v
+
+            parsed = []
+            for acc in result_list:
+                acc_parsed = {}
+                # простые поля
+                for k, v in acc.items():
+                    if k == "coin" and isinstance(v, list):
+                        # распарсить список монет
+                        coins_parsed = []
+                        for c in v:
+                            c_parsed = {ck: _try_float(cv) for ck, cv in c.items()}
+                            coins_parsed.append(c_parsed)
+                        acc_parsed["coins"] = coins_parsed
+                    else:
+                        acc_parsed[k] = _try_float(v)
+                parsed.append(acc_parsed)
+
+            # Если запрошена конкретная монета, постарайтесь вернуть её объект первым
+            if coin:
+                for acc in parsed:
+                    for c in acc.get("coins", []):
+                        if str(c.get("coin")).upper() == str(coin).upper():
+                            return {"account": acc, "coin": c, "raw": response}
+                return {"account": parsed[0], "raw": response}
+
+            return {"accounts": parsed, "raw": response}
+
+        except Exception as e:
+            print(f"❌ Ошибка при получении баланса кошелька: {e}")
+            return None
+
 # Глобальный экземпляр клиента
 bybit_client = BybitClient()
 

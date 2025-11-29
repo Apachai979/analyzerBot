@@ -361,4 +361,6 @@ def main():
         time.sleep(CYCLE_PAUSE)
 
 if __name__ == "__main__":
-    main()
+    answer = bybit_client.get_wallet_balance()
+    print(answer)
+    # main()
