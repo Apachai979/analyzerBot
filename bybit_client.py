@@ -4,7 +4,7 @@ import time
 from collections import deque
 from config import (
     BYBIT_API_KEY, BYBIT_API_SECRET, TESTNET, BYBIT_API_URL, BYBIT_TESTNET_URL,
-    CATEGORY, INTERVAL, LIMIT
+    CATEGORY, INTERVAL, LIMIT 
 )
 from coinmarketcap_client import get_coinmarketcap_data, get_fear_greed_index
 
@@ -427,6 +427,124 @@ class BybitClient:
 
         except Exception as e:
             print(f"❌ Ошибка при получении баланса кошелька: {e}")
+            return None
+
+    def place_order(self, symbol, side, orderType, qty, price=None, **kwargs):
+        """
+        Размещает ордер на Bybit.
+        
+        Args:
+            symbol (str): Символ торговой пары, например "BTCUSDT" (uppercase)
+            side (str): Направление ордера - "Buy" или "Sell"
+            orderType (str): Тип ордера - "Market", "Limit"
+            qty (str): Количество (для spot market buy может быть в базовой или котируемой валюте)
+            price (str, optional): Цена для лимитного ордера
+            **kwargs: Дополнительные параметры
+        
+        Основные опциональные параметры:
+            category (str): "spot" (по умолчанию), "linear", "inverse", "option"
+            isLeverage (int): 0 - spot trading (default), 1 - margin trading
+            marketUnit (str): "baseCoin" или "quoteCoin" для spot market ордеров
+            timeInForce (str): "GTC", "IOC", "FOK", "PostOnly"
+            orderLinkId (str): Пользовательский ID ордера (до 36 символов)
+            takeProfit (str): Цена тейк-профита
+            stopLoss (str): Цена стоп-лосса
+            tpLimitPrice (str): Лимитная цена для TP (для spot требуется при tpOrderType=Limit)
+            slLimitPrice (str): Лимитная цена для SL (для spot требуется при slOrderType=Limit)
+            tpOrderType (str): "Market" или "Limit" - тип ордера при срабатывании TP
+            slOrderType (str): "Market" или "Limit" - тип ордера при срабатывании SL
+            reduceOnly (bool): true - только уменьшение позиции
+            closeOnTrigger (bool): Закрытие позиции при срабатывании
+            orderFilter (str): "Order" (default), "tpslOrder", "StopOrder" (для spot)
+            
+        Returns:
+            dict: {
+                "success": bool,
+                "orderId": str,
+                "orderLinkId": str,
+                "response": dict  # полный ответ API
+            } или None при ошибке
+        
+        Примеры:
+            # Spot лимитный ордер с TP/SL
+            client.place_order(
+                symbol="BTCUSDT",
+                side="Buy",
+                orderType="Limit",
+                qty="0.001",
+                price="50000",
+                timeInForce="PostOnly",
+                takeProfit="55000",
+                stopLoss="48000"
+            )
+            
+            # Spot market ордер (покупка на сумму в USDT)
+            client.place_order(
+                symbol="BTCUSDT",
+                side="Buy",
+                orderType="Market",
+                qty="100",
+                marketUnit="quoteCoin"  # qty в USDT
+            )
+        """
+        try:
+            if not self.session:
+                self._initialize_session()
+                if not self.session:
+                    return None
+            
+            # Rate limiting
+            self._wait_for_rate_limit()
+            
+            # Базовые параметры
+            params = {
+                "category": kwargs.get("category", "spot"),
+                "symbol": symbol.upper(),
+                "side": side,
+                "orderType": orderType,
+                "qty": str(qty)
+            }
+            
+            # Цена для лимитных ордеров
+            if price is not None:
+                params["price"] = str(price)
+            
+            # Добавляем все опциональные параметры
+            optional_params = [
+                'isLeverage', 'marketUnit', 'slippageToleranceType', 'slippageTolerance',
+                'triggerDirection', 'orderFilter', 'triggerPrice', 'triggerBy', 'orderIv',
+                'timeInForce', 'positionIdx', 'orderLinkId', 'takeProfit', 'stopLoss',
+                'tpTriggerBy', 'slTriggerBy', 'reduceOnly', 'closeOnTrigger', 'smpType',
+                'mmp', 'tpslMode', 'tpLimitPrice', 'slLimitPrice', 'tpOrderType',
+                'slOrderType', 'bboSideType'
+            ]
+            
+            for param in optional_params:
+                if param in kwargs and kwargs[param] is not None:
+                    params[param] = kwargs[param]
+            
+            # Отправляем запрос
+            response = self.session.place_order(**params)
+            
+            if response['retCode'] == 0:
+                result = response.get('result', {})
+                return {
+                    "success": True,
+                    "orderId": result.get('orderId'),
+                    "orderLinkId": result.get('orderLinkId'),
+                    "response": response
+                }
+            else:
+                print(f"❌ Ошибка размещения ордера: {response['retMsg']}")
+                return {
+                    "success": False,
+                    "error": response['retMsg'],
+                    "retCode": response['retCode'],
+                    "response": response
+                }
+                
+        except Exception as e:
+            print(f"❌ Исключение при размещении ордера: {e}")
             return None
 
 # Глобальный экземпляр клиента

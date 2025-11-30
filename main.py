@@ -364,3 +364,13 @@ if __name__ == "__main__":
     # answer = bybit_client.get_wallet_balance()
     # print(answer)
     main()
+    # result = bybit_client.place_order(
+    #     symbol="ENAUSDT",
+    #     side="Buy",
+    #     orderType="Limit",
+    #     qty="2",
+    #     price="0.2500",
+    #     timeInForce="PostOnly",
+    #     orderLinkId="my order 012543"
+    # )   
+    # print(result)
