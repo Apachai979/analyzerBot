@@ -252,7 +252,7 @@ def analyze_symbol_range_trading(symbol, tracker, tf_loggers):
         )
         
         # Отправляем сигнал если уверенность >= 7 и R:R >= 1.5
-        if (range_result['confidence'] >= 7 and 
+        if (range_result['confidence'] >= 9 and 
             range_result['risk_reward_ratio'] >= 1.5 and
             tracker.should_send_signal(symbol, range_result['action'], 'RANGE')):
             
@@ -361,6 +361,6 @@ def main():
         time.sleep(CYCLE_PAUSE)
 
 if __name__ == "__main__":
-    answer = bybit_client.get_wallet_balance()
-    print(answer)
-    # main()
+    # answer = bybit_client.get_wallet_balance()
+    # print(answer)
+    main()
