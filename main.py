@@ -18,10 +18,32 @@ logging.basicConfig(
     encoding='utf-8'
 )
 
+def format_price(price, reference_price):
+    """
+    Форматирует цену в соответствии с количеством знаков после запятой в reference_price.
+    Убирает незначащие нули в конце.
+    """
+    if price is None or reference_price is None:
+        return str(price)
+    
+    # Определяем количество знаков после запятой в reference_price
+    ref_str = f"{reference_price:.15f}".rstrip('0').rstrip('.')
+    if '.' in ref_str:
+        decimal_places = len(ref_str.split('.')[1])
+    else:
+        decimal_places = 0
+    
+    # Форматируем price с тем же количеством знаков и убираем нули в конце
+    formatted = f"{price:.{decimal_places}f}".rstrip('0').rstrip('.')
+    return formatted
+
 # Создаем отдельные логгеры для каждого таймфрейма
 def setup_timeframe_loggers():
     """Настройка отдельных логгеров для каждого таймфрейма"""
-    timeframes = ['1D', '12H', '4H', '1H', 'RANGE']  # Добавили RANGE
+    # Создаем директорию для логов если не существует
+    os.makedirs('logs', exist_ok=True)
+    
+    timeframes = ['1D', '12H', '4H', '1H', 'RANGE']
     loggers = {}
     
     for tf in timeframes:
@@ -189,17 +211,21 @@ def analyze_symbol_multitimeframe(symbol, tracker, tf_loggers):
             one_h_action = one_h_result.get('action')
             logging.info(f"[1H] {symbol} → {one_h_action}")
             
-            # Логируем результат 1H анализа
+            # Получаем цены
             entry_price = one_h_result.get('entry_price', 0)
             stop_loss = one_h_result.get('stop_loss', 0)
             take_profit = one_h_result.get('take_profit', 0)
             risk_percent = one_h_result.get('risk_percent', 0)
             entry_score = one_h_result.get('entry_score', 0)
             
+            # Форматируем SL и TP согласно entry_price (entry_price оставляем как есть)
+            sl_str = format_price(stop_loss, entry_price)
+            tp_str = format_price(take_profit, entry_price)
+            
             tf_loggers['1H'].info(
                 f"{symbol} | Action: {one_h_action} | Trend: {trend_1d} | "
-                f"Score: {entry_score} | Entry: {entry_price:.4f} | "
-                f"SL: {stop_loss:.4f} | TP: {take_profit:.4f} | "
+                f"Score: {entry_score} | Entry: {entry_price} | "
+                f"SL: {sl_str} | TP: {tp_str} | "
                 f"Risk: {risk_percent:.2f}% | {one_h_result.get('summary', 'N/A')}"
             )
             
@@ -209,15 +235,15 @@ def analyze_symbol_multitimeframe(symbol, tracker, tf_loggers):
                     f"🎯 1H ВХОД В СДЕЛКУ!\n"
                     f"{symbol}\n"
                     f"Направление: {'LONG' if trend_1d == 'BULLISH' else 'SHORT'}\n"
-                    f"Вход: {entry_price:.4f}\n"
-                    f"Стоп: {stop_loss:.4f}\n"
-                    f"Тейк: {take_profit:.4f}\n"
+                    f"Вход: {entry_price}\n"
+                    f"Стоп: {sl_str}\n"
+                    f"Тейк: {tp_str}\n"
                     f"Риск: {risk_percent:.2f}%\n"
                     f"R:R = 1:2\n\n"
                     f"{one_h_result.get('summary', '')}"
                 )
                 if not success:
-                    send_emergency_alert('CRITICAL', symbol=symbol, details=f'ENTER {trend_1d} @ {entry_price:.4f}')
+                    send_emergency_alert('CRITICAL', symbol=symbol, details=f'ENTER {trend_1d} @ {entry_price}')
             
             elif one_h_action == 'WAIT_BETTER':
                 success = send_telegram_message(
@@ -240,31 +266,41 @@ def analyze_symbol_range_trading(symbol, tracker, tf_loggers):
     range_result = analyze_range_trading_signal(df_1h_range, symbol)
     
     if range_result and range_result['action'] in ['BUY', 'SELL']:
+        entry_price = range_result['entry_price']
+        stop_loss = range_result['stop_loss']
+        take_profit = range_result['take_profit']
+        risk_reward_ratio = range_result['risk_reward_ratio']
+        confidence = range_result['confidence']
+        
+        # Форматируем SL и TP согласно entry_price (entry_price оставляем как есть)
+        sl_str = format_price(stop_loss, entry_price)
+        tp_str = format_price(take_profit, entry_price)
+        
         # Логируем результат
         tf_loggers['RANGE'].info(
             f"{symbol} | Action: {range_result['action']} | "
-            f"Confidence: {range_result['confidence']}/10 | "
-            f"Entry: {range_result['entry_price']:.4f} | "
-            f"SL: {range_result['stop_loss']:.4f} | "
-            f"TP: {range_result['take_profit']:.4f} | "
-            f"R:R = 1:{range_result['risk_reward_ratio']:.2f} | "
+            f"Confidence: {confidence}/10 | "
+            f"Entry: {entry_price} | "
+            f"SL: {sl_str} | "
+            f"TP: {tp_str} | "
+            f"R:R = 1:{risk_reward_ratio:.2f} | "
             f"{range_result['summary']}"
         )
         
-        # Отправляем сигнал если уверенность >= 7 и R:R >= 1.5
-        if (range_result['confidence'] >= 9 and 
-            range_result['risk_reward_ratio'] >= 1.5 and
+        # Отправляем сигнал если уверенность >= 9 и R:R >= 1.5
+        if (confidence >= 9 and 
+            risk_reward_ratio >= 1.5 and
             tracker.should_send_signal(symbol, range_result['action'], 'RANGE')):
             
             success = send_telegram_message(
                 f"📊 RANGE TRADING SIGNAL (1H)!\n"
                 f"{symbol}\n"
                 f"{'🟢 LONG' if range_result['action'] == 'BUY' else '🔴 SHORT'}\n"
-                f"Уверенность: {range_result['confidence']}/10\n\n"
-                f"Вход: {range_result['entry_price']:.4f}\n"
-                f"Стоп: {range_result['stop_loss']:.4f}\n"
-                f"Тейк: {range_result['take_profit']:.4f}\n"
-                f"R:R = 1:{range_result['risk_reward_ratio']:.2f}\n\n"
+                f"Уверенность: {confidence}/10\n\n"
+                f"Вход: {entry_price}\n"
+                f"Стоп: {sl_str}\n"
+                f"Тейк: {tp_str}\n"
+                f"R:R = 1:{risk_reward_ratio:.2f}\n\n"
                 f"Сигналы:\n" + "\n".join(range_result['signals'][:5])
             )
             
@@ -281,7 +317,6 @@ def load_dynamic_symbols():
 def telegram_command_listener():
     """
     Отдельный поток для обработки Telegram команд
-    Работает параллельно основному анализу, проверяет команды каждые 2 секунды
     """
     print("🤖 Telegram command listener запущен")
     logging.info("🤖 Telegram command listener запущен")
@@ -289,63 +324,32 @@ def telegram_command_listener():
     while True:
         try:
             process_telegram_updates()
-        except Exception as e:
-            # Не критично, продолжаем работу
+        except Exception:
             pass
-        
-        # Проверяем команды каждые 2 секунды (быстрый отклик на /start)
-        time.sleep(2)
-    """
-    Отдельный поток для обработки Telegram команд
-    Работает параллельно основному анализу, проверяет команды каждые 2 секунды
-    """
-    print("🤖 Telegram command listener запущен")
-    logging.info("🤖 Telegram command listener запущен")
-    
-    while True:
-        try:
-            process_telegram_updates()
-        except Exception as e:
-            # Не критично, продолжаем работу
-            pass
-        
-        # Проверяем команды каждые 2 секунды (быстрый отклик на /start)
         time.sleep(2)
 
 
 def main():
     tracker = TimeframeAnalysisTracker()
-    
-    # Настраиваем логгеры для таймфреймов
     tf_loggers = setup_timeframe_loggers()
     
-    # Создаем директорию для логов если не существует
-    os.makedirs('logs', exist_ok=True)
-    
-    # Пауза между полными циклами (в секундах)
-    CYCLE_PAUSE = 60  # 1 минута - проверяем часто, но сам анализ контролируется tracker
+    CYCLE_PAUSE = 60
     
     logging.info("="*60)
     logging.info("🚀 Бот запущен. Начало работы.")
     logging.info("="*60)
     
-    # Запускаем отдельный поток для обработки Telegram команд
     telegram_thread = threading.Thread(target=telegram_command_listener, daemon=True)
     telegram_thread.start()
 
     while True:
         cycle_start = time.time()
-        
         symbols = load_dynamic_symbols()
         
         for symbol in symbols:
             try:
-                # Анализируем Range Trading (независимо)
                 analyze_symbol_range_trading(symbol, tracker, tf_loggers)
-                
-                # Анализируем Multi-Timeframe стратегию
                 analyze_symbol_multitimeframe(symbol, tracker, tf_loggers)
-
             except Exception as e:
                 error_msg = f"❌ Ошибка анализа {symbol}: {e}"
                 print(error_msg)
@@ -355,7 +359,6 @@ def main():
                 send_emergency_alert('ANALYSIS', symbol=symbol, details=str(e))
                 continue
         
-        # Пауза между циклами
         cycle_duration = time.time() - cycle_start
         print(f"\n⏱️  Цикл завершен за {cycle_duration:.1f}s. Пауза {CYCLE_PAUSE}s...\n")
         time.sleep(CYCLE_PAUSE)
