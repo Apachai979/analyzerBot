@@ -289,7 +289,7 @@ def analyze_symbol_range_trading(symbol, tracker, tf_loggers):
         
         # Отправляем сигнал если уверенность >= 9 и R:R >= 1.5
         if (confidence >= 9 and 
-            risk_reward_ratio >= 1.5 and
+            risk_reward_ratio >= 7 and
             tracker.should_send_signal(symbol, range_result['action'], 'RANGE')):
             
             success = send_telegram_message(
