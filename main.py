@@ -185,12 +185,13 @@ def analyze_symbol_multitimeframe(symbol, tracker, tf_loggers):
             if four_h_action in ['GO', 'ATTENTION']:
                 tracker.last_analysis[symbol]['four_h_result'] = four_h_result
                 
-                # Отправляем 4H сигнал
-                success = send_telegram_message(
-                    f"{'✅' if four_h_action == 'GO' else '⚠️'} 4H {'ГОТОВНОСТЬ' if four_h_action == 'GO' else 'ОСТОРОЖНО'}!\n{symbol}\n{four_h_result.get('summary', '')}"
-                )
-                if not success:
-                    send_emergency_alert('TELEGRAM', symbol=symbol, details='4H signal failed')
+                # Отправляем 4H сигнал только для LONG сценария
+                if trend_1d == 'BULLISH':
+                    success = send_telegram_message(
+                        f"{'✅' if four_h_action == 'GO' else '⚠️'} 4H {'ГОТОВНОСТЬ' if four_h_action == 'GO' else 'ОСТОРОЖНО'}!\n{symbol}\n{four_h_result.get('summary', '')}"
+                    )
+                    if not success:
+                        send_emergency_alert('TELEGRAM', symbol=symbol, details='4H signal failed')
             else:
                 # 4H дал STOP - очищаем его из кэша
                 tracker.last_analysis[symbol].pop('four_h_result', None)
@@ -230,7 +231,7 @@ def analyze_symbol_multitimeframe(symbol, tracker, tf_loggers):
             )
             
             # Отправляем 1H сигналы
-            if one_h_action == 'ENTER':
+            if one_h_action == 'ENTER' and trend_1d == 'BULLISH':
                 success = send_telegram_message(
                     f"🎯 1H ВХОД В СДЕЛКУ!\n"
                     f"{symbol}\n"
@@ -288,7 +289,8 @@ def analyze_symbol_range_trading(symbol, tracker, tf_loggers):
         )
         
         # Отправляем сигнал если уверенность >= 9 и R:R >= 1.5
-        if (confidence >= 9 and 
+        if (range_result['action'] == 'BUY' and
+            confidence >= 9 and 
             risk_reward_ratio >= 7 and
             tracker.should_send_signal(symbol, range_result['action'], 'RANGE')):
             
