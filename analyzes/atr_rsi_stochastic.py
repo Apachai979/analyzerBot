@@ -56,15 +56,31 @@ def calculate_rsi(df, period=14):
     delta = df['close'].diff()
     gain = delta.clip(lower=0)
     loss = -delta.clip(upper=0)
-    avg_gain = gain.rolling(window=period).mean()
-    avg_loss = loss.rolling(window=period).mean()
-    rs = avg_gain / avg_loss
+
+    # Экспоненциальное сглаживание (Wilder)
+    avg_gain = gain.ewm(alpha=1 / period, adjust=False, min_periods=period).mean()
+    avg_loss = loss.ewm(alpha=1 / period, adjust=False, min_periods=period).mean()
+
+    # RS и RSI
+    rs = avg_gain / avg_loss.replace(0, np.nan)
     rsi = 100 - (100 / (1 + rs))
+
+    # Корректная обработка деления на ноль
+    # avg_loss = 0 и avg_gain > 0 -> RSI = 100
+    # avg_gain = 0 и avg_loss > 0 -> RSI = 0
+    # avg_gain = 0 и avg_loss = 0 -> RSI = 50 (плоский рынок)
+    loss_zero_gain_pos = (avg_loss == 0) & (avg_gain > 0)
+    gain_zero_loss_pos = (avg_gain == 0) & (avg_loss > 0)
+    both_zero = (avg_gain == 0) & (avg_loss == 0)
+
+    rsi = rsi.mask(loss_zero_gain_pos, 100)
+    rsi = rsi.mask(gain_zero_loss_pos, 0)
+    rsi = rsi.mask(both_zero, 50)
 
     if rsi.dropna().empty:
         return "Недостаточно данных для расчета RSI\n", None
 
-    last_rsi = rsi.iloc[-1]
+    last_rsi = rsi.dropna().iloc[-1]
     if last_rsi >= 70:
         rsi_state = "ПЕРЕКУПЛЕННОСТЬ"
     elif last_rsi <= 30:

@@ -246,7 +246,7 @@ def analyze_symbol_multitimeframe(symbol, tracker, tf_loggers):
                 if not success:
                     send_emergency_alert('CRITICAL', symbol=symbol, details=f'ENTER {trend_1d} @ {entry_price}')
             
-            elif one_h_action == 'WAIT_BETTER':
+            elif one_h_action == 'WAIT_BETTER' and trend_1d == 'BULLISH':
                 success = send_telegram_message(
                     f"🟡 1H ЖДАТЬ ЛУЧШЕЙ ЦЕНЫ!\n{symbol}\n{one_h_result.get('summary', '')}"
                 )
