@@ -1,6 +1,10 @@
 from datetime import datetime
 import numpy as np
 import pandas as pd
+from analyzes.rsi_analyzer import RSIAnalyzer
+
+
+_rsi_analyzer = RSIAnalyzer()
 
 
 def calculate_atr(df, period=14):
@@ -49,54 +53,27 @@ def calculate_atr(df, period=14):
     return log_str, result
 
 def calculate_rsi(df, period=14):
-    df = df.copy()
-    if len(df) < period:
-        return "Недостаточно данных для расчета RSI\n", None
+    return _rsi_analyzer.calculate_rsi(df, period=period)
 
-    delta = df['close'].diff()
-    gain = delta.clip(lower=0)
-    loss = -delta.clip(upper=0)
 
-    # Экспоненциальное сглаживание (Wilder)
-    avg_gain = gain.ewm(alpha=1 / period, adjust=False, min_periods=period).mean()
-    avg_loss = loss.ewm(alpha=1 / period, adjust=False, min_periods=period).mean()
-
-    # RS и RSI
-    rs = avg_gain / avg_loss.replace(0, np.nan)
-    rsi = 100 - (100 / (1 + rs))
-
-    # Корректная обработка деления на ноль
-    # avg_loss = 0 и avg_gain > 0 -> RSI = 100
-    # avg_gain = 0 и avg_loss > 0 -> RSI = 0
-    # avg_gain = 0 и avg_loss = 0 -> RSI = 50 (плоский рынок)
-    loss_zero_gain_pos = (avg_loss == 0) & (avg_gain > 0)
-    gain_zero_loss_pos = (avg_gain == 0) & (avg_loss > 0)
-    both_zero = (avg_gain == 0) & (avg_loss == 0)
-
-    rsi = rsi.mask(loss_zero_gain_pos, 100)
-    rsi = rsi.mask(gain_zero_loss_pos, 0)
-    rsi = rsi.mask(both_zero, 50)
-
-    if rsi.dropna().empty:
-        return "Недостаточно данных для расчета RSI\n", None
-
-    last_rsi = rsi.dropna().iloc[-1]
-    if last_rsi >= 70:
-        rsi_state = "ПЕРЕКУПЛЕННОСТЬ"
-    elif last_rsi <= 30:
-        rsi_state = "ПЕРЕПРОДАННОСТЬ"
-    else:
-        rsi_state = "НЕЙТРАЛЬНО"
-
-    log_str = (
-        f"=== RSI ANALYSIS ===\n"
-        f"Период: {period}\n"
-        f"RSI: {last_rsi:.2f}\n"
-        f"Состояние: {rsi_state}\n"
-        f"---\n"
+def get_rsi_divergence_output(df, symbol="UNKNOWN", timeframe="UNKNOWN", period=14, lookback=30, pivot_window=2):
+    """
+    Возвращает только текстовый вывод по RSI-дивергенции.
+    Состояние последней дивергенции хранится внутри RSIAnalyzer.
+    """
+    return _rsi_analyzer.analyze_divergence_output(
+        df,
+        symbol=symbol,
+        timeframe=timeframe,
+        period=period,
+        lookback=lookback,
+        pivot_window=pivot_window,
     )
-    # Возвращаем log и Series с RSI
-    return log_str, rsi
+
+
+def get_latest_rsi_divergence(symbol="UNKNOWN", timeframe="UNKNOWN"):
+    """Возвращает последнее зафиксированное состояние RSI-дивергенции по symbol/timeframe."""
+    return _rsi_analyzer.get_latest_divergence(symbol=symbol, timeframe=timeframe)
 
 def calculate_stochastic(df, k_period=14, d_period=3):
     df = df.copy()

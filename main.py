@@ -313,7 +313,8 @@ def analyze_symbol_range_trading(symbol, tracker, tf_loggers):
 def load_dynamic_symbols():
     """Загружает список символов из файла"""
     with open("data/filtered_symbols.txt", "r", encoding="utf-8") as f:
-        return [line.strip() for line in f if line.strip()]
+        symbols = [line.strip() for line in f if line.strip()]
+    return list(dict.fromkeys(symbols))
 
 
 def telegram_command_listener():

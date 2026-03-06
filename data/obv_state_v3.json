@@ -1,0 +1,45 @@
+{
+  "BTCUSDT::1H": {
+    "symbol": "BTCUSDT",
+    "timeframe": "1H",
+    "ts": 1772776386.471433,
+    "policy": {
+      "ma_period": 20,
+      "fast_ema_period": 10,
+      "slow_ema_period": 30,
+      "trend_lookback": 5,
+      "divergence_lookback": 30,
+      "pivot_window": 2,
+      "min_confidence_for_alert": 65,
+      "cooldown_seconds": 900,
+      "alert_on_change_only": true
+    },
+    "features": {
+      "ok": true,
+      "last_obv": 14138.19369699999,
+      "prev_obv": 14400.65779899999,
+      "last_obv_ma": 15476.19573499999,
+      "last_obv_ema_fast": 14809.576245243097,
+      "last_obv_ema_slow": 15461.369923499191,
+      "obv_delta": -761.5358120000001,
+      "obv_slope": -152.3071624,
+      "normalized_strength": -1.7159827573587343,
+      "divergence": {
+        "type": "NONE",
+        "details": "OBV дивергенция не обнаружена"
+      },
+      "n_bars": 500
+    },
+    "decision": {
+      "state": "BEARISH",
+      "raw_state": "BEARISH",
+      "confidence": 45,
+      "reasons": [
+        "OBV EMA fast < slow и наклон отрицательный",
+        "Слабое нормализованное движение OBV"
+      ],
+      "should_alert": false
+    },
+    "last_alert_ts": 0
+  }
+}
