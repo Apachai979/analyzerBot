@@ -1,6 +1,7 @@
 from pybit.unified_trading import HTTP
 from datetime import datetime
 import time
+import pandas as pd
 from collections import deque
 from config import (
     BYBIT_API_KEY, BYBIT_API_SECRET, TESTNET, BYBIT_API_URL, BYBIT_TESTNET_URL,
@@ -117,7 +118,7 @@ class BybitClient:
 
     # Для использования как метод класса:
     # df = bybit_client.get_klines_until_date("BTCUSDT", interval="1h", limit=1000, until_date="2025-
-
+    
     def get_klines(self, symbol, interval=INTERVAL, limit=LIMIT):
         """Получаем исторические данные для конкретной монеты"""
         try:
@@ -141,7 +142,6 @@ class BybitClient:
                 return None
             
             klines = response['result']['list']
-            import pandas as pd
             df = pd.DataFrame(klines, columns=[
                 'timestamp', 'open', 'high', 'low', 'close', 'volume', 'turnover'
             ])
