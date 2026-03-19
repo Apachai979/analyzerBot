@@ -1,6 +1,6 @@
 import pandas as pd
 
-from bybit_client import bybit_client
+from bybit_client_v2 import bybit_client
 from analyzes.trend_filter_12h_v2 import trend_filter_12h, TrendFilter12hConfig
 
 
@@ -50,7 +50,6 @@ def prepare_ohlcv_for_filter(
 
 
 def run(symbol: str = "BTCUSDT", interval: str = "720", limit: int = 400) -> None:
-    # ВАЖНО: в самом bybit_client.get_klines(...) проверь, что category="spot"
     raw = bybit_client.get_klines(symbol=symbol, interval=interval, limit=limit)
     if raw is None or raw.empty:
         print(f"Нет данных: {symbol} [{interval}]")
