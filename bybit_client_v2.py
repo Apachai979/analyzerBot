@@ -208,6 +208,14 @@ class BybitClient:
         except ValueError:
             return value
 
+    def _coerce_numbers(self, value):
+        """Рекурсивно преобразует числовые строки в числа."""
+        if isinstance(value, dict):
+            return {key: self._coerce_numbers(item) for key, item in value.items()}
+        if isinstance(value, list):
+            return [self._coerce_numbers(item) for item in value]
+        return self._try_number(value)
+
     def get_klines(
         self,
         symbol: str,
@@ -584,7 +592,820 @@ class BybitClient:
             print(f"❌ Исключение при размещении ордера: {error}")
             return None
 
+    def get_instrument_info(self, symbol: str, category: str | None = None):
+        """Возвращает параметры инструмента: шаг цены, шаг количества, min qty и прочее."""
+        try:
+            normalized_symbol = self._normalize_symbol(symbol)
+            normalized_category = self._normalize_category(category)
 
+            response = self._request(
+                "get_instruments_info",
+                category=normalized_category,
+                symbol=normalized_symbol,
+            )
+            if not self._response_ok(response, f"получении параметров инструмента {normalized_symbol}"):
+                return None
+
+            items = response.get("result", {}).get("list", [])
+            if not items:
+                return None
+
+            raw_item = next(
+                (item for item in items if str(item.get("symbol", "")).upper() == normalized_symbol),
+                items[0],
+            )
+            item = self._coerce_numbers(raw_item)
+
+            lot = item.get("lotSizeFilter", {}) or {}
+            price_filter = item.get("priceFilter", {}) or {}
+            leverage_filter = item.get("leverageFilter", {}) or {}
+
+            return {
+                "symbol": item.get("symbol"),
+                "category": normalized_category,
+                "status": item.get("status"),
+                "baseCoin": item.get("baseCoin"),
+                "quoteCoin": item.get("quoteCoin"),
+                "priceScale": item.get("priceScale"),
+                "tickSize": price_filter.get("tickSize"),
+                "minPrice": price_filter.get("minPrice"),
+                "maxPrice": price_filter.get("maxPrice"),
+                "qtyStep": lot.get("qtyStep"),
+                "minOrderQty": lot.get("minOrderQty"),
+                "maxOrderQty": lot.get("maxOrderQty"),
+                "maxMktOrderQty": lot.get("maxMktOrderQty"),
+                "minNotionalValue": lot.get("minNotionalValue") or lot.get("minOrderAmt"),
+                "minLeverage": leverage_filter.get("minLeverage"),
+                "maxLeverage": leverage_filter.get("maxLeverage"),
+                "raw": item,
+            }
+        except Exception as error:
+            print(f"❌ Ошибка при получении параметров инструмента {symbol}: {error}")
+            return None
+
+    def get_open_positions(
+        self,
+        symbol: str | None = None,
+        settleCoin: str | None = None,
+        category: str | None = None,
+        limit: int = 50,
+        active_only: bool = True,
+    ):
+        """Возвращает список позиций."""
+        try:
+            normalized_category = self._normalize_category(category)
+            params = {
+                "category": normalized_category,
+                "limit": min(max(1, int(limit)), 200),
+            }
+
+            if symbol:
+                params["symbol"] = self._normalize_symbol(symbol)
+            if settleCoin:
+                params["settleCoin"] = self._normalize_coin(settleCoin)
+
+            response = self._request("get_positions", **params)
+            if not self._response_ok(response, "получении позиций"):
+                return None
+
+            items = response.get("result", {}).get("list", [])
+            positions = [self._coerce_numbers(item) for item in items]
+
+            if active_only:
+                filtered = []
+                for position in positions:
+                    size = position.get("size", 0) or 0
+                    side = str(position.get("side", "")).capitalize()
+                    try:
+                        is_active = abs(float(size)) > 0
+                    except Exception:
+                        is_active = False
+
+                    if is_active and side in {"Buy", "Sell"}:
+                        filtered.append(position)
+                positions = filtered
+
+            return positions
+        except Exception as error:
+            print(f"❌ Ошибка при получении позиций: {error}")
+            return None
+
+    def get_position(
+        self,
+        symbol: str,
+        category: str | None = None,
+        active_only: bool = True,
+    ):
+        """Возвращает одну позицию по символу."""
+        try:
+            positions = self.get_open_positions(
+                symbol=symbol,
+                category=category,
+                limit=20,
+                active_only=active_only,
+            )
+            if not positions:
+                return None
+
+            normalized_symbol = self._normalize_symbol(symbol)
+            for position in positions:
+                if str(position.get("symbol", "")).upper() == normalized_symbol:
+                    return position
+            return None
+        except Exception as error:
+            print(f"❌ Ошибка при получении позиции {symbol}: {error}")
+            return None
+
+    def get_open_orders(
+        self,
+        symbol: str | None = None,
+        baseCoin: str | None = None,
+        settleCoin: str | None = None,
+        orderId: str | None = None,
+        orderLinkId: str | None = None,
+        openOnly: int | None = None,
+        category: str | None = None,
+        limit: int = 50,
+    ):
+        """Возвращает активные ордера."""
+        try:
+            normalized_category = self._normalize_category(category)
+            params = {
+                "category": normalized_category,
+                "limit": min(max(1, int(limit)), 50),
+            }
+
+            if symbol:
+                params["symbol"] = self._normalize_symbol(symbol)
+            if baseCoin:
+                params["baseCoin"] = self._normalize_coin(baseCoin)
+            if settleCoin:
+                params["settleCoin"] = self._normalize_coin(settleCoin)
+            if orderId:
+                params["orderId"] = str(orderId)
+            if orderLinkId:
+                params["orderLinkId"] = str(orderLinkId)
+            if openOnly is not None:
+                params["openOnly"] = int(openOnly)
+
+            response = self._request("get_open_orders", **params)
+            if not self._response_ok(response, "получении открытых ордеров"):
+                return None
+
+            items = response.get("result", {}).get("list", [])
+            return [self._coerce_numbers(item) for item in items]
+        except Exception as error:
+            print(f"❌ Ошибка при получении открытых ордеров: {error}")
+            return None
+
+    def get_order_history(
+        self,
+        symbol: str | None = None,
+        baseCoin: str | None = None,
+        settleCoin: str | None = None,
+        orderId: str | None = None,
+        orderLinkId: str | None = None,
+        category: str | None = None,
+        limit: int = 50,
+    ):
+        """Возвращает историю ордеров."""
+        try:
+            normalized_category = self._normalize_category(category)
+            params = {
+                "category": normalized_category,
+                "limit": min(max(1, int(limit)), 50),
+            }
+
+            if symbol:
+                params["symbol"] = self._normalize_symbol(symbol)
+            if baseCoin:
+                params["baseCoin"] = self._normalize_coin(baseCoin)
+            if settleCoin:
+                params["settleCoin"] = self._normalize_coin(settleCoin)
+            if orderId:
+                params["orderId"] = str(orderId)
+            if orderLinkId:
+                params["orderLinkId"] = str(orderLinkId)
+
+            response = self._request("get_order_history", **params)
+            if not self._response_ok(response, "получении истории ордеров"):
+                return None
+
+            items = response.get("result", {}).get("list", [])
+            return [self._coerce_numbers(item) for item in items]
+        except Exception as error:
+            print(f"❌ Ошибка при получении истории ордеров: {error}")
+            return None
+
+    def cancel_order(
+        self,
+        symbol: str,
+        orderId: str | None = None,
+        orderLinkId: str | None = None,
+        category: str | None = None,
+    ):
+        """Отменяет ордер."""
+        try:
+            if not orderId and not orderLinkId:
+                raise ValueError("orderId or orderLinkId is required")
+
+            params = {
+                "category": self._normalize_category(category),
+                "symbol": self._normalize_symbol(symbol),
+            }
+            if orderId:
+                params["orderId"] = str(orderId)
+            if orderLinkId:
+                params["orderLinkId"] = str(orderLinkId)
+
+            response = self._request("cancel_order", **params)
+            if response is None:
+                return None
+
+            if response.get("retCode") == 0:
+                result = response.get("result", {})
+                return {
+                    "success": True,
+                    "orderId": result.get("orderId"),
+                    "orderLinkId": result.get("orderLinkId"),
+                    "response": response,
+                }
+
+            print(f"❌ Ошибка отмены ордера: {response.get('retMsg')}")
+            return {
+                "success": False,
+                "error": response.get("retMsg"),
+                "retCode": response.get("retCode"),
+                "response": response,
+            }
+        except Exception as error:
+            print(f"❌ Исключение при отмене ордера: {error}")
+            return None
+
+    def cancel_all_orders(
+        self,
+        symbol: str | None = None,
+        baseCoin: str | None = None,
+        settleCoin: str | None = None,
+        category: str | None = None,
+    ):
+        """Отменяет все активные ордера по фильтру."""
+        try:
+            params = {"category": self._normalize_category(category)}
+
+            if symbol:
+                params["symbol"] = self._normalize_symbol(symbol)
+            if baseCoin:
+                params["baseCoin"] = self._normalize_coin(baseCoin)
+            if settleCoin:
+                params["settleCoin"] = self._normalize_coin(settleCoin)
+
+            response = self._request("cancel_all_orders", **params)
+            if response is None:
+                return None
+
+            if response.get("retCode") == 0:
+                result = response.get("result", {})
+                return {
+                    "success": True,
+                    "list": self._coerce_numbers(result.get("list", [])),
+                    "response": response,
+                }
+
+            print(f"❌ Ошибка массовой отмены ордеров: {response.get('retMsg')}")
+            return {
+                "success": False,
+                "error": response.get("retMsg"),
+                "retCode": response.get("retCode"),
+                "response": response,
+            }
+        except Exception as error:
+            print(f"❌ Исключение при массовой отмене ордеров: {error}")
+            return None
+
+    def amend_order(
+        self,
+        symbol: str,
+        orderId: str | None = None,
+        orderLinkId: str | None = None,
+        qty=None,
+        price=None,
+        triggerPrice=None,
+        takeProfit=None,
+        stopLoss=None,
+        category: str | None = None,
+        **kwargs,
+    ):
+        """Изменяет существующий ордер."""
+        try:
+            if not orderId and not orderLinkId:
+                raise ValueError("orderId or orderLinkId is required")
+
+            params = {
+                "category": self._normalize_category(category),
+                "symbol": self._normalize_symbol(symbol),
+            }
+
+            if orderId:
+                params["orderId"] = str(orderId)
+            if orderLinkId:
+                params["orderLinkId"] = str(orderLinkId)
+            if qty is not None:
+                params["qty"] = str(qty)
+            if price is not None:
+                params["price"] = str(price)
+            if triggerPrice is not None:
+                params["triggerPrice"] = str(triggerPrice)
+            if takeProfit is not None:
+                params["takeProfit"] = str(takeProfit)
+            if stopLoss is not None:
+                params["stopLoss"] = str(stopLoss)
+
+            optional_params = [
+                "tpTriggerBy",
+                "slTriggerBy",
+                "triggerBy",
+                "tpLimitPrice",
+                "slLimitPrice",
+            ]
+            for param in optional_params:
+                if kwargs.get(param) is not None:
+                    params[param] = kwargs[param]
+
+            if len(params) <= 4:
+                raise ValueError("No amend fields provided")
+
+            response = self._request("amend_order", **params)
+            if response is None:
+                return None
+
+            if response.get("retCode") == 0:
+                result = response.get("result", {})
+                return {
+                    "success": True,
+                    "orderId": result.get("orderId"),
+                    "orderLinkId": result.get("orderLinkId"),
+                    "response": response,
+                }
+
+            print(f"❌ Ошибка изменения ордера: {response.get('retMsg')}")
+            return {
+                "success": False,
+                "error": response.get("retMsg"),
+                "retCode": response.get("retCode"),
+                "response": response,
+            }
+        except Exception as error:
+            print(f"❌ Исключение при изменении ордера: {error}")
+            return None
+
+    def set_trading_stop(
+        self,
+        symbol: str,
+        take_profit=None,
+        stop_loss=None,
+        trailing_stop=None,
+        active_price=None,
+        position_idx: int = 0,
+        tpsl_mode: str = "Full",
+        tp_trigger_by: str = "LastPrice",
+        sl_trigger_by: str = "LastPrice",
+        category: str | None = None,
+        **kwargs,
+    ):
+        """Устанавливает TP/SL/Trailing Stop для позиции."""
+        try:
+            if take_profit is None and stop_loss is None and trailing_stop is None:
+                raise ValueError("At least one of take_profit, stop_loss or trailing_stop is required")
+
+            params = {
+                "category": self._normalize_category(category),
+                "symbol": self._normalize_symbol(symbol),
+                "positionIdx": int(position_idx),
+                "tpslMode": str(tpsl_mode),
+                "tpTriggerBy": str(tp_trigger_by),
+                "slTriggerBy": str(sl_trigger_by),
+            }
+
+            if take_profit is not None:
+                params["takeProfit"] = str(take_profit)
+            if stop_loss is not None:
+                params["stopLoss"] = str(stop_loss)
+            if trailing_stop is not None:
+                params["trailingStop"] = str(trailing_stop)
+            if active_price is not None:
+                params["activePrice"] = str(active_price)
+
+            optional_params = [
+                "tpSize",
+                "slSize",
+                "tpLimitPrice",
+                "slLimitPrice",
+                "tpOrderType",
+                "slOrderType",
+            ]
+            for param in optional_params:
+                if kwargs.get(param) is not None:
+                    params[param] = kwargs[param]
+
+            response = self._request("set_trading_stop", **params)
+            if response is None:
+                return None
+
+            if response.get("retCode") == 0:
+                return {
+                    "success": True,
+                    "response": response,
+                }
+
+            print(f"❌ Ошибка установки trading stop: {response.get('retMsg')}")
+            return {
+                "success": False,
+                "error": response.get("retMsg"),
+                "retCode": response.get("retCode"),
+                "response": response,
+            }
+        except Exception as error:
+            print(f"❌ Исключение при установке trading stop: {error}")
+            return None
+
+    def set_leverage(
+        self,
+        symbol: str,
+        buy_leverage,
+        sell_leverage=None,
+        category: str | None = None,
+    ):
+        """Устанавливает плечо для linear/inverse."""
+        try:
+            normalized_category = self._normalize_category(category)
+            if normalized_category not in {"linear", "inverse"}:
+                raise ValueError("set_leverage supports only linear/inverse categories")
+
+            response = self._request(
+                "set_leverage",
+                category=normalized_category,
+                symbol=self._normalize_symbol(symbol),
+                buyLeverage=str(buy_leverage),
+                sellLeverage=str(sell_leverage if sell_leverage is not None else buy_leverage),
+            )
+            if response is None:
+                return None
+
+            if response.get("retCode") == 0:
+                return {"success": True, "response": response}
+
+            print(f"❌ Ошибка установки плеча: {response.get('retMsg')}")
+            return {
+                "success": False,
+                "error": response.get("retMsg"),
+                "retCode": response.get("retCode"),
+                "response": response,
+            }
+        except Exception as error:
+            print(f"❌ Исключение при установке плеча: {error}")
+            return None
+
+    def get_executions(
+        self,
+        symbol: str | None = None,
+        orderId: str | None = None,
+        orderLinkId: str | None = None,
+        startTime: int | None = None,
+        endTime: int | None = None,
+        execType: str | None = None,
+        category: str | None = None,
+        limit: int = 50,
+        cursor: str | None = None,
+    ):
+        """Возвращает исполнения ордеров."""
+        try:
+            params = {
+                "category": self._normalize_category(category),
+                "limit": min(max(1, int(limit)), 100),
+            }
+
+            if symbol:
+                params["symbol"] = self._normalize_symbol(symbol)
+            if orderId:
+                params["orderId"] = str(orderId)
+            if orderLinkId:
+                params["orderLinkId"] = str(orderLinkId)
+            if startTime is not None:
+                params["startTime"] = int(startTime)
+            if endTime is not None:
+                params["endTime"] = int(endTime)
+            if execType:
+                params["execType"] = str(execType)
+            if cursor:
+                params["cursor"] = str(cursor)
+
+            response = self._request("get_executions", **params)
+            if not self._response_ok(response, "получении исполнений"):
+                return None
+
+            result = response.get("result", {})
+            return {
+                "list": [self._coerce_numbers(item) for item in result.get("list", [])],
+                "nextPageCursor": result.get("nextPageCursor"),
+                "category": result.get("category"),
+            }
+        except Exception as error:
+            print(f"❌ Ошибка при получении исполнений: {error}")
+            return None
+
+    def get_closed_pnl(
+        self,
+        symbol: str | None = None,
+        startTime: int | None = None,
+        endTime: int | None = None,
+        category: str | None = None,
+        limit: int = 50,
+        cursor: str | None = None,
+    ):
+        """Возвращает историю closed pnl."""
+        try:
+            params = {
+                "category": self._normalize_category(category),
+                "limit": min(max(1, int(limit)), 100),
+            }
+
+            if symbol:
+                params["symbol"] = self._normalize_symbol(symbol)
+            if startTime is not None:
+                params["startTime"] = int(startTime)
+            if endTime is not None:
+                params["endTime"] = int(endTime)
+            if cursor:
+                params["cursor"] = str(cursor)
+
+            response = self._request("get_closed_pnl", **params)
+            if not self._response_ok(response, "получении closed pnl"):
+                return None
+
+            result = response.get("result", {})
+            return {
+                "list": [self._coerce_numbers(item) for item in result.get("list", [])],
+                "nextPageCursor": result.get("nextPageCursor"),
+                "category": result.get("category"),
+            }
+        except Exception as error:
+            print(f"❌ Ошибка при получении closed pnl: {error}")
+            return None
+
+    def get_available_balance(
+        self,
+        coin: str = "USDT",
+        accountType: str = "UNIFIED",
+    ):
+        """Возвращает доступный баланс по монете."""
+        try:
+            response = self.get_wallet_balance(accountType=accountType, coin=coin)
+            if not response:
+                return None
+
+            coin_data = response.get("coin")
+            account_data = response.get("account", {})
+
+            available_balance = None
+            if coin_data:
+                available_balance = (
+                    coin_data.get("availableToWithdraw")
+                    or coin_data.get("walletBalance")
+                    or coin_data.get("equity")
+                )
+
+            return {
+                "accountType": account_data.get("accountType"),
+                "totalEquity": account_data.get("totalEquity"),
+                "totalWalletBalance": account_data.get("totalWalletBalance"),
+                "totalAvailableBalance": account_data.get("totalAvailableBalance"),
+                "coin": coin_data,
+                "availableBalance": available_balance,
+            }
+        except Exception as error:
+            print(f"❌ Ошибка при получении доступного баланса: {error}")
+            return None
+
+    def close_position_market(
+        self,
+        symbol: str,
+        category: str | None = None,
+        position_idx: int | None = None,
+    ):
+        """Закрывает активную позицию market-ордером."""
+        try:
+            normalized_category = self._normalize_category(category)
+            if normalized_category == "spot":
+                print("❌ close_position_market не применяется к spot-позициям")
+                return None
+
+            position = self.get_position(
+                symbol=symbol,
+                category=normalized_category,
+                active_only=True,
+            )
+            if not position:
+                return {
+                    "success": False,
+                    "reason": "NO_ACTIVE_POSITION",
+                    "symbol": self._normalize_symbol(symbol),
+                }
+
+            size = position.get("size", 0) or 0
+            side = str(position.get("side", "")).capitalize()
+
+            try:
+                qty = abs(float(size))
+            except Exception:
+                qty = 0.0
+
+            if qty <= 0 or side not in {"Buy", "Sell"}:
+                return {
+                    "success": False,
+                    "reason": "INVALID_POSITION",
+                    "symbol": self._normalize_symbol(symbol),
+                    "position": position,
+                }
+
+            close_side = "Sell" if side == "Buy" else "Buy"
+            actual_position_idx = (
+                int(position_idx)
+                if position_idx is not None
+                else int(position.get("positionIdx", 0) or 0)
+            )
+
+            response = self.place_order(
+                symbol=self._normalize_symbol(symbol),
+                side=close_side,
+                orderType="Market",
+                qty=str(qty),
+                category=normalized_category,
+                reduceOnly=True,
+                closeOnTrigger=True,
+                positionIdx=actual_position_idx,
+                timeInForce="IOC",
+            )
+
+            return {
+                "success": bool(response and response.get("success")),
+                "symbol": self._normalize_symbol(symbol),
+                "closed_side": close_side,
+                "qty": qty,
+                "positionIdx": actual_position_idx,
+                "position": position,
+                "order_response": response,
+            }
+        except Exception as error:
+            print(f"❌ Ошибка при market close позиции {symbol}: {error}")
+            return None
+
+    def sync_order_status(
+        self,
+        symbol: str,
+        orderId: str | None = None,
+        orderLinkId: str | None = None,
+        category: str | None = None,
+    ):
+        """Синхронизирует статус ордера через open orders и history."""
+        try:
+            if not orderId and not orderLinkId:
+                raise ValueError("orderId or orderLinkId is required")
+
+            normalized_symbol = self._normalize_symbol(symbol)
+            normalized_category = self._normalize_category(category)
+
+            open_orders = self.get_open_orders(
+                symbol=normalized_symbol,
+                orderId=orderId,
+                orderLinkId=orderLinkId,
+                category=normalized_category,
+                limit=50,
+            ) or []
+
+            if open_orders:
+                order = open_orders[0]
+                return {
+                    "found": True,
+                    "source": "open_orders",
+                    "is_open": True,
+                    "is_final": False,
+                    "status": order.get("orderStatus"),
+                    "filled_qty": order.get("cumExecQty", 0),
+                    "remaining_qty": order.get("leavesQty"),
+                    "avg_price": order.get("avgPrice"),
+                    "order": order,
+                }
+
+            history_orders = self.get_order_history(
+                symbol=normalized_symbol,
+                orderId=orderId,
+                orderLinkId=orderLinkId,
+                category=normalized_category,
+                limit=50,
+            ) or []
+
+            if history_orders:
+                order = history_orders[0]
+                final_statuses = {
+                    "Filled",
+                    "Cancelled",
+                    "Rejected",
+                    "Deactivated",
+                    "PartiallyFilledCanceled",
+                }
+                status = order.get("orderStatus")
+                return {
+                    "found": True,
+                    "source": "order_history",
+                    "is_open": False,
+                    "is_final": status in final_statuses,
+                    "status": status,
+                    "filled_qty": order.get("cumExecQty", 0),
+                    "remaining_qty": order.get("leavesQty"),
+                    "avg_price": order.get("avgPrice"),
+                    "order": order,
+                }
+
+            return {
+                "found": False,
+                "source": None,
+                "is_open": False,
+                "is_final": False,
+                "status": "NOT_FOUND",
+                "filled_qty": 0,
+                "remaining_qty": None,
+                "avg_price": None,
+                "order": None,
+            }
+        except Exception as error:
+            print(f"❌ Ошибка при синхронизации статуса ордера: {error}")
+            return None
+
+    def sync_position_state(
+        self,
+        symbol: str,
+        category: str | None = None,
+    ):
+        """Возвращает текущее состояние символа: FLAT / PENDING / OPEN."""
+        try:
+            normalized_symbol = self._normalize_symbol(symbol)
+            normalized_category = self._normalize_category(category)
+
+            position = self.get_position(
+                symbol=normalized_symbol,
+                category=normalized_category,
+                active_only=True,
+            )
+
+            open_orders = self.get_open_orders(
+                symbol=normalized_symbol,
+                category=normalized_category,
+                limit=50,
+            ) or []
+
+            active_orders = [
+                order
+                for order in open_orders
+                if str(order.get("symbol", "")).upper() == normalized_symbol
+            ]
+
+            if position:
+                return {
+                    "symbol": normalized_symbol,
+                    "state": "OPEN",
+                    "has_position": True,
+                    "position_size": position.get("size", 0),
+                    "position_side": position.get("side"),
+                    "position": position,
+                    "open_orders": active_orders,
+                }
+
+            if active_orders:
+                return {
+                    "symbol": normalized_symbol,
+                    "state": "PENDING",
+                    "has_position": False,
+                    "position_size": 0,
+                    "position_side": None,
+                    "position": None,
+                    "open_orders": active_orders,
+                }
+
+            return {
+                "symbol": normalized_symbol,
+                "state": "FLAT",
+                "has_position": False,
+                "position_size": 0,
+                "position_side": None,
+                "position": None,
+                "open_orders": [],
+            }
+        except Exception as error:
+            print(f"❌ Ошибка при синхронизации состояния позиции {symbol}: {error}")
+            return None
+
+    
 bybit_client = BybitClient()
 
 
