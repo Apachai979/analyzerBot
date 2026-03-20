@@ -74,7 +74,7 @@ class SetupFilter4hConfig:
     swing_right_bars: int = 2
 
     # Общие настройки
-    min_soft_conditions_passed: int = 5
+    min_soft_conditions_passed: int = 6
     min_required_rows: int = 220
 
 

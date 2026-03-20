@@ -76,7 +76,7 @@ def run(symbol: str = "BTCUSDT", limit_12h: int = 400, limit_4h: int = 400) -> N
         trend_bias_reason=trend_result.reason,
         config=SetupFilter4hConfig(
             min_required_rows=220,
-            min_soft_conditions_passed=5,
+            min_soft_conditions_passed=6,
         ),
     )
 

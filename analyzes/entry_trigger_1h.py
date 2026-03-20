@@ -43,7 +43,7 @@ class EntryTrigger1hConfig:
     swing_right_bars: int = 2
     local_level_lookback: int = 12
 
-    max_extension_from_ema20_atr: float = 1.2
+    max_extension_from_ema20_atr: float = 1.6
     stop_buffer_atr: float = 0.35
     min_reward_risk: float = 2.0
     min_adx: float = 14.0

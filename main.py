@@ -228,7 +228,7 @@ def analyze_symbol_multitimeframe(symbol, tracker, tf_loggers):
             trend_bias_reason=twelve_h_result['result'].reason,
             config=SetupFilter4hConfig(
                 min_required_rows=220,
-                min_soft_conditions_passed=5,
+                min_soft_conditions_passed=6,
             ),
         )
         four_h_action = derive_filter_action(
@@ -382,8 +382,15 @@ def analyze_symbol_range_trading(symbol, tracker, tf_loggers):
 
 def load_dynamic_symbols():
     """Загружает список символов из файла"""
-    with open("data/filtered_symbols.txt", "r", encoding="utf-8") as f:
-        symbols = [line.strip() for line in f if line.strip()]
+    source_files = ["data/dynamic_symbols.txt", "data/filtered_symbols.txt"]
+    symbols: list[str] = []
+    for file_path in source_files:
+        if not os.path.exists(file_path):
+            continue
+        with open(file_path, "r", encoding="utf-8") as f:
+            symbols = [line.strip() for line in f if line.strip()]
+        if symbols:
+            break
     return list(dict.fromkeys(symbols))
 
 

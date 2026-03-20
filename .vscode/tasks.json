@@ -1,0 +1,95 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "batch calibration report",
+      "type": "shell",
+      "command": "c:/Users/vitalii/Documents/Projects/bybitproject/analyzerBot/.venv/Scripts/python.exe",
+      "args": [
+        "calibration_report.py",
+        "--symbols-file",
+        "data/filtered_symbols.txt",
+        "--tsv-output-file",
+        "logs/calibration_report_filtered_symbols_stream.tsv",
+        "--output-file",
+        "logs/calibration_report_filtered_symbols.txt"
+      ],
+      "isBackground": false,
+      "group": "build"
+    },
+    {
+      "label": "batch calibration with dynamic",
+      "type": "shell",
+      "command": "c:/Users/vitalii/Documents/Projects/bybitproject/analyzerBot/.venv/Scripts/python.exe",
+      "args": [
+        "calibration_report.py",
+        "--symbols-file",
+        "data/filtered_symbols.txt",
+        "--update-dynamic-symbols",
+        "--dynamic-min-stage",
+        "setup",
+        "--tsv-output-file",
+        "logs/calibration_report_filtered_symbols_stream.tsv",
+        "--output-file",
+        "logs/calibration_report_filtered_symbols_batch.txt"
+      ],
+      "isBackground": false,
+      "group": "build"
+    },
+    {
+      "label": "refresh filtered symbols",
+      "type": "shell",
+      "command": "c:/Users/vitalii/Documents/Projects/bybitproject/analyzerBot/.venv/Scripts/python.exe",
+      "args": ["calibration_report.py", "--refresh-filtered-symbols"],
+      "isBackground": false,
+      "group": "build"
+    },
+    {
+      "label": "stream calibration tsv",
+      "type": "shell",
+      "command": "c:/Users/vitalii/Documents/Projects/bybitproject/analyzerBot/.venv/Scripts/python.exe",
+      "args": [
+        "calibration_report.py",
+        "--symbols-file",
+        "data/filtered_symbols.txt",
+        "--stream-tsv-output-file",
+        "logs/calibration_report_filtered_symbols_stream.tsv"
+      ],
+      "isBackground": false,
+      "group": "build"
+    },
+    {
+      "label": "rebuild dynamic from tsv",
+      "type": "shell",
+      "command": "c:/Users/vitalii/Documents/Projects/bybitproject/analyzerBot/.venv/Scripts/python.exe",
+      "args": [
+        "calibration_report.py",
+        "--rebuild-dynamic-from-report",
+        "logs/calibration_report_filtered_symbols_stream.tsv",
+        "--update-dynamic-symbols",
+        "--dynamic-min-stage",
+        "setup"
+      ],
+      "isBackground": false,
+      "group": "build"
+    },
+    {
+      "label": "full universe sync",
+      "type": "shell",
+      "command": "c:/Users/vitalii/Documents/Projects/bybitproject/analyzerBot/.venv/Scripts/python.exe",
+      "args": [
+        "calibration_report.py",
+        "--refresh-filtered-symbols",
+        "--update-dynamic-symbols",
+        "--dynamic-min-stage",
+        "setup",
+        "--stream-tsv-output-file",
+        "logs/calibration_report_filtered_symbols_stream.tsv",
+        "--output-file",
+        "logs/universe_sync_report.txt"
+      ],
+      "isBackground": false,
+      "group": "build"
+    }
+  ]
+}

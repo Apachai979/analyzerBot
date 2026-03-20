@@ -69,7 +69,7 @@ def run(symbol: str = "BTCUSDT", limit_12h: int = 400, limit_4h: int = 400, limi
         df_4h,
         trend_bias_passed=trend_result.passed,
         trend_bias_reason=trend_result.reason,
-        config=SetupFilter4hConfig(min_required_rows=220, min_soft_conditions_passed=5),
+        config=SetupFilter4hConfig(min_required_rows=220, min_soft_conditions_passed=6),
     )
     trigger_result = entry_trigger_1h(
         df_1h,
