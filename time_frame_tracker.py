@@ -12,16 +12,16 @@ class TimeframeAnalysisTracker:
     """Отслеживает время последнего анализа для каждого таймфрейма и символа"""
     
     def __init__(self):
-        # Интервалы анализа в секундах
-        self.intervals = {
-            '1D': 12 * 60 * 60,   # 12 часов (2 раза в день)
-            '12H': 4 * 60 * 60,   # 4 часа (3 раза за 12 часов)
-            '4H': 2 * 60 * 60,    # 2 часа (2 раза за 4 часа)
-            '1H': 15 * 60,        # 15 минут (4 раза в час) - для Multi-TF анализа
-            'RANGE': 15 * 60      # 15 минут (4 раза в час) - для Range Trading (отдельный от 1H)
+        # Длительность свечи в секундах для candle-close driven анализа.
+        self.timeframe_seconds = {
+            '1D': 24 * 60 * 60,
+            '12H': 12 * 60 * 60,
+            '4H': 4 * 60 * 60,
+            '1H': 60 * 60,
+            'RANGE': 60 * 60,
         }
         
-        # Хранилище времени последнего анализа: {symbol: {timeframe: timestamp}}
+        # Хранилище последней уже обработанной закрытой свечи: {symbol: {timeframe: candle_open_ts}}
         self.last_analysis = {}
         
         # Кэш для дедупликации Telegram сигналов
@@ -30,30 +30,33 @@ class TimeframeAnalysisTracker:
     
     def should_analyze(self, symbol, timeframe):
         """
-        Проверяет, пора ли анализировать данный таймфрейм для символа.
+        Проверяет, появилась ли новая закрытая свеча для данного таймфрейма.
         
         Args:
             symbol (str): Торговый символ (например, 'BTCUSDT')
             timeframe (str): Таймфрейм ('1D', '12H', '4H', '1H')
         
         Returns:
-            bool: True если пора анализировать, False если еще рано
+            bool: True если появилась новая закрытая свеча, False если анализировать еще нечего
         """
-        current_time = time.time()
+        candle_seconds = self.timeframe_seconds.get(timeframe)
+        if candle_seconds is None:
+            raise ValueError(f"Unsupported timeframe: {timeframe}")
+
+        current_time = int(time.time())
+        current_bucket_open = (current_time // candle_seconds) * candle_seconds
+        last_closed_candle_open = current_bucket_open - candle_seconds
         
         if symbol not in self.last_analysis:
             self.last_analysis[symbol] = {}
         
         if timeframe not in self.last_analysis[symbol]:
-            # Первый раз для этого символа и таймфрейма - анализируем
-            self.last_analysis[symbol][timeframe] = current_time
+            # Первый запуск: анализируем последнюю уже закрытую свечу.
+            self.last_analysis[symbol][timeframe] = last_closed_candle_open
             return True
-        
-        time_passed = current_time - self.last_analysis[symbol][timeframe]
-        
-        if time_passed >= self.intervals[timeframe]:
-            # Прошло достаточно времени - обновляем timestamp и разрешаем анализ
-            self.last_analysis[symbol][timeframe] = current_time
+
+        if self.last_analysis[symbol][timeframe] != last_closed_candle_open:
+            self.last_analysis[symbol][timeframe] = last_closed_candle_open
             return True
         
         return False
@@ -93,23 +96,22 @@ class TimeframeAnalysisTracker:
     
     def get_time_until_next_analysis(self, symbol, timeframe):
         """
-        Возвращает время (в секундах) до следующего разрешенного анализа.
+        Возвращает время (в секундах) до закрытия следующей свечи таймфрейма.
         
         Args:
             symbol (str): Торговый символ
             timeframe (str): Таймфрейм
         
         Returns:
-            float: Секунд до следующего анализа, или 0 если можно анализировать сейчас
+            float: Секунд до появления следующей закрытой свечи
         """
-        if symbol not in self.last_analysis or timeframe not in self.last_analysis[symbol]:
-            return 0
-        
+        candle_seconds = self.timeframe_seconds.get(timeframe)
+        if candle_seconds is None:
+            raise ValueError(f"Unsupported timeframe: {timeframe}")
+
         current_time = time.time()
-        time_passed = current_time - self.last_analysis[symbol][timeframe]
-        time_remaining = self.intervals[timeframe] - time_passed
-        
-        return max(0, time_remaining)
+        next_bucket_open = (int(current_time) // candle_seconds + 1) * candle_seconds
+        return max(0.0, next_bucket_open - current_time)
     
     def reset_symbol(self, symbol):
         """
@@ -132,5 +134,6 @@ class TimeframeAnalysisTracker:
         return {
             'tracked_symbols': len(self.last_analysis),
             'cached_signals': len(self.sent_signals),
-            'intervals': self.intervals
+            'mode': 'closed-candle',
+            'timeframe_seconds': self.timeframe_seconds,
         }

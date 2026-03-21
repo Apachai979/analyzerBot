@@ -165,7 +165,7 @@ def analyze_symbol_multitimeframe(symbol, tracker, tf_loggers):
     if symbol not in tracker.last_analysis:
         tracker.last_analysis[symbol] = {}
     
-    # === 12H АНАЛИЗ (каждые 4 часа) ===
+    # === 12H АНАЛИЗ (на новой закрытой 12H свече) ===
     if tracker.should_analyze(symbol, '12H'):
         raw_12h = bybit_client.get_klines(symbol, interval='720')
         df_12h = prepare_ohlcv_for_filter(raw_12h, interval_minutes=720, drop_incomplete_last_candle=True)
@@ -213,7 +213,7 @@ def analyze_symbol_multitimeframe(symbol, tracker, tf_loggers):
     if not twelve_h_result or twelve_h_result.get('action') not in ['GO', 'ATTENTION']:
         return False
     
-    # === 4H АНАЛИЗ (каждые 2 часа) ===
+    # === 4H АНАЛИЗ (на новой закрытой 4H свече) ===
     if tracker.should_analyze(symbol, '4H'):
         raw_4h = bybit_client.get_klines(symbol, interval='240')
         df_4h = prepare_ohlcv_for_filter(raw_4h, interval_minutes=240, drop_incomplete_last_candle=True)
@@ -268,7 +268,7 @@ def analyze_symbol_multitimeframe(symbol, tracker, tf_loggers):
     if not four_h_result or four_h_result.get('action') not in ['GO', 'ATTENTION']:
         return False
     
-    # === 1H АНАЛИЗ (каждые 15 минут) ===
+    # === 1H АНАЛИЗ (на новой закрытой 1H свече) ===
     if tracker.should_analyze(symbol, '1H'):
         raw_1h = bybit_client.get_klines(symbol, interval='60')
         df_1h = prepare_ohlcv_for_filter(raw_1h, interval_minutes=60, drop_incomplete_last_candle=True)
@@ -328,7 +328,7 @@ def analyze_symbol_multitimeframe(symbol, tracker, tf_loggers):
 
 def analyze_symbol_range_trading(symbol, tracker, tf_loggers):
     """
-    Range Trading анализ (работает параллельно с основной стратегией)
+    Range Trading анализ (запускается на новой закрытой 1H свече)
     """
     if not tracker.should_analyze(symbol, 'RANGE'):
         return
