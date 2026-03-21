@@ -4,6 +4,7 @@ import os
 import logging
 import pandas as pd
 
+from calibration_report import run_scheduled_calibration
 from analyzes.entry_trigger_1h import EntryTrigger1hConfig, entry_trigger_1h
 from analyzes.setup_filter_4h import SetupFilter4hConfig, setup_filter_4h
 from analyzes.trend_filter_12h_v2 import TrendFilter12hConfig, trend_filter_12h
@@ -409,6 +410,24 @@ def telegram_command_listener():
         time.sleep(2)
 
 
+def run_scheduled_calibration_sync():
+    """Запускает встроенный scheduler calibration_report и пишет результат в логи."""
+    result = run_scheduled_calibration()
+    if not result.get('ran'):
+        return result
+
+    message = (
+        "[CALIBRATION] scheduled refresh completed | "
+        f"refreshed_filtered={result.get('refreshed_filtered')} | "
+        f"updated_dynamic={result.get('updated_dynamic')} | "
+        f"symbols={result.get('symbols_count')} | "
+        f"dynamic_symbols={result.get('dynamic_symbols_count')}"
+    )
+    print(message)
+    logging.info(message)
+    return result
+
+
 def main():
     tracker = TimeframeAnalysisTracker()
     tf_loggers = setup_timeframe_loggers()
@@ -424,6 +443,7 @@ def main():
 
     while True:
         cycle_start = time.time()
+        run_scheduled_calibration_sync()
         symbols = load_dynamic_symbols()
         
         for symbol in symbols:

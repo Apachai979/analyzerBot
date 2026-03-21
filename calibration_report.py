@@ -1,6 +1,7 @@
 import argparse
 import contextlib
 import csv
+import json
 import math
 from pathlib import Path
 from typing import Any
@@ -18,7 +19,11 @@ from config import MIN_MARKET_CAP
 FILTERED_SYMBOLS_FILE = "data/filtered_symbols.txt"
 DYNAMIC_SYMBOLS_FILE = "data/dynamic_symbols.txt"
 DEFAULT_REPORT_TSV_FILE = "logs/calibration_report_filtered_symbols_stream.tsv"
+DEFAULT_REPORT_TEXT_FILE = "logs/calibration_report_auto.txt"
+CALIBRATION_SCHEDULE_STATE_FILE = "data/calibration_schedule_state.json"
 MIN_CMC_VOLUME_24H = 1_000_000
+AUTO_UPDATE_4H_WINDOW_START_MINUTE = 2
+AUTO_UPDATE_4H_WINDOW_END_MINUTE = 5
 
 
 def prepare_ohlcv_for_filter(
@@ -83,6 +88,283 @@ def collect_passed_conditions(conditions: dict[str, bool] | None) -> list[str]:
     if not conditions:
         return []
     return [key for key, value in conditions.items() if value]
+
+
+def load_calibration_schedule_state(file_path: str = CALIBRATION_SCHEDULE_STATE_FILE) -> dict[str, Any]:
+    """Загружает состояние автоматического scheduler для calibration-report."""
+    path = Path(file_path)
+    if not path.exists():
+        return {}
+
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return {}
+
+
+def save_calibration_schedule_state(state: dict[str, Any], file_path: str = CALIBRATION_SCHEDULE_STATE_FILE) -> None:
+    """Сохраняет состояние автоматического scheduler для calibration-report."""
+    path = Path(file_path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(state, ensure_ascii=True, indent=2), encoding="utf-8")
+
+
+def is_auto_update_window(now_utc: pd.Timestamp) -> bool:
+    """Проверяет, попадает ли текущее UTC-время в окно автозапуска после закрытия 4H свечи."""
+    if now_utc.minute < AUTO_UPDATE_4H_WINDOW_START_MINUTE:
+        return False
+    if now_utc.minute > AUTO_UPDATE_4H_WINDOW_END_MINUTE:
+        return False
+    return now_utc.hour % 4 == 0
+
+
+def get_current_4h_close_marker(now_utc: pd.Timestamp) -> str:
+    """Возвращает marker текущего 4H-close event в UTC, например 2026-03-21T08:00:00+00:00."""
+    now_ts = pd.Timestamp(now_utc)
+    if now_ts.tzinfo is None:
+        now_ts = now_ts.tz_localize("UTC")
+    else:
+        now_ts = now_ts.tz_convert("UTC")
+
+    close_marker = now_ts.floor("4h")
+    return close_marker.isoformat()
+
+
+def build_default_configs(
+    trend_soft: int = 2,
+    setup_soft: int = 6,
+    entry_soft: int = 5,
+    entry_max_extension: float = 1.6,
+) -> tuple[TrendFilter12hConfig, SetupFilter4hConfig, EntryTrigger1hConfig]:
+    """Создает стандартные конфиги для batch-calibration и автоматического scheduler."""
+    trend_config = TrendFilter12hConfig(
+        min_required_rows=260,
+        min_soft_conditions_passed=trend_soft,
+    )
+    setup_config = SetupFilter4hConfig(
+        min_required_rows=220,
+        min_soft_conditions_passed=setup_soft,
+    )
+    entry_config = EntryTrigger1hConfig(
+        min_required_rows=180,
+        min_soft_conditions_passed=entry_soft,
+        max_extension_from_ema20_atr=entry_max_extension,
+    )
+    return trend_config, setup_config, entry_config
+
+
+def build_report_rows(
+    symbols: list[str],
+    trend_config: TrendFilter12hConfig,
+    setup_config: SetupFilter4hConfig,
+    entry_config: EntryTrigger1hConfig,
+    limit_12h: int = 400,
+    limit_4h: int = 400,
+    limit_1h: int = 400,
+    stream_tsv_output_file: str | None = None,
+) -> list[dict[str, Any]]:
+    """Строит calibration-report rows для списка символов."""
+    report_rows: list[dict[str, Any]] = []
+    stream_handle = None
+    stream_writer = None
+    if stream_tsv_output_file:
+        stream_path = Path(stream_tsv_output_file)
+        stream_path.parent.mkdir(parents=True, exist_ok=True)
+        stream_handle = stream_path.open("w", encoding="utf-8", newline="", buffering=1)
+        stream_writer = csv.writer(stream_handle, delimiter="\t")
+        write_report_tsv_header(stream_writer)
+
+    try:
+        for symbol in symbols:
+            try:
+                row = analyze_symbol(
+                    symbol=symbol,
+                    trend_config=trend_config,
+                    setup_config=setup_config,
+                    entry_config=entry_config,
+                    limit_12h=limit_12h,
+                    limit_4h=limit_4h,
+                    limit_1h=limit_1h,
+                )
+            except Exception as exc:
+                row = {
+                    "symbol": symbol,
+                    "status": "error",
+                    "reason": repr(exc),
+                }
+
+            report_rows.append(row)
+            if stream_writer is not None:
+                write_report_tsv_row(stream_writer, row)
+    finally:
+        if stream_handle is not None:
+            stream_handle.close()
+
+    return report_rows
+
+
+def emit_report(
+    report_rows: list[dict[str, Any]],
+    *,
+    symbols_count: int,
+    trend_soft: int,
+    setup_soft: int,
+    entry_soft: int,
+    entry_max_extension: float,
+    filtered_output_file: str | None = None,
+    dynamic_output_file: str | None = None,
+    dynamic_min_stage: str | None = None,
+    include_details: bool = False,
+) -> None:
+    """Печатает calibration-report в stdout или в redirected file handle."""
+    print("Calibration config:")
+    print(
+        f"trend_soft={trend_soft} | setup_soft={setup_soft} | "
+        f"entry_soft={entry_soft} | entry_max_extension={entry_max_extension}"
+    )
+    print(f"symbols_count={symbols_count}")
+    if filtered_output_file:
+        print(f"filtered_symbols_file={filtered_output_file}")
+    if dynamic_output_file and dynamic_min_stage:
+        print(f"dynamic_symbols_file={dynamic_output_file} | min_stage={dynamic_min_stage}")
+    print()
+    print_summary_table(report_rows)
+    if include_details:
+        print()
+        print("Detailed sections:")
+        print_detail_sections(report_rows)
+
+
+def write_human_report(
+    report_rows: list[dict[str, Any]],
+    output_file: str,
+    *,
+    symbols_count: int,
+    trend_soft: int,
+    setup_soft: int,
+    entry_soft: int,
+    entry_max_extension: float,
+    filtered_output_file: str | None = None,
+    dynamic_output_file: str | None = None,
+    dynamic_min_stage: str | None = None,
+    include_details: bool = True,
+) -> None:
+    """Сохраняет подробный human-readable calibration-report в текстовый файл."""
+    output_path = Path(output_file)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    with output_path.open("w", encoding="utf-8", buffering=1) as file_handle:
+        with contextlib.redirect_stdout(file_handle):
+            emit_report(
+                report_rows,
+                symbols_count=symbols_count,
+                trend_soft=trend_soft,
+                setup_soft=setup_soft,
+                entry_soft=entry_soft,
+                entry_max_extension=entry_max_extension,
+                filtered_output_file=filtered_output_file,
+                dynamic_output_file=dynamic_output_file,
+                dynamic_min_stage=dynamic_min_stage,
+                include_details=include_details,
+            )
+
+
+def run_scheduled_calibration(now_utc: pd.Timestamp | None = None) -> dict[str, Any]:
+    """Автоматически обновляет filtered/dynamic symbols по расписанию без CLI-задач."""
+    now_ts = pd.Timestamp.now(tz="UTC") if now_utc is None else pd.Timestamp(now_utc)
+    if now_ts.tzinfo is None:
+        now_ts = now_ts.tz_localize("UTC")
+    else:
+        now_ts = now_ts.tz_convert("UTC")
+
+    if not is_auto_update_window(now_ts):
+        return {
+            "ran": False,
+            "reason": "outside_auto_update_window",
+            "now_utc": now_ts.isoformat(),
+        }
+
+    state = load_calibration_schedule_state()
+    current_close_marker = get_current_4h_close_marker(now_ts)
+    current_date = now_ts.date().isoformat()
+
+    refresh_filtered_due = state.get("last_filtered_refresh_date") != current_date
+    update_dynamic_due = state.get("last_dynamic_refresh_close") != current_close_marker
+
+    if not refresh_filtered_due and not update_dynamic_due:
+        return {
+            "ran": False,
+            "reason": "already_processed_current_window",
+            "now_utc": now_ts.isoformat(),
+            "close_marker": current_close_marker,
+        }
+
+    if refresh_filtered_due:
+        refresh_filtered_symbols(output_file=FILTERED_SYMBOLS_FILE)
+        state["last_filtered_refresh_date"] = current_date
+
+    symbols = load_symbols_from_file(FILTERED_SYMBOLS_FILE)
+    if not symbols:
+        state["last_attempt_at"] = now_ts.isoformat()
+        save_calibration_schedule_state(state)
+        return {
+            "ran": False,
+            "reason": "filtered_symbols_empty",
+            "now_utc": now_ts.isoformat(),
+        }
+
+    trend_soft = 2
+    setup_soft = 6
+    entry_soft = 5
+    entry_max_extension = 1.6
+    trend_config, setup_config, entry_config = build_default_configs(
+        trend_soft=trend_soft,
+        setup_soft=setup_soft,
+        entry_soft=entry_soft,
+        entry_max_extension=entry_max_extension,
+    )
+
+    report_rows = build_report_rows(
+        symbols=symbols,
+        trend_config=trend_config,
+        setup_config=setup_config,
+        entry_config=entry_config,
+        limit_12h=400,
+        limit_4h=400,
+        limit_1h=400,
+    )
+    dynamic_symbols = build_dynamic_symbols(report_rows, min_stage="setup")
+    write_symbols_file(DYNAMIC_SYMBOLS_FILE, dynamic_symbols)
+    write_report_tsv(report_rows, DEFAULT_REPORT_TSV_FILE)
+    write_human_report(
+        report_rows,
+        output_file=DEFAULT_REPORT_TEXT_FILE,
+        symbols_count=len(symbols),
+        trend_soft=trend_soft,
+        setup_soft=setup_soft,
+        entry_soft=entry_soft,
+        entry_max_extension=entry_max_extension,
+        filtered_output_file=FILTERED_SYMBOLS_FILE if refresh_filtered_due else None,
+        dynamic_output_file=DYNAMIC_SYMBOLS_FILE,
+        dynamic_min_stage="setup",
+        include_details=True,
+    )
+
+    state["last_dynamic_refresh_close"] = current_close_marker
+    state["last_run_at"] = now_ts.isoformat()
+    save_calibration_schedule_state(state)
+
+    return {
+        "ran": True,
+        "reason": "scheduled_calibration_completed",
+        "now_utc": now_ts.isoformat(),
+        "close_marker": current_close_marker,
+        "refreshed_filtered": refresh_filtered_due,
+        "updated_dynamic": update_dynamic_due,
+        "symbols_count": len(symbols),
+        "dynamic_symbols_count": len(dynamic_symbols),
+        "report_file": DEFAULT_REPORT_TEXT_FILE,
+        "tsv_file": DEFAULT_REPORT_TSV_FILE,
+    }
 
 
 def load_symbols_from_file(file_path: str) -> list[str]:
