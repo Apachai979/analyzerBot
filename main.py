@@ -5,6 +5,11 @@ import logging
 import pandas as pd
 
 from calibration_report_v3 import run_scheduled_calibration
+from config import (
+    CALIBRATION_CHECK_PAUSE_SECONDS,
+    CALIBRATION_HEARTBEAT_INTERVAL_SECONDS,
+    MAIN_LOOP_PAUSE_SECONDS,
+)
 from analyzes.entry_trigger_1h import EntryTrigger1hConfig, entry_trigger_1h
 from analyzes.setup_filter_4h import SetupFilter4hConfig, setup_filter_4h
 from analyzes.trend_filter_12h_v2 import TrendFilter12hConfig, trend_filter_12h
@@ -12,6 +17,8 @@ from bybit_client_v2 import bybit_client
 from telegram_utils import send_telegram_message, process_telegram_updates, send_emergency_alert
 from time_frame_tracker import TimeframeAnalysisTracker
 from range_trading import analyze_range_trading_signal
+from trade_monitor import load_active_trades, monitor_active_trades
+from trade_signal_service import handle_multitimeframe_entry_signal, handle_range_signal
 
 # Настройка логирования
 logging.basicConfig(
@@ -21,6 +28,8 @@ logging.basicConfig(
     level=logging.INFO,
     encoding='utf-8'
 )
+
+CALIBRATION_LOCK = threading.Lock()
 
 def format_price(price, reference_price):
     """
@@ -135,7 +144,7 @@ def setup_timeframe_loggers():
     # Создаем директорию для логов если не существует
     os.makedirs('logs', exist_ok=True)
     
-    timeframes = ['12H', '4H', '1H', 'RANGE']
+    timeframes = ['12H', '4H', '1H', 'RANGE', 'MONITOR']
     loggers = {}
     
     for tf in timeframes:
@@ -155,6 +164,28 @@ def setup_timeframe_loggers():
         loggers[tf] = logger
     
     return loggers
+
+
+def setup_calibration_logger():
+    """Создает отдельный логгер для background calibration worker и его heartbeat."""
+    os.makedirs('logs', exist_ok=True)
+
+    logger = logging.getLogger('CALIBRATION_WORKER')
+    logger.setLevel(logging.INFO)
+    logger.propagate = False
+
+    if not logger.handlers:
+        handler = logging.FileHandler(
+            'logs/calibration_scheduler.log',
+            mode='a',
+            encoding='utf-8',
+        )
+        handler.setFormatter(
+            logging.Formatter('%(asctime)s | %(message)s', datefmt='%d.%m.%Y %H:%M:%S')
+        )
+        logger.addHandler(handler)
+
+    return logger
 
 
 def analyze_symbol_multitimeframe(symbol, tracker, tf_loggers):
@@ -303,19 +334,13 @@ def analyze_symbol_multitimeframe(symbol, tracker, tf_loggers):
         )
 
         if one_h_result.action == 'ENTER':
-            success = send_telegram_message(
-                f"🎯 1H ВХОД В СДЕЛКУ!\n"
-                f"{symbol}\n"
-                f"Направление: LONG\n"
-                f"Вход: {entry_price}\n"
-                f"Стоп: {sl_str}\n"
-                f"Тейк: {tp_str}\n"
-                f"Риск: {risk_percent:.2f}%\n"
-                f"R:R = {one_h_result.reward_risk:.2f}\n\n"
-                f"{one_h_summary}"
+            handle_multitimeframe_entry_signal(
+                tracker.active_trades,
+                tf_loggers,
+                symbol=symbol,
+                entry_result=one_h_result,
+                one_h_summary=one_h_summary,
             )
-            if not success:
-                send_emergency_alert('CRITICAL', symbol=symbol, details=f'ENTER LONG @ {entry_price}')
 
         elif one_h_result.action == 'WAIT_BETTER':
             success = send_telegram_message(
@@ -364,34 +389,37 @@ def analyze_symbol_range_trading(symbol, tracker, tf_loggers):
             confidence >= 9 and 
             risk_reward_ratio >= 7 and
             tracker.should_send_signal(symbol, range_result['action'], 'RANGE')):
-            
-            success = send_telegram_message(
-                f"📊 RANGE TRADING SIGNAL (1H)!\n"
-                f"{symbol}\n"
-                f"{'🟢 LONG' if range_result['action'] == 'BUY' else '🔴 SHORT'}\n"
-                f"Уверенность: {confidence}/10\n\n"
-                f"Вход: {entry_price}\n"
-                f"Стоп: {sl_str}\n"
-                f"Тейк: {tp_str}\n"
-                f"R:R = 1:{risk_reward_ratio:.2f}\n\n"
-                f"Сигналы:\n" + "\n".join(range_result['signals'][:5])
+            handle_range_signal(
+                tracker.active_trades,
+                tf_loggers,
+                symbol=symbol,
+                range_result=range_result,
             )
-            
-            if not success:
-                send_emergency_alert('TELEGRAM', symbol=symbol, details='Range Trading signal failed')
+
+        elif (range_result['action'] == 'SELL' and
+              confidence >= 9 and
+              risk_reward_ratio >= 7 and
+              tracker.should_send_signal(symbol, range_result['action'], 'RANGE')):
+            handle_range_signal(
+                tracker.active_trades,
+                tf_loggers,
+                symbol=symbol,
+                range_result=range_result,
+            )
 
 
 def load_dynamic_symbols():
     """Загружает список символов из файла"""
     source_files = ["data/dynamic_symbols.txt", "data/filtered_symbols.txt"]
     symbols: list[str] = []
-    for file_path in source_files:
-        if not os.path.exists(file_path):
-            continue
-        with open(file_path, "r", encoding="utf-8") as f:
-            symbols = [line.strip() for line in f if line.strip()]
-        if symbols:
-            break
+    with CALIBRATION_LOCK:
+        for file_path in source_files:
+            if not os.path.exists(file_path):
+                continue
+            with open(file_path, "r", encoding="utf-8") as f:
+                symbols = [line.strip() for line in f if line.strip()]
+            if symbols:
+                break
     return list(dict.fromkeys(symbols))
 
 
@@ -412,7 +440,8 @@ def telegram_command_listener():
 
 def run_scheduled_calibration_sync():
     """Запускает встроенный scheduler calibration_report_v3 и пишет результат в логи."""
-    result = run_scheduled_calibration()
+    with CALIBRATION_LOCK:
+        result = run_scheduled_calibration()
     if not result.get('ran'):
         return result
 
@@ -428,11 +457,66 @@ def run_scheduled_calibration_sync():
     return result
 
 
+def calibration_scheduler_worker(calibration_logger, pause_seconds=60, heartbeat_interval_seconds=300):
+    """Фоновый поток для периодической проверки встроенного calibration scheduler."""
+    logging.info(f"[CALIBRATION] background worker started | pause={pause_seconds}s")
+    calibration_logger.info(
+        f"worker_started | check_pause={pause_seconds}s | heartbeat_interval={heartbeat_interval_seconds}s"
+    )
+    last_heartbeat_at = 0.0
+    last_completed_run_at = 0.0
+    last_reason = 'init'
+
+    def format_heartbeat_timestamp(timestamp_seconds):
+        if not timestamp_seconds:
+            return 'never'
+        return time.strftime('%d.%m.%Y %H:%M:%S', time.localtime(timestamp_seconds))
+
+    while True:
+        try:
+            result = run_scheduled_calibration_sync()
+            last_reason = result.get('reason', 'unknown') if isinstance(result, dict) else 'unknown'
+
+            if result.get('ran'):
+                calibration_logger.info(
+                    "scheduled_run_completed | "
+                    f"reason={result.get('reason')} | "
+                    f"refreshed_filtered={result.get('refreshed_filtered')} | "
+                    f"updated_dynamic={result.get('updated_dynamic')} | "
+                    f"symbols={result.get('symbols_count')} | "
+                    f"dynamic_symbols={result.get('dynamic_symbols_count')}"
+                )
+                last_completed_run_at = time.time()
+
+            now_ts = time.time()
+            if now_ts - last_heartbeat_at >= heartbeat_interval_seconds:
+                if now_ts - last_completed_run_at >= heartbeat_interval_seconds:
+                    calibration_logger.info(
+                        "heartbeat | "
+                        f"worker_alive=true | "
+                        f"last_reason={last_reason} | "
+                        f"last_completed_run_at={format_heartbeat_timestamp(last_completed_run_at)} | "
+                        f"next_check_in={pause_seconds}s"
+                    )
+                last_heartbeat_at = now_ts
+        except Exception as error:
+            error_msg = f"[CALIBRATION] background worker error: {error}"
+            print(error_msg)
+            logging.error(error_msg)
+            calibration_logger.error(f"worker_error | error={error}")
+            send_emergency_alert('CALIBRATION', details=str(error))
+
+        time.sleep(pause_seconds)
+
+
 def main():
     tracker = TimeframeAnalysisTracker()
+    tracker.active_trades = load_active_trades()
     tf_loggers = setup_timeframe_loggers()
+    calibration_logger = setup_calibration_logger()
     
-    CYCLE_PAUSE = 60
+    CYCLE_PAUSE = MAIN_LOOP_PAUSE_SECONDS
+    CALIBRATION_CHECK_PAUSE = CALIBRATION_CHECK_PAUSE_SECONDS
     
     logging.info("="*60)
     logging.info("🚀 Бот запущен. Начало работы.")
@@ -441,14 +525,25 @@ def main():
     telegram_thread = threading.Thread(target=telegram_command_listener, daemon=True)
     telegram_thread.start()
 
+    calibration_thread = threading.Thread(
+        target=calibration_scheduler_worker,
+        kwargs={
+            'calibration_logger': calibration_logger,
+            'pause_seconds': CALIBRATION_CHECK_PAUSE,
+            'heartbeat_interval_seconds': CALIBRATION_HEARTBEAT_INTERVAL_SECONDS,
+        },
+        daemon=True,
+    )
+    calibration_thread.start()
+
     while True:
         cycle_start = time.time()
-        run_scheduled_calibration_sync()
+        monitor_active_trades(tracker.active_trades, tf_loggers)
         symbols = load_dynamic_symbols()
         
         for symbol in symbols:
             try:
-                analyze_symbol_range_trading(symbol, tracker, tf_loggers)
+                # analyze_symbol_range_trading(symbol, tracker, tf_loggers)
                 analyze_symbol_multitimeframe(symbol, tracker, tf_loggers)
             except Exception as e:
                 error_msg = f"❌ Ошибка анализа {symbol}: {e}"

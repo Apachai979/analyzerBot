@@ -53,3 +53,13 @@ DROP_4H = -10      # Падение за 4 часа, % (например, -10%)
 GAIN_2H = 7        # Рост за 2 часа, % (например, +7%)
 DROP_2H = -7       # Падение за 2 часа, % (например, -7%)
 MIN_MARKET_CAP = 4_000_000  # Минимальная капитализация для отбора пары, в долларах
+# Минимальная стоимость spot-позиции в USDT, ниже которой остаток считается пылью.
+SPOT_POSITION_MIN_USD_VALUE = float(os.getenv('SPOT_POSITION_MIN_USD_VALUE', '1.0'))
+
+# ==== Параметры основного цикла и фоновых потоков ====
+# Пауза между основными циклами анализа символов в main.py.
+MAIN_LOOP_PAUSE_SECONDS = int(os.getenv('MAIN_LOOP_PAUSE_SECONDS', '60'))
+# Как часто background calibration worker проверяет, не наступило ли окно автокалибровки.
+CALIBRATION_CHECK_PAUSE_SECONDS = int(os.getenv('CALIBRATION_CHECK_PAUSE_SECONDS', '60'))
+# Как часто background calibration worker пишет heartbeat в отдельный лог, даже если окно еще не наступило.
+CALIBRATION_HEARTBEAT_INTERVAL_SECONDS = int(os.getenv('CALIBRATION_HEARTBEAT_INTERVAL_SECONDS', '300'))
