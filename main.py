@@ -4,7 +4,7 @@ import os
 import logging
 import pandas as pd
 
-from calibration_report import run_scheduled_calibration
+from calibration_report_v3 import run_scheduled_calibration
 from analyzes.entry_trigger_1h import EntryTrigger1hConfig, entry_trigger_1h
 from analyzes.setup_filter_4h import SetupFilter4hConfig, setup_filter_4h
 from analyzes.trend_filter_12h_v2 import TrendFilter12hConfig, trend_filter_12h
@@ -411,7 +411,7 @@ def telegram_command_listener():
 
 
 def run_scheduled_calibration_sync():
-    """Запускает встроенный scheduler calibration_report и пишет результат в логи."""
+    """Запускает встроенный scheduler calibration_report_v3 и пишет результат в логи."""
     result = run_scheduled_calibration()
     if not result.get('ran'):
         return result
