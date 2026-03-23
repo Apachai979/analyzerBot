@@ -2,7 +2,6 @@ import contextlib
 import csv
 import json
 import math
-from collections.abc import Iterator
 from numbers import Real
 from pathlib import Path
 from typing import Any
@@ -13,17 +12,20 @@ from analyzes.entry_trigger_1h import EntryTrigger1hConfig, entry_trigger_1h
 from analyzes.setup_filter_4h import SetupFilter4hConfig, setup_filter_4h
 from analyzes.trend_filter_12h_v2 import TrendFilter12hConfig, trend_filter_12h
 from bybit_client_v2 import bybit_client
-from coinmarketcap_client import get_coinmarketcap_data
-from config import MIN_MARKET_CAP
+from config import UNIVERSE_FILTER_MIN_MARKET_CAP, UNIVERSE_FILTER_MIN_VOLUME_24H
+from symbol_universe import (
+    COMMON_SYMBOLS_FILE,
+    load_symbols_from_file,
+    refresh_common_symbols,
+    write_symbols_file,
+)
 
 
-FILTERED_SYMBOLS_FILE = "data/filtered_symbols.txt"
 DYNAMIC_SYMBOLS_FILE = "data/dynamic_symbols.txt"
 DEFAULT_REPORT_TSV_FILE = "logs/calibration_report_filtered_symbols_stream.tsv"
 DEFAULT_REPORT_TEXT_FILE = "logs/calibration_report_auto.txt"
 CALIBRATION_SCHEDULE_STATE_FILE = "data/calibration_schedule_state.json"
 
-MIN_CMC_VOLUME_24H = 1_000_000
 AUTO_UPDATE_4H_WINDOW_START_MINUTE = 2
 AUTO_UPDATE_4H_WINDOW_END_MINUTE = 5
 
@@ -153,11 +155,6 @@ def get_current_4h_close_marker(now_utc: pd.Timestamp) -> str:
     return now_ts.floor("4h").isoformat()
 
 
-def get_base_currency(symbol: str) -> str | None:
-    """Возвращает базовую валюту для USDT-пары."""
-    return symbol[:-4] if symbol.endswith("USDT") else None
-
-
 def build_default_configs(
     trend_soft: int = DEFAULT_TREND_SOFT,
     setup_soft: int = DEFAULT_SETUP_SOFT,
@@ -180,152 +177,6 @@ def build_default_configs(
             max_extension_from_ema20_atr=entry_max_extension,
         ),
     )
-
-
-def load_symbols_from_file(file_path: str) -> list[str]:
-    """Загружает символы из текстового файла, по одному символу на строку."""
-    path = Path(file_path)
-    if not path.exists():
-        raise FileNotFoundError(f"Symbols file not found: {file_path}")
-
-    symbols: list[str] = []
-    for line in path.read_text(encoding="utf-8").splitlines():
-        symbol = line.strip()
-        if symbol:
-            symbols.append(symbol)
-    return list(dict.fromkeys(symbols))
-
-
-def write_symbols_file(file_path: str, symbols: list[str]) -> None:
-    """Сохраняет список символов по одному на строку."""
-    path = Path(file_path)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("w", encoding="utf-8") as file_handle:
-        for symbol in symbols:
-            file_handle.write(f"{symbol}\n")
-
-
-def chunked(items: list[str], chunk_size: int) -> Iterator[list[str]]:
-    """Разбивает список на чанки фиксированного размера."""
-    if chunk_size <= 0:
-        raise ValueError("chunk_size must be > 0")
-    for index in range(0, len(items), chunk_size):
-        yield items[index:index + chunk_size]
-
-
-def fetch_spot_usdt_symbols() -> list[str]:
-    """Получает актуальный список торгуемых спотовых USDT-пар с Bybit без приватных методов клиента."""
-    session = getattr(bybit_client, "session", None)
-    if session is None:
-        return []
-
-    symbols: list[str] = []
-    cursor: str | None = None
-
-    while True:
-        params: dict[str, Any] = {"category": "spot", "limit": 1000}
-        if cursor:
-            params["cursor"] = cursor
-
-        try:
-            response = session.get_instruments_info(**params)
-        except Exception:
-            return []
-
-        if not isinstance(response, dict) or response.get("retCode") != 0:
-            return []
-
-        result = response.get("result", {}) or {}
-        instruments = result.get("list", []) or []
-        for item in instruments:
-            symbol = str(item.get("symbol", "")).strip().upper()
-            quote_coin = str(item.get("quoteCoin", "")).strip().upper()
-            status = str(item.get("status", "")).strip().upper()
-            if symbol and quote_coin == "USDT" and status == "TRADING":
-                symbols.append(symbol)
-
-        cursor = result.get("nextPageCursor") or None
-        if not cursor:
-            break
-
-    return list(dict.fromkeys(symbols))
-
-
-def get_coinmarketcap_data_batched(
-    symbols: list[str],
-    batch_size: int = 80,
-) -> dict[str, dict[str, Any]]:
-    """Получает данные CMC по символам батчами, чтобы не упираться в лимиты URL/API."""
-    results: dict[str, dict[str, Any]] = {}
-    for batch in chunked(symbols, batch_size):
-        batch_data = get_coinmarketcap_data(batch)
-        if not batch_data:
-            continue
-        results.update(batch_data)
-    return results
-
-
-def should_keep_symbol_by_market_data(
-    market_data: dict[str, Any] | None,
-    min_market_cap: float,
-    min_volume_24h: float,
-    exclude_stablecoins: bool,
-) -> bool:
-    """Применяет market-cap и ликвидностный фильтр к символу по данным CMC."""
-    if not market_data:
-        return False
-
-    if market_data.get("is_fiat"):
-        return False
-
-    tags = {str(tag).strip().lower() for tag in (market_data.get("tags") or [])}
-    if exclude_stablecoins and "stablecoin" in tags:
-        return False
-
-    market_cap = float(market_data.get("market_cap", 0) or 0)
-    volume_24h = float(market_data.get("volume_24h", 0) or 0)
-    return market_cap >= min_market_cap and volume_24h >= min_volume_24h
-
-
-def refresh_filtered_symbols(
-    output_file: str = FILTERED_SYMBOLS_FILE,
-    min_market_cap: float = MIN_MARKET_CAP,
-    min_volume_24h: float = MIN_CMC_VOLUME_24H,
-    exclude_stablecoins: bool = True,
-) -> list[str]:
-    """Обновляет broad spot-universe и сохраняет его в filtered_symbols.txt."""
-    spot_symbols = fetch_spot_usdt_symbols()
-    if not spot_symbols:
-        return []
-
-    cmc_data = get_coinmarketcap_data_batched(spot_symbols)
-    eligible_coins: list[dict[str, Any]] = []
-    for symbol in spot_symbols:
-        base_currency = get_base_currency(symbol)
-        if base_currency is None:
-            continue
-
-        market_data = cmc_data.get(base_currency)
-        if not should_keep_symbol_by_market_data(
-            market_data=market_data,
-            min_market_cap=min_market_cap,
-            min_volume_24h=min_volume_24h,
-            exclude_stablecoins=exclude_stablecoins,
-        ):
-            continue
-
-        eligible_coins.append(
-            {
-                "symbol": symbol,
-                "market_cap": float(market_data.get("market_cap", 0) or 0),
-                "volume_24h": float(market_data.get("volume_24h", 0) or 0),
-            }
-        )
-
-    eligible_coins.sort(key=lambda item: (item["market_cap"], item["volume_24h"]), reverse=True)
-    filtered_symbols = [coin["symbol"] for coin in eligible_coins]
-    write_symbols_file(output_file, filtered_symbols)
-    return filtered_symbols
 
 
 def validate_dynamic_stage(min_stage: str) -> None:
@@ -816,7 +667,7 @@ def emit_report(
     setup_soft: int,
     entry_soft: int,
     entry_max_extension: float,
-    filtered_output_file: str | None = None,
+    common_output_file: str | None = None,
     dynamic_output_file: str | None = None,
     dynamic_min_stage: str | None = None,
     include_details: bool = False,
@@ -828,8 +679,8 @@ def emit_report(
         f"entry_soft={entry_soft} | entry_max_extension={entry_max_extension}"
     )
     print(f"symbols_count={symbols_count}")
-    if filtered_output_file:
-        print(f"filtered_symbols_file={filtered_output_file}")
+    if common_output_file:
+        print(f"common_symbols_file={common_output_file}")
     if dynamic_output_file and dynamic_min_stage:
         print(f"dynamic_symbols_file={dynamic_output_file} | min_stage={dynamic_min_stage}")
     print()
@@ -849,7 +700,7 @@ def write_human_report(
     setup_soft: int,
     entry_soft: int,
     entry_max_extension: float,
-    filtered_output_file: str | None = None,
+    common_output_file: str | None = None,
     dynamic_output_file: str | None = None,
     dynamic_min_stage: str | None = None,
     include_details: bool = True,
@@ -866,7 +717,7 @@ def write_human_report(
                 setup_soft=setup_soft,
                 entry_soft=entry_soft,
                 entry_max_extension=entry_max_extension,
-                filtered_output_file=filtered_output_file,
+                common_output_file=common_output_file,
                 dynamic_output_file=dynamic_output_file,
                 dynamic_min_stage=dynamic_min_stage,
                 include_details=include_details,
@@ -901,11 +752,11 @@ def run_scheduled_calibration(now_utc: pd.Timestamp | None = None) -> dict[str, 
         }
 
     if should_refresh_filtered:
-        refresh_filtered_symbols(output_file=FILTERED_SYMBOLS_FILE)
+        refresh_common_symbols(output_file=COMMON_SYMBOLS_FILE)
         state["last_filtered_refresh_date"] = current_date
 
     try:
-        symbols = load_symbols_from_file(FILTERED_SYMBOLS_FILE)
+        symbols = load_symbols_from_file(COMMON_SYMBOLS_FILE)
     except FileNotFoundError:
         symbols = []
 
@@ -940,7 +791,7 @@ def run_scheduled_calibration(now_utc: pd.Timestamp | None = None) -> dict[str, 
         setup_soft=setup_soft,
         entry_soft=entry_soft,
         entry_max_extension=entry_max_extension,
-        filtered_output_file=FILTERED_SYMBOLS_FILE if should_refresh_filtered else None,
+        common_output_file=COMMON_SYMBOLS_FILE if should_refresh_filtered else None,
         dynamic_output_file=DYNAMIC_SYMBOLS_FILE,
         dynamic_min_stage="setup",
         include_details=True,
@@ -968,13 +819,13 @@ def run_manual_calibration(
     *,
     symbols: list[str] | None = None,
     symbols_file: str | None = None,
-    refresh_filtered_first: bool = False,
+    refresh_common_first: bool = False,
     update_dynamic_symbols: bool = False,
     dynamic_min_stage: str = "setup",
-    filtered_output_file: str = FILTERED_SYMBOLS_FILE,
+    common_output_file: str = COMMON_SYMBOLS_FILE,
     dynamic_output_file: str = DYNAMIC_SYMBOLS_FILE,
-    cmc_min_market_cap: float = float(MIN_MARKET_CAP),
-    cmc_min_volume_24h: float = float(MIN_CMC_VOLUME_24H),
+    universe_min_market_cap: float = float(UNIVERSE_FILTER_MIN_MARKET_CAP),
+    universe_min_volume_24h: float = float(UNIVERSE_FILTER_MIN_VOLUME_24H),
     include_stablecoins: bool = False,
     limit_12h: int = DEFAULT_LIMIT_12H,
     limit_4h: int = DEFAULT_LIMIT_4H,
@@ -991,18 +842,18 @@ def run_manual_calibration(
 ) -> dict[str, Any]:
     """Программный entrypoint для batch-calibration без CLI."""
     resolved_symbols = list(symbols or [])
-    if refresh_filtered_first:
-        refreshed_symbols = refresh_filtered_symbols(
-            output_file=filtered_output_file,
-            min_market_cap=cmc_min_market_cap,
-            min_volume_24h=cmc_min_volume_24h,
+    if refresh_common_first:
+        refreshed_symbols = refresh_common_symbols(
+            output_file=common_output_file,
+            min_market_cap=universe_min_market_cap,
+            min_volume_24h=universe_min_volume_24h,
             exclude_stablecoins=not include_stablecoins,
         )
         resolved_symbols.extend(refreshed_symbols)
     if symbols_file:
         resolved_symbols.extend(load_symbols_from_file(symbols_file))
-    if (update_dynamic_symbols or refresh_filtered_first) and not symbols and not symbols_file:
-        resolved_symbols.extend(load_symbols_from_file(filtered_output_file))
+    if (update_dynamic_symbols or refresh_common_first) and not symbols and not symbols_file:
+        resolved_symbols.extend(load_symbols_from_file(common_output_file))
     resolved_symbols = list(dict.fromkeys(resolved_symbols))
 
     if not resolved_symbols and not rebuild_dynamic_from_report:
@@ -1045,7 +896,7 @@ def run_manual_calibration(
             setup_soft=setup_soft,
             entry_soft=entry_soft,
             entry_max_extension=entry_max_extension,
-            filtered_output_file=filtered_output_file if refresh_filtered_first else None,
+            common_output_file=common_output_file if refresh_common_first else None,
             dynamic_output_file=dynamic_output_file if update_dynamic_symbols else None,
             dynamic_min_stage=dynamic_min_stage if update_dynamic_symbols else None,
             include_details=include_details,
@@ -1059,7 +910,7 @@ def run_manual_calibration(
                 setup_soft=setup_soft,
                 entry_soft=entry_soft,
                 entry_max_extension=entry_max_extension,
-                filtered_output_file=filtered_output_file if refresh_filtered_first else None,
+                common_output_file=common_output_file if refresh_common_first else None,
                 dynamic_output_file=dynamic_output_file if update_dynamic_symbols else None,
                 dynamic_min_stage=dynamic_min_stage if update_dynamic_symbols else None,
                 include_details=include_details,

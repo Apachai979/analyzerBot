@@ -53,6 +53,10 @@ DROP_4H = -10      # Падение за 4 часа, % (например, -10%)
 GAIN_2H = 7        # Рост за 2 часа, % (например, +7%)
 DROP_2H = -7       # Падение за 2 часа, % (например, -7%)
 MIN_MARKET_CAP = 4_000_000  # Минимальная капитализация для отбора пары, в долларах
+# ==== Параметры общего universe ==== 
+UNIVERSE_FILTER_MIN_MARKET_CAP = float(os.getenv('UNIVERSE_FILTER_MIN_MARKET_CAP', str(MIN_MARKET_CAP)))
+UNIVERSE_FILTER_MIN_VOLUME_24H = float(os.getenv('UNIVERSE_FILTER_MIN_VOLUME_24H', '1000000'))
+UNIVERSE_FILTER_EXCLUDE_STABLECOINS = os.getenv('UNIVERSE_FILTER_EXCLUDE_STABLECOINS', 'True').lower() == 'true'
 # Минимальная стоимость spot-позиции в USDT, ниже которой остаток считается пылью.
 SPOT_POSITION_MIN_USD_VALUE = float(os.getenv('SPOT_POSITION_MIN_USD_VALUE', '1.0'))
 
@@ -63,3 +67,30 @@ MAIN_LOOP_PAUSE_SECONDS = int(os.getenv('MAIN_LOOP_PAUSE_SECONDS', '60'))
 CALIBRATION_CHECK_PAUSE_SECONDS = int(os.getenv('CALIBRATION_CHECK_PAUSE_SECONDS', '60'))
 # Как часто background calibration worker пишет heartbeat в отдельный лог, даже если окно еще не наступило.
 CALIBRATION_HEARTBEAT_INTERVAL_SECONDS = int(os.getenv('CALIBRATION_HEARTBEAT_INTERVAL_SECONDS', '300'))
+
+
+# ==== Конфигурация стратегий ==== 
+# enabled: участвует ли стратегия в цикле анализа
+# watch_only: стратегия анализирует рынок и пишет сигналы, но не открывает сделки
+STRATEGY_RUNTIME_CONFIGS = {
+    'MULTI_TF': {
+        'enabled': True,
+        'watch_only': False,
+        'parameters': {
+            'trend_min_required_rows': 260,
+            'trend_min_soft_conditions_passed': 2,
+            'setup_min_required_rows': 220,
+            'setup_min_soft_conditions_passed': 6,
+            'entry_min_required_rows': 180,
+            'entry_min_soft_conditions_passed': 5,
+        },
+    },
+    'RANGE': {
+        'enabled': True,
+        'watch_only': True,
+        'parameters': {
+            'min_confidence': 9,
+            'min_risk_reward_ratio': 7,
+        },
+    },
+}
